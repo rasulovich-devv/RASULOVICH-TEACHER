@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Office darsliklari — Word, Excel va PowerPoint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060b1c;--line:#1a2850;--text:#eef2ff;--mute:#9aa7c7;--cyan:#22d3ee;--blue:#4f9bff;--teal:#46e0c0;--ac:#4f9bff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:100px;scroll-padding-top:calc(100px + env(safe-area-inset-top,0px))}
+body{margin:0;background:radial-gradient(900px 500px at 85% 15%,rgba(34,120,200,.2),transparent 60%),var(--bg);color:var(--text);font:17px/1.65 Inter,system-ui,"Segoe UI",sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:rgba(6,11,28,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:84px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--text)}
+.logo{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#2f7bff,#2aa5ff);display:grid;place-items:center;box-shadow:0 0 28px rgba(47,123,255,.5);flex:none}
+.brand b{display:block;font-size:1.05rem;font-weight:800;line-height:1.2}
+.brand small{color:var(--cyan);font-weight:600;font-size:.88rem}
+nav{display:flex;gap:30px}
+nav a{color:var(--text);text-decoration:none;font-weight:600;font-size:.95rem;padding:6px 0;border-bottom:2px solid transparent}
+nav a:hover,nav a:focus-visible{color:var(--cyan);border-color:var(--cyan);outline:none}
+.hero{padding:96px 24px 56px}
+.eyebrow{font:700 .85rem "JetBrains Mono",monospace;letter-spacing:.28em;text-transform:uppercase;color:var(--cyan);margin:0 0 26px}
+h1{font-size:clamp(2.5rem,7vw,5.2rem);line-height:1.04;letter-spacing:-.045em;font-weight:800;margin:0 0 28px;max-width:16ch}
+.grad{background:linear-gradient(90deg,var(--blue),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:#c9d3ee;max-width:62ch;margin:0 0 56px}
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.card{background:linear-gradient(180deg,#0b1636,#08112a);border:1px solid var(--line);border-radius:22px;padding:26px 28px;transition:border-color .2s,transform .2s}
+.feat .n{font:700 .9rem "JetBrains Mono",monospace;color:var(--cyan);letter-spacing:.15em}
+.feat h3{margin:8px 0 6px;font-size:1.4rem}
+.feat p{margin:0;color:var(--mute)}
+section.group{padding:56px 0 8px}
+section.group h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.03em;margin:0 0 6px}
+section.group p.sub{margin:0 0 28px;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+a.lesson{display:flex;flex-direction:column;gap:12px;color:inherit;text-decoration:none;min-height:230px}
+a.lesson:hover,a.lesson:focus-visible{border-color:var(--ac);transform:translateY(-3px);outline:none}
+.badge{align-self:flex-start;font:700 .82rem "JetBrains Mono",monospace;color:#dbe7ff;background:color-mix(in srgb,var(--ac) 16%,transparent);border:1px solid color-mix(in srgb,var(--ac) 55%,transparent);padding:4px 13px;border-radius:999px}
+.lesson h3{margin:0;font-size:1.28rem;line-height:1.32;font-weight:800}
+.lesson p{margin:0;color:var(--mute);font-size:.98rem;line-height:1.7}
+.go{margin-top:auto;color:var(--ac);font-weight:700;font-size:.95rem}
+footer{margin-top:72px;border-top:1px solid var(--line);padding:30px 0 44px;color:var(--mute);font-size:.92rem}
+#viewer{position:fixed;inset:0;z-index:50;background:#fff;display:none;flex-direction:column}
+#viewer.on{display:flex}
+#bar{display:flex;align-items:center;gap:14px;background:#060b1c;border-bottom:1px solid var(--line);padding:10px 16px;padding-top:calc(10px + env(safe-area-inset-top,0px))}
+#bar button{font:700 .9rem Inter,sans-serif;color:var(--text);background:#0f1d44;border:1px solid var(--line);border-radius:10px;padding:9px 16px;cursor:pointer}
+#bar button:hover,#bar button:focus-visible{border-color:var(--blue);outline:none}
+#bar span{font-weight:700;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#frame{flex:1;width:100%;border:0;background:#fff}
+@media(max-width:820px){nav{display:none}.hero{padding-top:56px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+[hidden]{display:none!important}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center;padding:84px 24px 40px}
+.btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:-20px}
+.btn{display:inline-flex;align-items:center;padding:14px 26px;border-radius:14px;font-weight:700;text-decoration:none;color:#04122e;background:linear-gradient(90deg,var(--blue),var(--teal))}
+.btn.ghost{color:var(--text);background:#0c1838;border:1px solid var(--line)}
+.btn:hover,.btn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.stack{position:relative;height:410px}
+.app{position:absolute;width:82%;padding:18px 20px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(180deg,#0e1a40,#09132e);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.app.w{top:0;left:0;transform:rotate(-3deg)}.app.x{top:132px;right:0;transform:rotate(2deg)}.app.p{top:264px;left:5%;transform:rotate(-1.5deg)}
+.app .top{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.app i{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font:800 1.4rem Inter,sans-serif;font-style:normal;color:#fff}
+.app b{display:block;line-height:1.2}.app small{color:var(--mute)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tabs span{font:500 .72rem "JetBrains Mono",monospace;color:#c4d2f2;background:#101f4a;border:1px solid var(--line);padding:2px 9px;border-radius:999px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border:1px solid var(--line);border-radius:22px;background:#08112a;margin:24px auto 0;overflow:hidden}
+.stats div{padding:22px 26px;border-right:1px solid var(--line)}.stats div:last-child{border-right:0}
+.stats b{display:block;font-size:1.9rem;line-height:1.1;letter-spacing:-.03em}.stats span{color:var(--mute);font-size:.93rem}
+.tools{margin:56px auto 0;display:grid;gap:18px}
+.row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+#q{flex:1 1 280px;min-width:0;padding:14px 18px;border-radius:14px;border:1px solid var(--line);background:#09132e;color:var(--text);font:500 1rem Inter,sans-serif}
+#q:focus{outline:2px solid var(--cyan);outline-offset:2px}
+.chip{font:700 .9rem Inter,sans-serif;color:var(--text);background:#09132e;border:1px solid var(--line);border-radius:999px;padding:10px 18px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--blue);border-color:var(--blue);color:#04122e}
+.chip:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.prog{display:flex;align-items:center;gap:16px;color:var(--mute);font-size:.95rem}
+.bar{flex:1;height:8px;border-radius:99px;background:#0f1b40;overflow:hidden;max-width:420px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--teal));transition:width .4s}
+a.lesson.seen{background:linear-gradient(180deg,#0a1f2f,#08142a);border-color:#1b4a52}
+a.lesson.seen .go{color:var(--teal)}
+#empty{color:var(--mute);padding:40px 0;text-align:center}
+.steps{padding:72px 24px 8px}
+.steps h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.03em;margin:0 0 28px}
+.steps ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;counter-reset:s}
+.steps li{counter-increment:s;border:1px solid var(--line);border-radius:22px;padding:26px 28px;background:#08112a}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--blue);color:#04122e;font-weight:800;margin-bottom:14px}
+.steps h3{margin:0 0 6px;font-size:1.25rem}.steps p{margin:0;color:var(--mute)}
+.fl{display:flex;flex-wrap:wrap;gap:18px 32px;justify-content:space-between;align-items:center}
+.fl nav{display:flex;gap:22px}.fl a{color:var(--mute);text-decoration:none}.fl a:hover{color:var(--cyan)}
+#bar .sp{flex:1}
+#bar button:disabled{opacity:.35;cursor:default}
+@media(max-width:980px){.hero{grid-template-columns:1fr;padding-top:48px}.stack{height:380px;max-width:520px}.btns{margin-top:0}}
+@media(max-width:520px){.stats div{border-right:0;border-bottom:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+<a class="brand" href="#top">
+<span class="logo" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
+<span><b>OFFICE DARSLIKLARI</b><small>Interaktiv o'quv qo'llanma</small></span>
+</a>
+<nav aria-label="Bo'limlar"><a href="#word">Word</a><a href="#excel">Excel</a><a href="#ppt">PowerPoint</a></nav>
+</div>
+</header>
+<main id="top">
+<div class="wrap hero">
+<div>
+<p class="eyebrow">Microsoft Office dasturlarini o'rganish</p>
+<h1>Office'ni qadam-baqadam <span class="grad">o'rganing va qo'llang.</span></h1>
+<p class="lead">Word, Excel va PowerPoint dasturlarining har bir yorlig'i uchun alohida interaktiv qo'llanma va amaliy mashg'ulot. Kerakli darsni tanlang va boshlang.</p>
+<div class="btns"><a class="btn" id="cont" href="#word">Darslarni boshlash</a><a class="btn ghost" href="#steps">Qanday o'rganiladi</a></div>
+</div>
+<div class="stack" aria-hidden="true">
+<div class="app w"><div class="top"><i style="background:#2b6be0">W</i><div><b>Word</b><small>5 ta dars</small></div></div><div class="tabs"><span>Файл</span><span>Главная</span><span>Вставка</span><span>Дизайн</span><span>Макет</span></div></div>
+<div class="app x"><div class="top"><i style="background:#16a35a">X</i><div><b>Excel</b><small>5 ta dars</small></div></div><div class="tabs"><span>Главная</span><span>Вставка</span><span>Разметка</span><span>Формулы</span><span>Данные</span></div></div>
+<div class="app p"><div class="top"><i style="background:#e8672b">P</i><div><b>PowerPoint</b><small>6 ta dars</small></div></div><div class="tabs"><span>Главная</span><span>Вставка</span><span>Дизайн</span><span>Переходы</span><span>Анимация</span><span>Слайд-шоу</span></div></div>
+</div>
+</div>
+<div class="wrap">
+<div class="stats"><div><b>16</b><span>interaktiv dars</span></div><div><b>3</b><span>Office dasturi</span></div><div><b>Amaliy</b><span>topshiriqlar har darsda</span></div><div><b>Bepul</b><span>ro'yxatdan o'tish shart emas</span></div></div>
+<div class="tools">
+<div class="row"><input id="q" type="search" placeholder="Darsni qidiring: masalan, jadval, formula, animatsiya" aria-label="Darslarni qidirish"><button class="chip" data-f="all" aria-pressed="true">Hammasi</button><button class="chip" data-f="word" aria-pressed="false">Word</button><button class="chip" data-f="excel" aria-pressed="false">Excel</button><button class="chip" data-f="ppt" aria-pressed="false">PowerPoint</button></div>
+<div class="prog"><span id="pt">0 / 16 dars ko'rildi</span><div class="bar"><i id="pb"></i></div><button class="chip" id="reset" hidden>Tozalash</button></div>
+</div>
+</div>
+<div id="groups"></div>
+<p id="empty" hidden>Hech narsa topilmadi. Boshqa so'z bilan qidirib ko'ring.</p>
+<section class="wrap steps" id="steps"><h2>Qanday o'rganiladi</h2><ol>
+<li><h3>Qo'llanmani o'qing</h3><p>Har bir dars yorliqdagi vositalarni tushuntiradi.</p></li>
+<li><h3>Amaliy topshiriqni bajaring</h3><p>Darsdagi topshiriqlarni dasturning o'zida takrorlang.</p></li>
+<li><h3>Keyingi yorliqqa o'ting</h3><p>Ko'rilgan darslar belgilanadi, jarayoningiz saqlanadi.</p></li>
+</ol></section>
+</main>
+<footer><div class="wrap fl"><span>Office darsliklari · 16 ta interaktiv dars</span><nav><a href="#word">Word</a><a href="#excel">Excel</a><a href="#ppt">PowerPoint</a><a href="#top">Yuqoriga ↑</a></nav></div></footer>
+<div id="viewer" role="dialog" aria-label="Dars">
+<div id="bar"><button id="back" type="button">← Barcha darslar</button><span id="vt"></span><span class="sp"></span><button id="prev" type="button" aria-label="Oldingi dars">‹ Oldingi</button><button id="next" type="button" aria-label="Keyingi dars">Keyingi ›</button></div>
+<iframe id="frame" title="Dars mazmuni" sandbox="allow-scripts allow-same-origin allow-modals allow-popups allow-forms allow-downloads"></iframe>
+</div>
+<script>
+const MODE='site',DATA={};
+const G=[{"id": "word", "t": "Word darslari", "d": "Matn va hujjatlar bilan ishlash.", "p": "Word", "items": [["word-fayl", "«Файл» menyusi: hujjatni yaratish va saqlash", "Hujjat yaratish, ochish, saqlash, chop etish va eksport qilish bo'yicha to'liq qo'llanma va amaliy mashg'ulot."], ["word-glavnaya", "«Главная» menyusi: shrift, abzats va uslublar", "Matnni formatlash va tahrirlash vositalari: qo'llanma va qadamma-qadam amaliy topshiriq."], ["word-vstavka", "«Вставка» menyusi: jadval, rasm va obyektlar", "Hujjatga jadval, rasm, shakl va boshqa obyektlarni qo'shish: qo'llanma va amaliyot."], ["word-dizayn", "«Дизайн» menyusi: mavzu va sahifa ko'rinishi", "Hujjat dizayni va ko'rinishini sozlash: qo'llanma va amaliy mashg'ulot."], ["word-maket", "«Макет» menyusi: sahifa tuzilishi", "Sahifa maketi, maydonlar va joylashuv: kengaytirilgan qo'llanma va amaliyot."]]}, {"id": "excel", "t": "Excel darslari", "d": "Jadval, hisob-kitob va ma'lumotlar tahlili.", "p": "Excel", "items": [["excel-glavnaya", "«Главная» menyusi: katak formati va tahrirlash", "Asosiy yorliq vositalari bo'yicha kengaytirilgan qo'llanma va amaliyot."], ["excel-vstavka", "«Вставка» menyusi: diagramma va jadvallar", "Jadval, diagramma va boshqa obyektlarni qo'shish: qo'llanma va amaliyot."], ["excel-razmetki-stranitsi", "«Разметка страницы» menyusi: chop etishga tayyorlash", "Sahifa sozlamalari va chop etish uchun tayyorlash: qo'llanma va amaliyot."], ["excel-formulalar", "Formulalar: interaktiv trenajyor", "Formulalar bilan ishlash bo'yicha interaktiv amaliy mashg'ulot va trenajyor."], ["excel-dannie", "«Данные» menyusi: ma'lumotlar bilan ishlash", "Ma'lumotlarni saralash, filtrlash va tahlil qilish: to'liq qo'llanma va amaliyot."]]}, {"id": "ppt", "t": "PowerPoint darslari", "d": "Slaydlar, animatsiya va namoyish.", "p": "PPT", "items": [["powerpoint-glavnaya", "Barcha yorliqlar bo'yicha interaktiv trenajyor", "PowerPoint yorliqlarini birga o'rganish uchun to'liq interaktiv trenajyor va qo'llanma."], ["powerpoint-vstavka", "«Вставка» menyusi: rasm, video va diagramma", "Slaydga turli obyektlarni qo'shish: to'liq qo'llanma va amaliyot."], ["powerpoint-design", "«Дизайн» menyusi: mavzu va slayd foni", "Slayd dizayni va mavzularini sozlash: to'liq qo'llanma va amaliyot."], ["powerpoint-perexod", "«Переходы» menyusi: slaydlar almashinuvi", "Slaydlar orasidagi o'tish effektlari: to'liq qo'llanma va amaliyot."], ["powerpoint-animatsiya", "«Анимация» menyusi: obyektlarni harakatlantirish", "Obyektlarga animatsiya berish: to'liq qo'llanma va amaliyot."], ["powerpoint-slayd-shou", "«Слайд-шоу» menyusi: taqdimotni namoyish qilish", "Taqdimotni sozlash va namoyish qilish: to'liq qo'llanma va amaliyot."]]}];
+const AC={word:"#4f9bff",excel:"#34d399",ppt:"#ff9a5c"};
+const T={},ALL=[],LS="office-dars-done";
+let done=[],last=null,f="all",q="";
+try{done=JSON.parse(localStorage.getItem(LS)||"[]");last=localStorage.getItem(LS+"-last")}catch(e){}
+function save(){try{localStorage.setItem(LS,JSON.stringify(done))}catch(e){}}
+const href=id=>MODE==="hub"?"#"+id:id+".html";
+const root=document.getElementById("groups");
+G.forEach(g=>{
+const s=document.createElement("section");s.className="group";s.id=g.id;s.style.setProperty("--ac",AC[g.id]);
+s.innerHTML=`<div class="wrap"><h2>${g.t}</h2><p class="sub">${g.d}</p><div class="grid">${g.items.map((it,i)=>{T[it[0]]=it[1];ALL.push(it[0]);return `<a class="card lesson" data-id="${it[0]}" data-q="${(it[1]+" "+it[2]+" "+g.p).toLowerCase()}" href="${href(it[0])}"><span class="badge">${String(i+1).padStart(2,"0")}-${g.p}</span><h3>${it[1]}</h3><p>${it[2]}</p><span class="go"></span></a>`}).join("")}</div></div>`;
+root.appendChild(s);
+});
+const cards=[...document.querySelectorAll("a.lesson")];
+function mark(id){if(!done.includes(id))done.push(id);save();try{localStorage.setItem(LS+"-last",id)}catch(e){}last=id;ui()}
+function ui(){
+cards.forEach(c=>{const s=done.includes(c.dataset.id);c.classList.toggle("seen",s);c.querySelector(".go").textContent=s?"✓ Ko'rilgan · qayta ochish":"Darsni ochish →"});
+document.getElementById("pt").textContent=done.length+" / "+ALL.length+" dars ko'rildi";
+document.getElementById("pb").style.width=(done.length/ALL.length*100)+"%";
+document.getElementById("reset").hidden=!done.length;
+const c=document.getElementById("cont");
+if(last&&T[last]){c.textContent="Davom etish: "+T[last].split(":")[0];c.href=href(last)}
+}
+function filt(){
+let n=0;
+cards.forEach(c=>{const ok=(f==="all"||c.closest("section").id===f)&&c.dataset.q.includes(q);c.hidden=!ok;if(ok)n++});
+document.querySelectorAll("section.group").forEach(s=>s.hidden=!s.querySelector("a.lesson:not([hidden])"));
+document.getElementById("empty").hidden=n>0;
+}
+document.getElementById("q").addEventListener("input",e=>{q=e.target.value.trim().toLowerCase();filt()});
+document.querySelectorAll(".chip[data-f]").forEach(b=>b.onclick=()=>{f=b.dataset.f;document.querySelectorAll(".chip[data-f]").forEach(x=>x.setAttribute("aria-pressed",x===b));filt()});
+document.getElementById("reset").onclick=()=>{done=[];last=null;save();try{localStorage.removeItem(LS+"-last")}catch(e){}ui()};
+if(MODE==="site")cards.forEach(c=>c.addEventListener("click",()=>mark(c.dataset.id)));
+ui();
+if(MODE==="hub"){
+const v=document.getElementById("viewer"),fr=document.getElementById("frame"),pv=document.getElementById("prev"),nx=document.getElementById("next");
+function route(){
+const id=location.hash.slice(1);
+if(DATA[id]){
+const i=ALL.indexOf(id);
+document.getElementById("vt").textContent=T[id];
+pv.disabled=i<1;nx.disabled=i>=ALL.length-1;
+fr.srcdoc=new TextDecoder().decode(Uint8Array.from(atob(DATA[id]),c=>c.charCodeAt(0)));
+v.classList.add("on");document.body.style.overflow="hidden";mark(id);
+}else{v.classList.remove("on");fr.srcdoc="";document.body.style.overflow=""}
+}
+const go=d=>{const i=ALL.indexOf(location.hash.slice(1))+d;if(ALL[i])location.hash=ALL[i]};
+pv.onclick=()=>go(-1);nx.onclick=()=>go(1);
+document.getElementById("back").onclick=()=>{history.pushState("",document.title,location.pathname+location.search);route()};
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&v.classList.contains("on"))document.getElementById("back").click()});
+window.addEventListener("hashchange",route);route();
+}
+</script>
+</body>
+</html>

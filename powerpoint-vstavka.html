@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PowerPoint: «Вставка» (Insert) Menyusi — To'liq Qo'llanma va Amaliyot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #c43e1c;       /* PowerPoint qizil-to'q sariq */
+      --primary-dark: #831843;
+      --primary-light: #fff1ed;
+      --accent-blue: #0284c7;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --success: #10b981;
+      --radius: 14px;
+      --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 80px;
+    }
+
+    /* TOP HEADER */
+    header {
+      background: #431407;
+      color: white;
+      padding: 0.9rem 1.75rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .brand-icon-box {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #ea580c 0%, #c43e1c 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      box-shadow: 0 2px 6px rgba(196, 62, 28, 0.4);
+    }
+
+    .header-tag-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .header-tag {
+      background: #7c2d12;
+      color: #ffedd5;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .header-version {
+      font-size: 0.72rem;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+
+    .header-main-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .progress-widget {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.2rem;
+    }
+
+    .progress-label-row {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #fed7aa;
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .progress-val-text {
+      color: #fb923c;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .progress-bar-bg {
+      width: 140px;
+      height: 6px;
+      background: #270c04;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #ea580c, #fb923c);
+      transition: width 0.3s ease;
+      border-radius: 999px;
+    }
+
+    .score-badge {
+      background: #7c2d12;
+      border: 1px solid #c43e1c;
+      padding: 0.35rem 0.85rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .score-badge-lbl {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #ffedd5;
+      text-transform: uppercase;
+    }
+
+    .score-badge-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    /* NAVIGATION TABS */
+    .nav-bar {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 61px;
+      z-index: 90;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.4rem;
+      padding: 0.45rem 1.75rem 0;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .nav-tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.75rem 1.1rem;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .nav-tab-btn:hover {
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .nav-tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background: var(--primary-light);
+      font-weight: 700;
+    }
+
+    .nav-tab-badge {
+      font-size: 0.7rem;
+      background: #e2e8f0;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      color: #475569;
+      font-weight: 700;
+    }
+
+    .nav-tab-btn.active .nav-tab-badge {
+      background: #fed7aa;
+      color: #7c2d12;
+    }
+
+    /* MAIN CONTAINER */
+    main {
+      max-width: 1400px;
+      margin: 1.75rem auto;
+      padding: 0 1.75rem;
+    }
+
+    .tab-content-panel {
+      display: none;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    .tab-content-panel.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HERO BANNER CARD */
+    .hero-banner {
+      background: linear-gradient(135deg, #431407 0%, #7c2d12 50%, #1e1b4b 100%);
+      color: white;
+      border-radius: var(--radius);
+      padding: 2.2rem 2.2rem 2rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #7c2d12;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(234, 88, 12, 0.25);
+      border: 1px solid rgba(251, 146, 60, 0.4);
+      color: #fed7aa;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.85rem;
+      line-height: 1.3;
+      max-width: 1050px;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    /* 4-COLUMN CARDS GRID */
+    .tools-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+
+    @media (max-width: 1100px) {
+      .tools-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 650px) {
+      .tools-grid-4 { grid-template-columns: 1fr; }
+    }
+
+    .tool-col-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.35rem 1.2rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      position: relative;
+      border-top: 4px solid var(--primary);
+    }
+
+    .tool-col-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-top-color: #ea580c;
+    }
+
+    .tool-icon-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .tool-heading {
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .tool-sub-cmds {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: #ea580c;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .tool-summary {
+      font-size: 0.84rem;
+      color: #475569;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .tool-features-list {
+      list-style: none;
+      font-size: 0.8rem;
+      color: #334155;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .tool-features-list li {
+      position: relative;
+      padding-left: 1rem;
+      line-height: 1.4;
+    }
+
+    .tool-features-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    /* CARD CONTAINER */
+    .card-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .box-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .box-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .box-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* RAW DATA BANNER */
+    .raw-banner {
+      background: #0f172a;
+      border-radius: var(--radius);
+      padding: 1.35rem 1.5rem;
+      color: white;
+      margin-bottom: 1.5rem;
+      border: 1px solid #334155;
+    }
+
+    .raw-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .raw-title-txt {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fed7aa;
+    }
+
+    .btn-copy-code {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.45rem 0.95rem;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+
+    .btn-copy-code:hover { background: #9a2b0e; }
+
+    pre.code-box {
+      background: #020617;
+      border: 1px solid #1e293b;
+      padding: 0.9rem 1.1rem;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      overflow-x: auto;
+      color: #e2e8f0;
+    }
+
+    /* CHECKLIST TASKS */
+    .task-row {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .task-row:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .task-row.done {
+      background: var(--primary-light);
+      border-color: #fdba74;
+    }
+
+    .task-checkbox-input {
+      width: 20px;
+      height: 20px;
+      margin-top: 0.25rem;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .task-body { flex: 1; }
+
+    .task-head-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.35rem;
+    }
+
+    .task-name-text {
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .task-score-pill {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #7c2d12;
+      background: #ffedd5;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid #fed7aa;
+    }
+
+    .task-inst-text {
+      font-size: 0.88rem;
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    .task-tech-path {
+      display: inline-block;
+      margin-top: 0.45rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      border: 1px solid #bfdbfe;
+    }
+
+    /* TABLES (Shortcuts & Rubric) */
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .styled-table th {
+      background: #1e293b;
+      color: white;
+      padding: 0.8rem 1rem;
+      font-weight: 700;
+      border: 1px solid #334155;
+    }
+
+    .styled-table td {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+    }
+
+    .styled-table tr:nth-child(even) td { background: #f8fafc; }
+
+    .shortcut-code {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--primary-light);
+      color: #7c2d12;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #fed7aa;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="header-left">
+        <div class="brand-icon-box">🧩</div>
+        <div>
+          <div class="header-tag-row">
+            <span class="header-tag">VIZUALIZATSIYA & INFOGRAFIKA</span>
+            <span class="header-version">PowerPoint 2016–2024 / Microsoft 365</span>
+          </div>
+          <div class="header-main-title">«Вставка» (Insert) Menyusi: Kengaytirilgan Qo‘llanma va Amaliyot</div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="progress-widget">
+          <div class="progress-label-row">
+            <span>Bajarilgan buyruqlar:</span>
+            <span class="progress-val-text" id="prog-pct">0%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="prog-bar"></div>
+          </div>
+        </div>
+
+        <div class="score-badge">
+          <span class="score-badge-lbl">BALL</span>
+          <span class="score-badge-val" id="score-val">0 / 100</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION TABS -->
+  <nav class="nav-bar">
+    <div class="nav-inner">
+      <button class="nav-tab-btn active" onclick="switchMainTab('nazariya', this)">
+        <span>📊 I. Nazariy Sharh («Вставка» Barcha Asboblari)</span>
+      </button>
+      <button class="nav-tab-btn" onclick="switchMainTab('amaliyot', this)">
+        <span>📝 II. Qadamma-qadam Amaliyot (10 ta Buyruq)</span>
+        <span class="nav-tab-badge" id="tasks-badge">0 / 10</span>
+      </button>
+      <button class="nav-tab-btn" onclick="switchMainTab('shortcuts', this)">
+        <span>⚡ III. Qaynoq Tugmalar & Lifehacklar</span>
+      </button>
+      <button class="nav-tab-btn" onclick="switchMainTab('rubrika', this)">
+        <span>🎯 IV. Baholash Mezoni (100 Ball)</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN AREA -->
+  <main>
+
+    <!-- ==================== 1. NAZARIY SHARH ==================== -->
+    <div id="tab-nazariya" class="tab-content-panel active">
+      
+      <!-- HERO BANNER -->
+      <div class="hero-banner">
+        <div class="hero-tag">🎨 Taqdimotni Boyitish va Jonlantirish</div>
+        <div class="hero-title">PowerPoint «Вставка» (Insert) Menyusidagi Har Bir Asbob Nima Uchun Xizmat Qiladi?</div>
+        <div class="hero-desc">
+          «Вставка» menyusi quruq matnlardan iborat slaydni nufuzli, vizual va interaktiv biznes-hisobotga aylantirish markazidir. Aynan shu yerda SmartArt biznes blok-sxemalari, moliyaviy diagrammalar, jadvallar, vektor ikonkalari, zamonaviy Zoom (Slaydlar mundarijasi), havolalar, avtomatik raqamlash hamda video va audio multimedia vositalari joylashgan.
+        </div>
+      </div>
+
+      <!-- 4-COLUMN CARDS GRID (1-QATOR) -->
+      <div class="tools-grid-4">
+        
+        <!-- Card 1 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">📊</div>
+            <div class="tool-heading">1. SmartArt (Blok-sxemalar)</div>
+            <div class="tool-sub-cmds">Иллюстрации • Процесс • Иерархия</div>
+            <div class="tool-summary">
+              Zerikarli qatorli ro'yxatlarni bir zumda bosqichli jarayonlar, piramidalar yoki tashkiliy tuzilma infografikasiga aylantiradi.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Процесс / Цикл:</strong> Ish bosqichlari va algoritmlarni ko'rsatish.</li>
+            <li><strong>Ranglar palitrasi:</strong> Korporativ ranglarga bir klikda moslashadi.</li>
+          </ul>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">📈</div>
+            <div class="tool-heading">2. Диаграмма (Grafiklar)</div>
+            <div class="tool-sub-cmds">Иллюстрации • Гистограмма • Круговая</div>
+            <div class="tool-summary">
+              Raqamli ko'rsatkichlar va dinamikani vizual taqqoslash: ustunli gistogrammalar, doiraviy ulushlar hamda o'sish chiziqlari.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Excel integratsiyasi:</strong> Raqamlar o'zgarsa, grafik avtomatik yangilanadi.</li>
+            <li><strong>Faqat kerakli element:</strong> Ortiqcha to'r chiziqlarni olib tashlash imkoni.</li>
+          </ul>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">📑</div>
+            <div class="tool-heading">3. Таблица (Jadvallar)</div>
+            <div class="tool-sub-cmds">Таблицы • Стили таблиц</div>
+            <div class="tool-summary">
+              Xizmatlar narxi, solishtirma parametrlar va rejalashtirish muddatlarini qat'iy ustun hamda satrlarda taqdim etish.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Tayyor stillar:</strong> Slayd dizayniga mos professional ranglar berish.</li>
+            <li><strong>Ustunlarni tekislash:</strong> Matn va sonlarni katak bo'yicha markazlashtirish.</li>
+          </ul>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🔍</div>
+            <div class="tool-heading">4. Зум (Zoom / Interaktivlik)</div>
+            <div class="tool-sub-cmds">Ссылки • Оглавление зума</div>
+            <div class="tool-summary">
+              Slaydlar orasida chiziqsiz harakatlanish imkoniyati. Bosh slayddan turib, istalgan bo'limga sho'ng'ish (kattalashish) effekti.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Interaktiv menyu:</strong> Taqdimotni veb-sayt kabi boshqarish.</li>
+            <li><strong>Orqaga qaytish:</strong> Slayd tugagach, avtomatik bosh menyuga qaytadi.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- 4-COLUMN CARDS GRID (2-QATOR) -->
+      <div class="tools-grid-4">
+        
+        <!-- Card 5 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">⭐</div>
+            <div class="tool-heading">5. Значки & 3D-модели</div>
+            <div class="tool-sub-cmds">Иллюстрации • SVG • 3D</div>
+            <div class="tool-summary">
+              Zamonaviy vektor ikonkalari (telefon, ombor, yuk mashinasi) va 360 darajaga buriladigan uch o'lchamli 3D modellar.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Sifat yo'qolmaydi:</strong> Kattalashtirganda tiniqligi saqlanadi.</li>
+            <li><strong>Rang berish:</strong> Ikonkalar rangini slayd temasiga moslash.</li>
+          </ul>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🔗</div>
+            <div class="tool-heading">6. Ссылка & Действие</div>
+            <div class="tool-sub-cmds">Ссылки • Ctrl + K • Tugmalar</div>
+            <div class="tool-summary">
+              Shakllarga bosganda internet veb-saytlariga o'tish yoki prezentatsiya ichidagi boshqa slaydga sakrash giperhavolalarini o'rnatish.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Tugmaga havola:</strong> Istalgan to'rtburchakni faol havolaga aylantirish.</li>
+            <li><strong>Hujjat ichki havolasi:</strong> Oxirgi slayddan birinchi slaydga qaytish.</li>
+          </ul>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🔢</div>
+            <div class="tool-heading">7. Номер слайда & Kolontitullar</div>
+            <div class="tool-sub-cmds">Текст • Колонтитулы • Sana</div>
+            <div class="tool-summary">
+              Barcha slaydlarga avtomatik ketma-ket raqamlash qo'yish, kompaniya nomi hamda joriy sanani pastki hoshiyada ko'rsatish.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Titulni yashirish:</strong> 1-muqova sahifasida raqamni ko'rsatmaslik.</li>
+            <li><strong>Bir klikda barchasiga:</strong> «Применить ко всем» imkoniyati.</li>
+          </ul>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🎬</div>
+            <div class="tool-heading">8. Мультимедиа (Video & Audio)</div>
+            <div class="tool-sub-cmds">Медиа • Видео • Звук • Экран</div>
+            <div class="tool-summary">
+              Slayd ichiga video lavhalar, fon musiqasi yoki kompyuter ekranini yozib olish (Запись экрана) vositalarini joylashtirish.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Avtomatik ijro:</strong> Slayd ochilganda video o'zi boshlanishi.</li>
+            <li><strong>Fon musiqasi:</strong> Barcha slaydlar bo'ylab to'xtovsiz yangrash.</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ==================== 2. AMALIYOT (10 TA BUYRUQ) ==================== -->
+    <div id="tab-amaliyot" class="tab-content-panel">
+      
+      <!-- RAW DATA BANNER -->
+      <div class="raw-banner">
+        <div class="raw-top-bar">
+          <div class="raw-title-txt">📋 AMALIY MASHG'ULOT UCHUN XOM MATN (Bir klikda nusxalab oling)</div>
+          <button class="btn-copy-code" onclick="copyDataText()">
+            <span>📋</span> <span id="copy-btn-label">Nusxalash (Copy)</span>
+          </button>
+        </div>
+        <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.6rem;">SmartArt, jadval va diagrammaga joylash uchun xom ma'lumotlar bloki:</div>
+        <pre class="code-box" id="raw-data-pre">SmartArt (Yetkazib berish zanjiri):
+1-bosqich: Buyurtmani qabul qilish va ombor hisobi
+2-bosqich: Avtomatlashtirilgan saralash va qadoqlash
+3-bosqich: Multimodal tranzit va xalqaro tashish
+4-bosqich: Mijoz manziliga "eshikkacha" topshirish
+
+Jadval ma'lumotlari (Tariflar):
+Xizmat turi | Muddat | Kafolat | Narxi (so'm)
+Ekspress avto | 24 soat | 100% | 4 500 000
+Temir yo'l konteyner | 5 kun | 100% | 8 200 000
+Havo yo'li (Avia) | 12 soat | 100% | 14 000 000
+
+Havola sayti: https://logistika.uz</pre>
+      </div>
+
+      <!-- CHECKLIST -->
+      <div class="card-box">
+        <div class="box-header-row">
+          <div>
+            <div class="box-title">Qadamma-qadam Amaliy Buyruqlar Checklisti</div>
+            <div class="box-subtitle">Hech qanday afsonasiz — faqat aniq menyu, tugma va parametrlar ketma-ketligi (10 ta qadam):</div>
+          </div>
+        </div>
+
+        <!-- Task 1 -->
+        <div class="task-row" id="t-1">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(1, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">1-Qadam: SmartArt («Процесс») blok-sxemasini kiritish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">Yangi bo'sh slayd oching. <strong>«Вставка» ➔ «SmartArt»</strong> oynasini oching. Chap tarafdan <strong>«Процесс»</strong> bo'limini tanlang va <strong>«Сгруппированный процесс»</strong> (yoki <em>Стрелка процесса</em>) sxemasini tanlab «ОК» bosing.</div>
+            <div class="task-tech-path">Menyu: Вставка ➔ Иллюстрации ➔ SmartArt ➔ Процесс ➔ ОК</div>
+          </div>
+        </div>
+
+        <!-- Task 2 -->
+        <div class="task-row" id="t-2">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(2, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">2-Qadam: SmartArt matnlarini to'ldirish va rangini o'zgartirish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">Sxemaning 4 ta blokiga nusxalangan 4 bosqich matnini kiriting. Yuqorida ochilgan <strong>«Конструктор SmartArt»</strong> menyusidan <strong>«Изменить цвета»</strong> tugmasini bosing va rang-barang (<em>Цветной диапазон</em>) palitrasini tanlang.</div>
+            <div class="task-tech-path">Menyu: Конструктор SmartArt ➔ Стили SmartArt ➔ Изменить цвета</div>
+          </div>
+        </div>
+
+        <!-- Task 3 -->
+        <div class="task-row" id="t-3">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(3, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">3-Qadam: 4x4 o'lchamli jadval (Таблица) kiritish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">Keyingi yangi slaydga o'ting. <strong>«Вставка» ➔ «Таблица»</strong> tugmasini bosing va to'r kataklaridan <strong>4 ustun va 4 qatorli (4x4)</strong> jadval tanlang.</div>
+            <div class="task-tech-path">Menyu: Вставка ➔ Таблицы ➔ Таблица ➔ 4x4 o'lcham</div>
+          </div>
+        </div>
+
+        <!-- Task 4 -->
+        <div class="task-row" id="t-4">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(4, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">4-Qadam: Jadval ma'lumotlarini kiritish va korporativ stil berish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">Jadvalga tariflar ma'lumotlarini joylashtiring. <strong>«Конструктор таблиц» ➔ «Стили таблиц»</strong> bo'limidan to'q qizil yoki to'q ko'k rangli tayyor korporativ uslubni qo'llang.</div>
+            <div class="task-tech-path">Menyu: Конструктор таблиц ➔ Стили таблиц ➔ Korporativ stil</div>
+          </div>
+        </div>
+
+        <!-- Task 5 -->
+        <div class="task-row" id="t-5">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(5, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">5-Qadam: Ustunli diagramma (Гистограмма) kiritish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">Yangi slayd oching. <strong>«Вставка» ➔ «Диаграмма»</strong> oynasini oching. <strong>«Гистограмма»</strong> (Ustunli grafik) turini tanlab «ОК» bosing. Ochilgan Excel mini-oynasiga 3 ta transport turining narxlarini kiriting va Excel oynasini yoping.</div>
+            <div class="task-tech-path">Menyu: Вставка ➔ Иллюстрации ➔ Диаграмма ➔ Гистограмма ➔ ОК</div>
+          </div>
+        </div>
+
+        <!-- Task 6 -->
+        <div class="task-row" id="t-6">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(6, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">6-Qadam: Vektor ikonka (Значки / Иконки) qo'yish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text"><strong>«Вставка» ➔ «Значки»</strong> (yoki <em>Пиктограммы</em>) bo'limiga kiring. Qidiruvga transport yoki logistika deb yozib, yuk mashinasi yoki quti belgisini tanlang va slaydga joylang. <strong>«Формат графического элемента»</strong> orqali unga to'q rang bering.</div>
+            <div class="task-tech-path">Menyu: Вставка ➔ Иллюстрации ➔ Значки ➔ Vektor belgi tanlash</div>
+          </div>
+        </div>
+
+        <!-- Task 7 -->
+        <div class="task-row" id="t-7">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(7, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">7-Qadam: Tugma yasash va veb-saytga havola (Ctrl + K) biriktirish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">Slaydning pastki qismiga to'rtburchak chizib, ichiga <em>«Batafsil ma'lumot»</em> deb yozing. Shaklni tanlab, <strong>«Вставка» ➔ «Ссылка» (Ctrl + K)</strong> oynasini oching. «Адрес» maydoniga <code>https://logistika.uz</code> yozib «ОК» bosing.</div>
+            <div class="task-tech-path">Menyu: Вставка ➔ Ссылки ➔ Ссылка (Ctrl + K) ➔ Manzil kiritish</div>
+          </div>
+        </div>
+
+        <!-- Task 8 -->
+        <div class="task-row" id="t-8">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(8, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">8-Qadam: «Надпись» (Matn qutisi) orqali alohida izoh qo'shish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text"><strong>«Вставка» ➔ «Надпись»</strong> (Текстовое поле) tugmasini bosing. Slaydning bo'sh joyiga sichqoncha bilan bosing va <em>«*Eslatma: Narxlar QQS bilan ko'rsatilgan»</em> deb qo'shimcha matn kiriting.</div>
+            <div class="task-tech-path">Menyu: Вставка ➔ Текст ➔ Надпись ➔ Matn kiritish</div>
+          </div>
+        </div>
+
+        <!-- Task 9 -->
+        <div class="task-row" id="t-9">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(9, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">9-Qadam: Slaydlarni avtomatik raqamlash (Номер слайда)</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text"><strong>«Вставка» ➔ «Номер слайда»</strong> (yoki <em>Колонтитулы</em>) tugmasini bosing. Chiqqan oynada <strong>«Номер слайда»</strong> va <strong>«Не показывать на титульном слайде»</strong> kataklariga pichka qo'ying, so'ng <strong>«Применить ко всем»</strong> tugmasini bosing.</div>
+            <div class="task-tech-path">Menyu: Вставка ➔ Текст ➔ Номер слайда ➔ Применить ко всем</div>
+          </div>
+        </div>
+
+        <!-- Task 10 -->
+        <div class="task-row" id="t-10">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(10, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">10-Qadam: Slaydlar Zumi (Оглавление зума) yaratish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">1-slayddan keyin yangi bo'sh slayd oching. <strong>«Вставка» ➔ «Зум» ➔ «Зум раздела»</strong> (yoki <em>Оглавление зума / Зум слайдов</em>) buyrug'ini bosing. Yaratilgan 2, 3 va 4-slaydlarni belgilab «Вставить» bosing. Slaydda interaktiv mini-ko'rinishlar paydo bo'ladi.</div>
+            <div class="task-tech-path">Menyu: Вставка ➔ Ссылки ➔ Зум ➔ Зум слайдов ➔ Вставить</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ==================== 3. QAYNOQ TUGMALAR ==================== -->
+    <div id="tab-shortcuts" class="tab-content-panel">
+      <div class="card-box">
+        <div class="box-header-row">
+          <div>
+            <div class="box-title">⚡ «Вставка» Menyusining Eng Zaruriy Qaynoq Tugmalari</div>
+            <div class="box-subtitle">Vizual obyektlarni chaqirish va klaviaturada tezkor ishlash usullari:</div>
+          </div>
+        </div>
+
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th style="width: 200px;">Qaynoq Tugma</th>
+              <th>Amal / Funksiya</th>
+              <th>Darsdagi amaliy vazifasi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="shortcut-code">Ctrl + K</span></td>
+              <td><strong>Giperhavola biriktirish (Вставка ссылки)</strong></td>
+              <td>Istalgan matn, rasm yoki tugmaga internet sayti yoxud boshqa slayd manzilini ulash.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Alt + N + M</span></td>
+              <td><strong>SmartArt oynasini ochish</strong></td>
+              <td>Menyuni sichqonchasiz tez ochib, jarayonlar sxemasini kiritish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Alt + N + C</span></td>
+              <td><strong>Diagramma oynasini ochish</strong></td>
+              <td>Gistogramma va grafik turlarini tanlash oynasini chaqirish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Alt + N + T</span></td>
+              <td><strong>Jadval (Таблица) kiritish</strong></td>
+              <td>Tezkor ravishda ustun va qatorlar sonini belgilash oynasini ochish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Alt + N + X</span></td>
+              <td><strong>Matn qutisi (Надпись / Text box)</strong></td>
+              <td>Slaydning istalgan bo'sh joyiga erkin matn kiritish kursorini yoqish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Alt + N + U</span></td>
+              <td><strong>Maxsus belgilar (Символ)</strong></td>
+              <td>Klaviaturada yo'q belgilar (&copy;, &trade;, &check;, &rarr;) kiritish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Ctrl + Drag (Sichqoncha)</span></td>
+              <td><strong>Obyektni klonlash</strong></td>
+              <td>Shaklni Ctrl bilan tortib, nusxasini darhol yoniga tushirish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Shift + Drag (Burchakdan)</span></td>
+              <td><strong>Rasmni proporsional cho'zish</strong></td>
+              <td>Rasmni xunuk qilib yassilab yoki cho'zib yubormasdan kattalashtirish.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================== 4. BAHOLASH MEZONI ==================== -->
+    <div id="tab-rubrika" class="tab-content-panel">
+      <div class="card-box">
+        <div class="box-header-row">
+          <div>
+            <div class="box-title">🎯 100 Ballik Baholash Rubrikasi (O'qituvchi Uchun)</div>
+            <div class="box-subtitle">«Вставка» menyusi amaliyoti bo'yicha o'quvchilarni tekshirish standarti:</div>
+          </div>
+        </div>
+
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th style="width: 70px; text-align: center;">Qadam</th>
+              <th>Tekshiriladigan Texnik Ko'nikma</th>
+              <th style="width: 150px; text-align: center;">Maksimal Ball</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: center;"><strong>1</strong></td>
+              <td>«SmartArt» (Процесс) blok-sxemasining to'g'ri kiritilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>2</strong></td>
+              <td>Sxema matnlarining to'liq joylanishi va rangli stil (Изменить цвета) berilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>3</strong></td>
+              <td>4x4 o'lchamli jadvalning to'g'ri chizilishi va joylashuvi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>4</strong></td>
+              <td>Jadval ma'lumotlarining to'ldirilishi va korporativ stilning berilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>5</strong></td>
+              <td>Ustunli gistogramma diagrammasining kiritilishi va sonlar bog'lanishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>6</strong></td>
+              <td>Vektor ikonka (Значки) tanlanishi va slayd rangiga moslashtirilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>7</strong></td>
+              <td>Tugmaga faol giperhavola (Ctrl + K orqali https://...) o'rnatilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>8</strong></td>
+              <td>«Надпись» (Text box) orqali alohida eslatma matnining kiritilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>9</strong></td>
+              <td>Avtomatik slayd raqamlash va titulda raqamni yashirish («Применить ко всем»)</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>10</strong></td>
+              <td>«Зум» (Zoom) orqali interaktiv slaydlar mundarijasining hosil qilinishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr style="background: var(--primary-light); font-weight: 800;">
+              <td colspan="2" style="text-align: right; color: #7c2d12;">JAMI MAKSIMAL NATIJA:</td>
+              <td style="text-align: center; color: var(--primary); font-size: 1.05rem;">100 BALL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    let score = 0;
+    let doneTasks = 0;
+    const taskStates = {};
+
+    function switchMainTab(tabId, btn) {
+      document.querySelectorAll('.tab-content-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+      if (btn) btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function checkTask(id, points) {
+      const row = document.getElementById('t-' + id);
+      const isChecked = row.querySelector('.task-checkbox-input').checked;
+
+      if (isChecked && !taskStates[id]) {
+        taskStates[id] = true;
+        score += points;
+        doneTasks++;
+        row.classList.add('done');
+      } else if (!isChecked && taskStates[id]) {
+        taskStates[id] = false;
+        score -= points;
+        doneTasks--;
+        row.classList.remove('done');
+      }
+
+      updateUI();
+      saveProgress();
+    }
+
+    function updateUI() {
+      document.getElementById('score-val').textContent = score + " / 100";
+      const pct = Math.round((doneTasks / 10) * 100);
+      document.getElementById('prog-pct').textContent = pct + "%";
+      document.getElementById('prog-bar').style.width = pct + "%";
+      document.getElementById('tasks-badge').textContent = doneTasks + " / 10";
+    }
+
+    function saveProgress() {
+      localStorage.setItem('ppt_vstavka_score', JSON.stringify({ score, doneTasks, taskStates }));
+    }
+
+    function copyDataText() {
+      const text = document.getElementById('raw-data-pre').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btnLbl = document.getElementById('copy-btn-label');
+        btnLbl.textContent = "Nusxalandi! (Slaydga qo'ying)";
+        setTimeout(() => { btnLbl.textContent = "Nusxalash (Copy)"; }, 2200);
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('ppt_vstavka_score');
+      if (saved) {
+        try {
+          const d = JSON.parse(saved);
+          score = d.score || 0;
+          doneTasks = d.doneTasks || 0;
+          Object.assign(taskStates, d.taskStates || {});
+
+          for (let id in taskStates) {
+            if (taskStates[id]) {
+              const el = document.getElementById('t-' + id);
+              if (el) {
+                el.querySelector('.task-checkbox-input').checked = true;
+                el.classList.add('done');
+              }
+            }
+          }
+          updateUI();
+        } catch(e) {}
+      }
+    });
+  </script>
+</body>
+</html>

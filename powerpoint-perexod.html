@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PowerPoint: «Переходы» (Transitions) Menyusi — To'liq Qo'llanma va Amaliyot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #c43e1c;       /* PowerPoint qizil-to'q sariq */
+      --primary-dark: #831843;
+      --primary-light: #fff1ed;
+      --accent-blue: #0284c7;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --success: #10b981;
+      --radius: 14px;
+      --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 80px;
+    }
+
+    /* TOP HEADER */
+    header {
+      background: #431407;
+      color: white;
+      padding: 0.9rem 1.75rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .brand-icon-box {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #ea580c 0%, #c43e1c 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      box-shadow: 0 2px 6px rgba(196, 62, 28, 0.4);
+    }
+
+    .header-tag-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .header-tag {
+      background: #7c2d12;
+      color: #ffedd5;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .header-version {
+      font-size: 0.72rem;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+
+    .header-main-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .progress-widget {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.2rem;
+    }
+
+    .progress-label-row {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #fed7aa;
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .progress-val-text {
+      color: #fb923c;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .progress-bar-bg {
+      width: 140px;
+      height: 6px;
+      background: #270c04;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #ea580c, #fb923c);
+      transition: width 0.3s ease;
+      border-radius: 999px;
+    }
+
+    .score-badge {
+      background: #7c2d12;
+      border: 1px solid #c43e1c;
+      padding: 0.35rem 0.85rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .score-badge-lbl {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #ffedd5;
+      text-transform: uppercase;
+    }
+
+    .score-badge-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    /* NAVIGATION TABS */
+    .nav-bar {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 61px;
+      z-index: 90;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.4rem;
+      padding: 0.45rem 1.75rem 0;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .nav-tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.75rem 1.1rem;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .nav-tab-btn:hover {
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .nav-tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background: var(--primary-light);
+      font-weight: 700;
+    }
+
+    .nav-tab-badge {
+      font-size: 0.7rem;
+      background: #e2e8f0;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      color: #475569;
+      font-weight: 700;
+    }
+
+    .nav-tab-btn.active .nav-tab-badge {
+      background: #fed7aa;
+      color: #7c2d12;
+    }
+
+    /* MAIN CONTAINER */
+    main {
+      max-width: 1400px;
+      margin: 1.75rem auto;
+      padding: 0 1.75rem;
+    }
+
+    .tab-content-panel {
+      display: none;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    .tab-content-panel.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HERO BANNER CARD */
+    .hero-banner {
+      background: linear-gradient(135deg, #431407 0%, #7c2d12 50%, #1e1b4b 100%);
+      color: white;
+      border-radius: var(--radius);
+      padding: 2.2rem 2.2rem 2rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #7c2d12;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(234, 88, 12, 0.25);
+      border: 1px solid rgba(251, 146, 60, 0.4);
+      color: #fed7aa;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.85rem;
+      line-height: 1.3;
+      max-width: 1050px;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    /* 4-COLUMN CARDS GRID */
+    .tools-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+
+    @media (max-width: 1100px) {
+      .tools-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 650px) {
+      .tools-grid-4 { grid-template-columns: 1fr; }
+    }
+
+    .tool-col-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.35rem 1.2rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      position: relative;
+      border-top: 4px solid var(--primary);
+    }
+
+    .tool-col-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-top-color: #ea580c;
+    }
+
+    .tool-icon-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .tool-heading {
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .tool-sub-cmds {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: #ea580c;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .tool-summary {
+      font-size: 0.84rem;
+      color: #475569;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .tool-features-list {
+      list-style: none;
+      font-size: 0.8rem;
+      color: #334155;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .tool-features-list li {
+      position: relative;
+      padding-left: 1rem;
+      line-height: 1.4;
+    }
+
+    .tool-features-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    /* CARD CONTAINER */
+    .card-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .box-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .box-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .box-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* RAW DATA BANNER */
+    .raw-banner {
+      background: #0f172a;
+      border-radius: var(--radius);
+      padding: 1.35rem 1.5rem;
+      color: white;
+      margin-bottom: 1.5rem;
+      border: 1px solid #334155;
+    }
+
+    .raw-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .raw-title-txt {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fed7aa;
+    }
+
+    .btn-copy-code {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.45rem 0.95rem;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+
+    .btn-copy-code:hover { background: #9a2b0e; }
+
+    pre.code-box {
+      background: #020617;
+      border: 1px solid #1e293b;
+      padding: 0.9rem 1.1rem;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      overflow-x: auto;
+      color: #e2e8f0;
+    }
+
+    /* CHECKLIST TASKS */
+    .task-row {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .task-row:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .task-row.done {
+      background: var(--primary-light);
+      border-color: #fdba74;
+    }
+
+    .task-checkbox-input {
+      width: 20px;
+      height: 20px;
+      margin-top: 0.25rem;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .task-body { flex: 1; }
+
+    .task-head-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.35rem;
+    }
+
+    .task-name-text {
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .task-score-pill {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #7c2d12;
+      background: #ffedd5;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid #fed7aa;
+    }
+
+    .task-inst-text {
+      font-size: 0.88rem;
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    .task-tech-path {
+      display: inline-block;
+      margin-top: 0.45rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      border: 1px solid #bfdbfe;
+    }
+
+    /* TABLES (Shortcuts & Rubric) */
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .styled-table th {
+      background: #1e293b;
+      color: white;
+      padding: 0.8rem 1rem;
+      font-weight: 700;
+      border: 1px solid #334155;
+    }
+
+    .styled-table td {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+    }
+
+    .styled-table tr:nth-child(even) td { background: #f8fafc; }
+
+    .shortcut-code {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--primary-light);
+      color: #7c2d12;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #fed7aa;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="header-left">
+        <div class="brand-icon-box">🎬</div>
+        <div>
+          <div class="header-tag-row">
+            <span class="header-tag">KINEMATOGRAFIYA VA SLAYDLAR DINAMIKASI</span>
+            <span class="header-version">PowerPoint 2016–2024 / Microsoft 365</span>
+          </div>
+          <div class="header-main-title">«Переходы» (Transitions) Menyusi: Kengaytirilgan Qo‘llanma va Amaliyot</div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="progress-widget">
+          <div class="progress-label-row">
+            <span>Bajarilgan buyruqlar:</span>
+            <span class="progress-val-text" id="prog-pct">0%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="prog-bar"></div>
+          </div>
+        </div>
+
+        <div class="score-badge">
+          <span class="score-badge-lbl">BALL</span>
+          <span class="score-badge-val" id="score-val">0 / 100</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION TABS -->
+  <nav class="nav-bar">
+    <div class="nav-inner">
+      <button class="nav-tab-btn active" onclick="switchMainTab('nazariya', this)">
+        <span>📊 I. Nazariy Sharh («Переходы» Barcha Asboblari)</span>
+      </button>
+      <button class="nav-tab-btn" onclick="switchMainTab('amaliyot', this)">
+        <span>📝 II. Qadamma-qadam Amaliyot (10 ta Buyruq)</span>
+        <span class="nav-tab-badge" id="tasks-badge">0 / 10</span>
+      </button>
+      <button class="nav-tab-btn" onclick="switchMainTab('shortcuts', this)">
+        <span>⚡ III. Qaynoq Tugmalar & Lifehacklar</span>
+      </button>
+      <button class="nav-tab-btn" onclick="switchMainTab('rubrika', this)">
+        <span>🎯 IV. Baholash Mezoni (100 Ball)</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN AREA -->
+  <main>
+
+    <!-- ==================== 1. NAZARIY SHARH ==================== -->
+    <div id="tab-nazariya" class="tab-content-panel active">
+      
+      <!-- HERO BANNER -->
+      <div class="hero-banner">
+        <div class="hero-tag">🎬 Slaydlar Oralig'idagi Jonli Dinamika</div>
+        <div class="hero-title">PowerPoint «Переходы» (Transitions) Menyusidagi Har Bir Asbob Nima Uchun Xizmat Qiladi?</div>
+        <div class="hero-desc">
+          «Переходы» menyusi slaydlar almashinuvini kino montajidek ravon va uzluksiz qilish markazidir. Bu yerda inqilobiy <strong>Трансформация (Morph)</strong> effekti, dinamik o'tishlar, yo'nalish parametrlari (Параметры эффектов), o'tish davomiyligi (Длительность), slaydni avtomatik vaqt bo'yicha almashtirish hamda audio hamrohlik boshqariladi.
+        </div>
+      </div>
+
+      <!-- 4-COLUMN CARDS GRID (1-QATOR) -->
+      <div class="tools-grid-4">
+        
+        <!-- Card 1 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🌀</div>
+            <div class="tool-heading">1. Трансформация (Morph)</div>
+            <div class="tool-sub-cmds">Переход • Kinematika • Seamless</div>
+            <div class="tool-summary">
+              PowerPoint-ning eng kuchli asbobi. Ikkala slayddagi bir xil obyekt, so'z yoki shakllarni avtomatik taniydi va ularning harakatini silliq animatsiya qiladi.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Forma o'zgarishi:</strong> Doira kvadratga, kichik kartochka kattasiga aylanadi.</li>
+            <li><strong>3D harakat:</strong> Slayd almashganda obyektlar suzib o'tgandek ko'rinadi.</li>
+          </ul>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🌊</div>
+            <div class="tool-heading">2. Простые (Klassik O'tishlar)</div>
+            <div class="tool-sub-cmds">Простые • Выцветание • Сдвиг • Наплыв</div>
+            <div class="tool-summary">
+              Rasmiy biznes taqdimotlari uchun vazmin o'tishlar: «Выцветание» (Fade / muloyim yo'qolish) va «Сдвиг» (Push / surilish).
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Ko'zni toliqtirmaydi:</strong> Auditoriya e'tiborini chalg'itmaydi.</li>
+            <li><strong>Rasmiyatchilik:</strong> Moliyaviy va davlat hisobotlari standarti.</li>
+          </ul>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">💥</div>
+            <div class="tool-heading">3. Сложные (Dinamik O'tishlar)</div>
+            <div class="tool-sub-cmds">Сложные • Дроfront • Занавес • Вихрь</div>
+            <div class="tool-summary">
+              Hissiyot uyg'otuvchi va e'tiborni tortuvchi maxsus effektlar: «Дробление», parda ochilishi («Занавес») yoki qog'oz samolyot («Оригами»).
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Intro / Titul:</strong> Taqdimot boshlanishi va yakuniy slaydga mos.</li>
+            <li><strong>Shou effekti:</strong> Marketing va taqdimot chiqishlarida qo'llanadi.</li>
+          </ul>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🧭</div>
+            <div class="tool-heading">4. Параметры эффектов</div>
+            <div class="tool-sub-cmds">Направление • Слева • Сверху • Объекты</div>
+            <div class="tool-summary">
+              Tanlangan o'tishning harakat yo'nalishini (chapdan, o'ngdan, pastdan yoki burchakdan) hamda xususiyatini o'zgartirish bloki.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Morph parametrlari:</strong> Obyektlar bo'yicha, so'zlar bo'yicha yoki harflar bo'yicha.</li>
+            <li><strong>Mantiqiy oqim:</strong> Taqdimot bir yo'nalishda davom etayotgandek tuyuladi.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- 4-COLUMN CARDS GRID (2-QATOR) -->
+      <div class="tools-grid-4">
+        
+        <!-- Card 5 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">⏱️</div>
+            <div class="tool-heading">5. Длительность (Vaqt/Tezlik)</div>
+            <div class="tool-sub-cmds">Время показа • Sekundlar • 01.50</div>
+            <div class="tool-summary">
+              O'tish animatsiyasining tezligi. Slayd juda chaqnab ketmasligi yoki aksincha, cho'zilib zeriktirmasligi uchun aniq sekundlarda sozlanadi.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Optimal mezon:</strong> Klassik o'tishlar uchun 0.75–1.00 soniya.</li>
+            <li><strong>Morph uchun:</strong> Silliq ko'rinishi uchun 1.50–2.00 soniya tavsiya etiladi.</li>
+          </ul>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🌍</div>
+            <div class="tool-heading">6. Применить ко всем</div>
+            <div class="tool-sub-cmds">Единый стиль • Barcha slaydlarga</div>
+            <div class="tool-summary">
+              Birinchi slaydga berilgan o'tish turi, uning yo'nalishi va tezligini bir zumda butun taqdimotdagi barcha slaydlarga tatbiq etish tugmasi.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Yaxlitlik qoidasi:</strong> Har slaydga har xil o'tish qo'yib havaskorlik qilmaslik.</li>
+            <li><strong>1 klikda:</strong> 50 ta slaydni alohida bosib chiqish shart emas.</li>
+          </ul>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">⏳</div>
+            <div class="tool-heading">7. Смена слайда (Avto/Klik)</div>
+            <div class="tool-sub-cmds">По щелчку • После: 00:05.00</div>
+            <div class="tool-summary">
+              Slaydning keyingisiga qanday o'tishini boshqarish: sichqonchani bosganda (По щелчку) yoki belgilangan vaqt o'tgach avtomatik (После: 5 sek).
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Vitrina / Kiosk:</strong> Avtosalonda yoki do'konda o'zi aylanib turadigan rejim.</li>
+            <li><strong>Nutq nazorati:</strong> Jonli dokladda «По щелчку» qulayroq.</li>
+          </ul>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🔊</div>
+            <div class="tool-heading">8. Звук (Audio Hamrohlik)</div>
+            <div class="tool-sub-cmds">Звуки • Щелчок • Ветер • Колокольчики</div>
+            <div class="tool-summary">
+              Slayd har safar almashganida qisqa mexanik ovoz, qarsak yoki shamol tovushini chiqarish sozlamasi.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Zaruriy holatda:</strong> E'tiborni jalb qilish yoki viktorinalar uchun.</li>
+            <li><strong>Biznesda:</strong> Standart holatda «[Нет звука]» qoldirish tavsiya etiladi.</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ==================== 2. AMALIYOT (10 TA BUYRUQ) ==================== -->
+    <div id="tab-amaliyot" class="tab-content-panel">
+      
+      <!-- RAW DATA BANNER -->
+      <div class="raw-banner">
+        <div class="raw-top-bar">
+          <div class="raw-title-txt">📋 AMALIY MASHG'ULOT UCHUN XOM MATN (Bir klikda nusxalab oling)</div>
+          <button class="btn-copy-code" onclick="copyDataText()">
+            <span>📋</span> <span id="copy-btn-label">Nusxalash (Copy)</span>
+          </button>
+        </div>
+        <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.6rem;">O'tishlar va Morph effektini mashq qilish uchun 3 ta slaydga joylanadigan xom matnlar:</div>
+        <pre class="code-box" id="raw-data-pre">1-Slayd (Boshlang'ich umumiy ko'rinish):
+Sarlavha: LOGISTIK EKOTIZIM BOSQICHLARI
+Matn: 1. Omborxona | 2. Tranzit | 3. Yetkazish
+
+2-Slayd (Fokus: 1-Bosqich kattalashadi — Morph uchun):
+Sarlavha: 1-BOSQICH: AVTOMATLASHTIRILGAN OMBORXONA
+Batafsil: Aqlli saralash tizimi tovarlarni qabul qilish vaqtini 3 barobarga qisqartiradi.
+
+3-Slayd (Fokus: 2-Bosqich kattalashadi — Morph uchun):
+Sarlavha: 2-BOSQICH: TRANZIT VA GPS MONITORING
+Batafsil: Real-vaqt rejimida yuk xavfsizligi va optimal marshrut kafolati.</pre>
+      </div>
+
+      <!-- CHECKLIST -->
+      <div class="card-box">
+        <div class="box-header-row">
+          <div>
+            <div class="box-title">Qadamma-qadam Amaliy Buyruqlar Checklisti</div>
+            <div class="box-subtitle">Hech qanday afsonasiz — faqat aniq menyu, tugma va parametrlar ketma-ketligi (10 ta qadam):</div>
+          </div>
+        </div>
+
+        <!-- Task 1 -->
+        <div class="task-row" id="t-1">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(1, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">1-Qadam: 1-slaydga «Выцветание» (Fade) o'tishini o'rnatish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">1-slaydni tanlang. <strong>«Переходы»</strong> menyusiga o'ting. Galereyadan <strong>«Выцветание»</strong> (Fade / Sekin paydo bo'lish) o'tishini belgilang.</div>
+            <div class="task-tech-path">Menyu: Переходы ➔ Переход к этому слайду ➔ Выцветание</div>
+          </div>
+        </div>
+
+        <!-- Task 2 -->
+        <div class="task-row" id="t-2">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(2, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">2-Qadam: O'tish davomiyligini (Длительность) 01.00 sekundga sozlash</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">O'ng tarafdagi <strong>«Время показа слайдов»</strong> blokida <strong>«Длительность»</strong> parametrini <strong>01.00</strong> soniya qilib o'rnating.</div>
+            <div class="task-tech-path">Menyu: Переходы ➔ Время показа ➔ Длительность: 01.00</div>
+          </div>
+        </div>
+
+        <!-- Task 3 -->
+        <div class="task-row" id="t-3">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(3, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">3-Qadam: 1-slaydda 3 ta to'rtburchak kartochka chizish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">1-slaydga 3 ta bir xil o'lchamdagi to'rtburchak shakl chizib, ichiga 1, 2 va 3-bosqich nomlarini yozing va qat'iy bir chiziqqa tizib qo'ying.</div>
+            <div class="task-tech-path">Amal: 1-slaydda 3 ta kartochka chizing (Ombor, Tranzit, Yetkazish)</div>
+          </div>
+        </div>
+
+        <!-- Task 4 -->
+        <div class="task-row" id="t-4">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(4, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">4-Qadam: Slaydni dublikat qilish (Ctrl + D) va 1-kartochkani kattalashtirish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">Chapdagi slaydlar panelida 1-slaydni tanlab, klaviaturadan <strong>Ctrl + D</strong> (Dublikat) bosing. Yangi hosil bo'lgan 2-slaydda 1-kartochkani 2 barobar kattalashtiring, qolgan 2 ta kartochkani esa pastga kichraytirib surib qo'ying.</div>
+            <div class="task-tech-path">Amal: Slaydni Ctrl + D qiling ➔ 1-kartochkani kattalashtiring va rangini yorqin qiling</div>
+          </div>
+        </div>
+
+        <!-- Task 5 -->
+        <div class="task-row" id="t-5">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(5, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">5-Qadam: 2-slaydga «Трансформация» (Morph) o'tishini biriktirish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">2-slaydni tanlangan holda saqlang. <strong>«Переходы»</strong> menyusidan <strong>«Трансформация»</strong> (Morph) o'tishini tanlang.</div>
+            <div class="task-tech-path">Menyu: Переходы ➔ Переход к этому слайду ➔ Трансформация</div>
+          </div>
+        </div>
+
+        <!-- Task 6 -->
+        <div class="task-row" id="t-6">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(6, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">6-Qadam: Morph o'tish davomiyligini 01.50 sekundga sozlash</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">Transformatsiya harakati kino kabi silliq va muloyim bo'lishi uchun <strong>«Длительность»</strong> qiymatini <strong>01.50</strong> sekund qilib belgilang.</div>
+            <div class="task-tech-path">Menyu: Переходы ➔ Длительность: 01.50</div>
+          </div>
+        </div>
+
+        <!-- Task 7 -->
+        <div class="task-row" id="t-7">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(7, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">7-Qadam: 3-slaydni yasash va 2-kartochkaga fokus o'tkazish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">2-slaydni yana bir bor <strong>Ctrl + D</strong> orqali dublikat qiling (3-slayd hosil bo'ladi). Unda 1-kartochkani yana kichraytiring, 2-kartochkani esa markazga olib chiqib kattalashtiring. Unga ham <strong>«Трансформация»</strong> o'tishi berilganini tekshiring.</div>
+            <div class="task-tech-path">Amal: 3-slaydda 2-kartochka kattalashadi ➔ Переходы: Трансформация</div>
+          </div>
+        </div>
+
+        <!-- Task 8 -->
+        <div class="task-row" id="t-8">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(8, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">8-Qadam: «Параметры эффектов» orqali Morph turini sozlash</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">3-slaydda <strong>«Параметры эффектов»</strong> tugmasini bosing va <strong>«Объекты»</strong> parametri tanlanganligini ta'minlang (shakllar o'zaro transformatsiya bo'lishi uchun).</div>
+            <div class="task-tech-path">Menyu: Переходы ➔ Параметры эффектов ➔ Объекты</div>
+          </div>
+        </div>
+
+        <!-- Task 9 -->
+        <div class="task-row" id="t-9">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(9, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">9-Qadam: Slaydni avtomatik vaqt bilan almashtirish (После: 4 sek)</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">3-slaydda <strong>«Смена слайда»</strong> blokidagi <strong>«По щелчку»</strong> katagidan pichkani olib tashlang, <strong>«После»</strong> katagiga pichka qo'ying va vaqtni <strong>00:04.00</strong> (4 soniya) deb belgilang.</div>
+            <div class="task-tech-path">Menyu: Переходы ➔ Смена слайда ➔ [x] После: 00:04.00</div>
+          </div>
+        </div>
+
+        <!-- Task 10 -->
+        <div class="task-row" id="t-10">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(10, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">10-Qadam: Jonli rejimda tekshirish (Shift + F5)</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">1-slaydga qayting. Klaviaturadan <strong>Shift + F5</strong> bosing va sichqoncha bilan slaydni almashtirib, shakllar qanday silliq va uzluksiz kattalashib o'zgarayotganini to'liq ekranda tekshiring.</div>
+            <div class="task-tech-path">Klaviaturada: Shift + F5 ➔ To'liq ekranda Morph dinamikasini tekshirish</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ==================== 3. QAYNOQ TUGMALAR ==================== -->
+    <div id="tab-shortcuts" class="tab-content-panel">
+      <div class="card-box">
+        <div class="box-header-row">
+          <div>
+            <div class="box-title">⚡ «Переходы» Menyusining Eng Zaruriy Qaynoq Tugmalari</div>
+            <div class="box-subtitle">Dinamikani tezkor boshqarish va to'liq ekranda tekshirish tugmalari:</div>
+          </div>
+        </div>
+
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th style="width: 200px;">Qaynoq Tugma</th>
+              <th>Amal / Funksiya</th>
+              <th>Darsdagi amaliy vazifasi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="shortcut-code">Alt + K</span></td>
+              <td><strong>«Переходы» menyusiga o'tish</strong></td>
+              <td>Klaviaturada bitta bosishda O'tishlar menyusi boshqaruviga kirish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Alt + K + T</span></td>
+              <td><strong>O'tishlar galereyasini ochish</strong></td>
+              <td>Barcha mavjud o'tish effektlari ro'yxatini pastga yoyish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Alt + K + D</span></td>
+              <td><strong>Длительность parametrini o'zgartirish</strong></td>
+              <td>Sichqonchasiz o'tish tezligi sekundlarini kiritish maydoniga o'tish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Alt + K + A</span></td>
+              <td><strong>Применить ко всем</strong></td>
+              <td>Joriy o'tishni barcha slaydlarga bir soniyada nusxalash.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Shift + F5</span></td>
+              <td><strong>Joriy slayddan namoyishni boshlash</strong></td>
+              <td>Yaratilgan o'tish effektini aynan shu slayddan katta ekranda ko'rish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Ctrl + D</span></td>
+              <td><strong>Slaydni dublikat qilish</strong></td>
+              <td>Morph (Трансформация) effekti uchun obyekti bor slaydni darhol ko'paytirish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">F5</span></td>
+              <td><strong>Taqdimotni boshidan ko'rish</strong></td>
+              <td>Barcha slaydlarning umumiy o'tish dinamikasini boshidan tekshirish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Esc</span></td>
+              <td><strong>Namoyishdan chiqish</strong></td>
+              <td>To'liq ekran rejimidan tahrirlash oynasiga qaytish.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================== 4. BAHOLASH MEZONI ==================== -->
+    <div id="tab-rubrika" class="tab-content-panel">
+      <div class="card-box">
+        <div class="box-header-row">
+          <div>
+            <div class="box-title">🎯 100 Ballik Baholash Rubrikasi (O'qituvchi Uchun)</div>
+            <div class="box-subtitle">«Переходы» menyusi amaliyoti bo'yicha o'quvchilarni tekshirish mezonlari:</div>
+          </div>
+        </div>
+
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th style="width: 70px; text-align: center;">Qadam</th>
+              <th>Tekshiriladigan Texnik Ko'nikma</th>
+              <th style="width: 150px; text-align: center;">Maksimal Ball</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: center;"><strong>1</strong></td>
+              <td>1-slaydga «Выцветание» (Fade) o'tishining to'g'ri o'rnatilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>2</strong></td>
+              <td>O'tish davomiyligining (Длительность) 01.00 sekund qilib belgilanishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>3</strong></td>
+              <td>1-slaydda 3 ta kartochkaning to'g'ri chizilishi va joylashtirilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>4</strong></td>
+              <td>Slaydning Ctrl + D orqali dublikat qilinishi va 1-kartochkaning kattalashtirilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>5</strong></td>
+              <td>2-slaydga «Трансформация» (Morph) o'tishining to'g'ri tanlanishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>6</strong></td>
+              <td>Morph davomiyligining (Длительность) 01.50 sekundga sozlanishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>7</strong></td>
+              <td>3-slayd dublikat qilinib, 2-kartochkaning kattalashtirilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>8</strong></td>
+              <td>«Параметры эффектов» da Morph turi «Объекты» ga o'rnatilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>9</strong></td>
+              <td>Slaydni avtomatik almashtirish («После: 00:04.00») parametrining sozlanishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>10</strong></td>
+              <td>Shift + F5 orqali to'liq ekranda Morph kinematikasining tekshirilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr style="background: var(--primary-light); font-weight: 800;">
+              <td colspan="2" style="text-align: right; color: #7c2d12;">JAMI MAKSIMAL NATIJA:</td>
+              <td style="text-align: center; color: var(--primary); font-size: 1.05rem;">100 BALL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    let score = 0;
+    let doneTasks = 0;
+    const taskStates = {};
+
+    function switchMainTab(tabId, btn) {
+      document.querySelectorAll('.tab-content-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+      if (btn) btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function checkTask(id, points) {
+      const row = document.getElementById('t-' + id);
+      const isChecked = row.querySelector('.task-checkbox-input').checked;
+
+      if (isChecked && !taskStates[id]) {
+        taskStates[id] = true;
+        score += points;
+        doneTasks++;
+        row.classList.add('done');
+      } else if (!isChecked && taskStates[id]) {
+        taskStates[id] = false;
+        score -= points;
+        doneTasks--;
+        row.classList.remove('done');
+      }
+
+      updateUI();
+      saveProgress();
+    }
+
+    function updateUI() {
+      document.getElementById('score-val').textContent = score + " / 100";
+      const pct = Math.round((doneTasks / 10) * 100);
+      document.getElementById('prog-pct').textContent = pct + "%";
+      document.getElementById('prog-bar').style.width = pct + "%";
+      document.getElementById('tasks-badge').textContent = doneTasks + " / 10";
+    }
+
+    function saveProgress() {
+      localStorage.setItem('ppt_perexod_score', JSON.stringify({ score, doneTasks, taskStates }));
+    }
+
+    function copyDataText() {
+      const text = document.getElementById('raw-data-pre').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btnLbl = document.getElementById('copy-btn-label');
+        btnLbl.textContent = "Nusxalandi! (Slaydga qo'ying)";
+        setTimeout(() => { btnLbl.textContent = "Nusxalash (Copy)"; }, 2200);
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('ppt_perexod_score');
+      if (saved) {
+        try {
+          const d = JSON.parse(saved);
+          score = d.score || 0;
+          doneTasks = d.doneTasks || 0;
+          Object.assign(taskStates, d.taskStates || {});
+
+          for (let id in taskStates) {
+            if (taskStates[id]) {
+              const el = document.getElementById('t-' + id);
+              if (el) {
+                el.querySelector('.task-checkbox-input').checked = true;
+                el.classList.add('done');
+              }
+            }
+          }
+          updateUI();
+        } catch(e) {}
+      }
+    });
+  </script>
+</body>
+</html>

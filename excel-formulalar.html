@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Excel Formulalari — Interaktiv Amaliy Mashg'ulot & Trenajyor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #107c41;       /* Excel Green */
+      --primary-dark: #0b5a2f;
+      --primary-light: #e8f5e9;
+      --accent: #1e293b;
+      --accent-blue: #0284c7;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --success: #16a34a;
+      --success-bg: #dcfce7;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 70px;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #084c26 0%, #107c41 50%, #15803d 100%);
+      color: white;
+      padding: 1.8rem 1.5rem 1.5rem;
+      box-shadow: var(--shadow-lg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand-title span.badge {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      color: #bbf7d0;
+      font-size: 0.92rem;
+      margin-top: 0.25rem;
+      font-weight: 500;
+    }
+
+    .score-panel {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.6rem 1.25rem;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .score-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .score-lbl {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: #bbf7d0;
+      font-weight: 700;
+    }
+
+    .score-val {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #ffffff;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Nav Tabs */
+    .nav-container {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 92px;
+      z-index: 90;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+    .tabs-wrapper {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.25rem;
+      overflow-x: auto;
+      padding: 0.5rem 1rem 0;
+      scrollbar-width: thin;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.75rem 1.1rem;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background: #f0fdf4;
+      font-weight: 700;
+    }
+
+    .tab-badge {
+      font-size: 0.72rem;
+      background: #e2e8f0;
+      padding: 0.15rem 0.45rem;
+      border-radius: 6px;
+      color: #475569;
+    }
+
+    .tab-btn.active .tab-badge {
+      background: #bbf7d0;
+      color: #14532d;
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1300px;
+      margin: 1.8rem auto;
+      padding: 0 1.25rem;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow);
+    }
+
+    .card-header-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .card-subtitle {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+
+    /* Mode Switcher Buttons */
+    .mode-switch {
+      display: inline-flex;
+      background: #f1f5f9;
+      padding: 0.25rem;
+      border-radius: 8px;
+      gap: 0.25rem;
+      border: 1px solid var(--border);
+    }
+
+    .mode-btn {
+      border: none;
+      background: transparent;
+      padding: 0.45rem 0.9rem;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .mode-btn.active {
+      background: white;
+      color: var(--primary-dark);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    }
+
+    /* Table Styles */
+    .table-container {
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      margin-bottom: 1.25rem;
+      background: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: #1e293b;
+      color: white;
+      font-weight: 700;
+      padding: 0.8rem 0.9rem;
+      border: 1px solid #334155;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 0.65rem 0.85rem;
+      border: 1px solid #e2e8f0;
+      vertical-align: middle;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    /* Interactive Formula Input */
+    .f-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    input.formula-type-input {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      width: 100%;
+      padding: 0.45rem 0.65rem;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      background: #ffffff;
+      color: #0f172a;
+      transition: all 0.2s ease;
+    }
+
+    input.formula-type-input:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+      background: #f8fafc;
+    }
+
+    input.formula-type-input.correct {
+      border-color: var(--success);
+      background: #f0fdf4;
+      color: #14532d;
+      font-weight: 700;
+    }
+
+    input.formula-type-input.wrong {
+      border-color: var(--danger);
+      background: #fef2f2;
+      color: #991b1b;
+    }
+
+    .feedback-icon {
+      margin-left: 0.4rem;
+      font-size: 0.95rem;
+      display: none;
+    }
+
+    .cell-solved {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      background: #eff6ff;
+      color: #1e40af;
+      padding: 0.35rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #bfdbfe;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .cell-val {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    /* Badges */
+    .pill {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .pill-success { background: #dcfce7; color: #15803d; }
+    .pill-danger { background: #fee2e2; color: #b91c1c; }
+    .pill-info { background: #e0f2fe; color: #0369a1; }
+    .pill-muted { background: #f1f5f9; color: #64748b; }
+
+    /* Hint box */
+    .hint-box {
+      background: #fefce8;
+      border-left: 4px solid #ca8a04;
+      padding: 0.85rem 1.1rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.25rem;
+      font-size: 0.86rem;
+      color: #713f12;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-show-all-answers {
+      background: #0284c7;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-show-all-answers:hover { background: #0369a1; }
+
+    /* Mundarija cards */
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 1.25rem;
+    }
+    .toc-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .toc-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 5px; height: 100%;
+      background: var(--primary);
+    }
+    .toc-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      border-color: #86efac;
+    }
+    .toc-num {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      align-self: flex-start;
+      margin-bottom: 0.65rem;
+    }
+    .toc-title { font-size: 1.12rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+    .toc-formulas {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #0284c7;
+      background: #f0f9ff;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      margin-bottom: 0.65rem;
+    }
+    .toc-desc { font-size: 0.86rem; color: var(--text-muted); }
+
+    /* Rules Table */
+    .rules-table th { background: #334155; }
+    .rules-table td { font-size: 0.86rem; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div>
+        <div class="brand-title">
+          <span>📊 EXCEL FORMULALARI TRENAJYORI</span>
+          <span class="badge">Amaliyot & Namuna</span>
+        </div>
+        <div class="brand-sub">Formulani o'zingiz yozib tekshiring yoki tayyor yechilgan namuna bilan solishtiring!</div>
+      </div>
+      <div class="score-panel">
+        <div class="score-item">
+          <span class="score-lbl">To'g'ri formulalar</span>
+          <span class="score-val" id="correct-count">0 / 28</span>
+        </div>
+        <div class="score-item">
+          <span class="score-lbl">Umumiy Natija</span>
+          <span class="score-val" id="total-score" style="color: #4ade80;">0 %</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION TABS -->
+  <nav class="nav-container">
+    <div class="tabs-wrapper">
+      <button class="tab-btn active" onclick="openTab('mundarija', this)">
+        <span>📑 Mundarija</span>
+      </button>
+      <button class="tab-btn" onclick="openTab('logika', this)">
+        <span>1. Mantiqiy</span>
+        <span class="tab-badge">ЕСЛИ, И, ИЛИ</span>
+      </button>
+      <button class="tab-btn" onclick="openTab('matematika', this)">
+        <span>2. Matematik</span>
+        <span class="tab-badge">СУММ, СУММЕСЛИ</span>
+      </button>
+      <button class="tab-btn" onclick="openTab('matn', this)">
+        <span>3. Matnli</span>
+        <span class="tab-badge">СЦЕП, ПРОПИСН</span>
+      </button>
+      <button class="tab-btn" onclick="openTab('sana', this)">
+        <span>4. Sana va Vaqt</span>
+        <span class="tab-badge">СЕГОДНЯ, ГОД</span>
+      </button>
+      <button class="tab-btn" onclick="openTab('qidiruv', this)">
+        <span>5. Qidiruv</span>
+        <span class="tab-badge">ВПР (VLOOKUP)</span>
+      </button>
+      <button class="tab-btn" onclick="openTab('statistika', this)">
+        <span>6. Statistika</span>
+        <span class="tab-badge">СРЗНАЧ, СЧЁТ</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- ==================== 0. MUNDARIJA ==================== -->
+    <div id="tab-mundarija" class="tab-panel active">
+      <div class="card">
+        <div class="card-header-bar">
+          <div>
+            <div class="card-title">📌 Dastur Mundarijasi va Qo'llanma Rejasi</div>
+            <div class="card-subtitle">Jadvalingizdagi barcha 6 ta modul bo'yicha amaliy mashg'ulotlar. Qaysi mavzuni tanlash uchun kartochka ustiga bosing:</div>
+          </div>
+        </div>
+
+        <div class="toc-grid">
+          <div class="toc-card" onclick="document.querySelectorAll('.tab-btn')[1].click()">
+            <div>
+              <span class="toc-num">1-BO'LIM</span>
+              <div class="toc-title">Логические (Mantiqiy)</div>
+              <div class="toc-formulas">ЕСЛИ (IF), И (AND), ИЛИ (OR)</div>
+              <div class="toc-desc">Talabalar test bali va davomatiga qarab o'tish, grant va rag'batlantirishni shartli formulalash.</div>
+            </div>
+          </div>
+
+          <div class="toc-card" onclick="document.querySelectorAll('.tab-btn')[2].click()">
+            <div>
+              <span class="toc-num">2-BO'LIM</span>
+              <div class="toc-title">Математические (Matematik)</div>
+              <div class="toc-formulas">СУММ (SUM), СУММЕСЛИ (SUMIF), ОКРУГЛ (ROUND)</div>
+              <div class="toc-desc">Ko'paytirish, umumiy yig'indi, minglikka yaxlitlash va faqat meva/sabzavotlar summasini ajratish.</div>
+            </div>
+          </div>
+
+          <div class="toc-card" onclick="document.querySelectorAll('.tab-btn')[3].click()">
+            <div>
+              <span class="toc-num">3-BO'LIM</span>
+              <div class="toc-title">Текстовые (Matnli)</div>
+              <div class="toc-formulas">СЦЕП (CONCAT), ПРОПИСН (UPPER), ДЛСТР (LEN), ЛЕВСИМВ</div>
+              <div class="toc-desc">Familiya va ismni birlashtirish, katta harfga o'tkazish, harflar sonini sanash va F.I. qisqartma.</div>
+            </div>
+          </div>
+
+          <div class="toc-card" onclick="document.querySelectorAll('.tab-btn')[4].click()">
+            <div>
+              <span class="toc-num">4-BO'LIM</span>
+              <div class="toc-title">Дата и время (Sana/Vaqt)</div>
+              <div class="toc-formulas">СЕГОДНЯ (TODAY), ГОД (YEAR), МЕСЯЦ, ДЕНЬ</div>
+              <div class="toc-desc">Joriy sana, tug'ilgan kundan yil, oy, kunni alohida olish va xodimning yoshini avtomatik topish.</div>
+            </div>
+          </div>
+
+          <div class="toc-card" onclick="document.querySelectorAll('.tab-btn')[5].click()">
+            <div>
+              <span class="toc-num">5-BO'LIM</span>
+              <div class="toc-title">Ссылки и массивы (Qidiruv)</div>
+              <div class="toc-formulas">ВПР (VLOOKUP)</div>
+              <div class="toc-desc">Baza ichidan ID raqam orqali xodimning ismi, bo'limi, lavozimi va oyligini bir zumda chiqarish.</div>
+            </div>
+          </div>
+
+          <div class="toc-card" onclick="document.querySelectorAll('.tab-btn')[6].click()">
+            <div>
+              <span class="toc-num">6-BO'LIM</span>
+              <div class="toc-title">Статистические (Statistika)</div>
+              <div class="toc-formulas">СРЗНАЧ, МАКС, МИН, СЧЁТ, СЧЁТЕСЛИ</div>
+              <div class="toc-desc">O'rtacha ball, eng katta/kichik ball, talabalar soni va to'lov qilganlarni sanash.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: #f0fdf4; border-left: 4px solid var(--primary); padding: 1rem; border-radius: 0 8px 8px 0; margin-top: 1.5rem; font-size: 0.9rem; color: #166534;">
+          <strong>💡 Trenajyor qanday ishlaydi?</strong> Har bir bo'limda siz formulalarni mustaqil kiritib ko'rishingiz mumkin (ruscha yoki inglizcha, masalan <code>=ЕСЛИ(...)</code> yoki <code>=IF(...)</code>). Tizim formulangizni darhol tekshiradi! Agar qiynalsangiz, <em>«Namuna (Yechilgan)»</em> rejimiga o'tib, to'g'ri formulani ko'rishingiz mumkin.
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 1. LOGICHESKIE ==================== -->
+    <div id="tab-logika" class="tab-panel">
+      <div class="card">
+        <div class="card-header-bar">
+          <div>
+            <div class="card-title">1. MANTIQIY FUNKSIYALAR (ЛОГИЧЕСКИЕ / LOGICAL)</div>
+            <div class="card-subtitle">Mavzu: Shartlar asosida qaror chiqarish (ЕСЛИ, И, ИЛИ)</div>
+          </div>
+          <div class="mode-switch">
+            <button class="mode-btn active" onclick="switchMode('logika', 'practice', this)">✍️ O'quvchi rejimi (Amaliyot)</button>
+            <button class="mode-btn" onclick="switchMode('logika', 'sample', this)">👁️ Namuna (Yechilgan jadval)</button>
+          </div>
+        </div>
+
+        <div class="hint-box">
+          <span>💡 <strong>Vazifa:</strong> Sariq katakchalarga formulalarni yozing va Enter bosing. Masalan: <code>=IF(C6>=60,"O'tdi","Yiqildi")</code> yoki <code>=ЕСЛИ(C6>=60;"O'tdi";"Yiqildi")</code></span>
+          <button class="btn-show-all-answers" onclick="autoFillSection('logika')">Yechimni to'ldirish</button>
+        </div>
+
+        <div class="table-container">
+          <table id="table-logika">
+            <thead>
+              <tr>
+                <th style="width: 40px; text-align: center;">№</th>
+                <th>O'quvchi</th>
+                <th style="text-align: right;">Test bali (0-100)</th>
+                <th style="text-align: right;">Davomat (%)</th>
+                <th>Natija (ЕСЛИ / IF)</th>
+                <th>Grantga tavsiya (И / AND)</th>
+                <th>Rag'batlantirish (ИЛИ / OR)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Row 6 -->
+              <tr data-row="6">
+                <td style="text-align: center;">1</td>
+                <td><strong>Aliyev Bobur</strong></td>
+                <td style="text-align: right;">85</td>
+                <td style="text-align: right;">95</td>
+                <td class="formula-cell" data-target="=IF(C6>=60,"O'tdi","Yiqildi")" data-alt="=ЕСЛИ(C6>=60;"O'tdi";"Yiqildi")" data-val="O'tdi" data-cat="logika"></td>
+                <td class="formula-cell" data-target="=IF(AND(C6>=80,D6>=85),"Tavsiya etildi","Yo'q")" data-alt="=ЕСЛИ(И(C6>=80;D6>=85);"Tavsiya etildi";"Yo'q")" data-val="Tavsiya etildi" data-cat="logika"></td>
+                <td class="formula-cell" data-target="=IF(OR(C6>=90,D6>=95),"Mukofot","—")" data-alt="=ЕСЛИ(ИЛИ(C6>=90;D6>=95);"Mukofot";"—")" data-val="Mukofot" data-cat="logika"></td>
+              </tr>
+              <!-- Row 7 -->
+              <tr data-row="7">
+                <td style="text-align: center;">2</td>
+                <td><strong>Karimova Madina</strong></td>
+                <td style="text-align: right;">55</td>
+                <td style="text-align: right;">90</td>
+                <td class="formula-cell" data-target="=IF(C7>=60,"O'tdi","Yiqildi")" data-alt="=ЕСЛИ(C7>=60;"O'tdi";"Yiqildi")" data-val="Yiqildi" data-cat="logika"></td>
+                <td class="formula-cell" data-target="=IF(AND(C7>=80,D7>=85),"Tavsiya etildi","Yo'q")" data-alt="=ЕСЛИ(И(C7>=80;D7>=85);"Tavsiya etildi";"Yo'q")" data-val="Yo'q" data-cat="logika"></td>
+                <td class="formula-cell" data-target="=IF(OR(C7>=90,D7>=95),"Mukofot","—")" data-alt="=ЕСЛИ(ИЛИ(C7>=90;D7>=95);"Mukofot";"—")" data-val="—" data-cat="logika"></td>
+              </tr>
+              <!-- Row 8 -->
+              <tr data-row="8">
+                <td style="text-align: center;">3</td>
+                <td><strong>Sodiqov Jasur</strong></td>
+                <td style="text-align: right;">92</td>
+                <td style="text-align: right;">70</td>
+                <td class="formula-cell" data-target="=IF(C8>=60,"O'tdi","Yiqildi")" data-alt="=ЕСЛИ(C8>=60;"O'tdi";"Yiqildi")" data-val="O'tdi" data-cat="logika"></td>
+                <td class="formula-cell" data-target="=IF(AND(C8>=80,D8>=85),"Tavsiya etildi","Yo'q")" data-alt="=ЕСЛИ(И(C8>=80;D8>=85);"Tavsiya etildi";"Yo'q")" data-val="Yo'q" data-cat="logika"></td>
+                <td class="formula-cell" data-target="=IF(OR(C8>=90,D8>=95),"Mukofot","—")" data-alt="=ЕСЛИ(ИЛИ(C8>=90;D8>=95);"Mukofot";"—")" data-val="Mukofot" data-cat="logika"></td>
+              </tr>
+              <!-- Row 9 -->
+              <tr data-row="9">
+                <td style="text-align: center;">4</td>
+                <td><strong>Umarov Sardor</strong></td>
+                <td style="text-align: right;">40</td>
+                <td style="text-align: right;">60</td>
+                <td class="formula-cell" data-target="=IF(C9>=60,"O'tdi","Yiqildi")" data-alt="=ЕСЛИ(C9>=60;"O'tdi";"Yiqildi")" data-val="Yiqildi" data-cat="logika"></td>
+                <td class="formula-cell" data-target="=IF(AND(C9>=80,D9>=85),"Tavsiya etildi","Yo'q")" data-alt="=ЕСЛИ(И(C9>=80;D9>=85);"Tavsiya etildi";"Yo'q")" data-val="Yo'q" data-cat="logika"></td>
+                <td class="formula-cell" data-target="=IF(OR(C9>=90,D9>=95),"Mukofot","—")" data-alt="=ЕСЛИ(ИЛИ(C9>=90;D9>=95);"Mukofot";"—")" data-val="—" data-cat="logika"></td>
+              </tr>
+              <!-- Row 10 -->
+              <tr data-row="10">
+                <td style="text-align: center;">5</td>
+                <td><strong>Rasulova Nilufar</strong></td>
+                <td style="text-align: right;">78</td>
+                <td style="text-align: right;">88</td>
+                <td class="formula-cell" data-target="=IF(C10>=60,"O'tdi","Yiqildi")" data-alt="=ЕСЛИ(C10>=60;"O'tdi";"Yiqildi")" data-val="O'tdi" data-cat="logika"></td>
+                <td class="formula-cell" data-target="=IF(AND(C10>=80,D10>=85),"Tavsiya etildi","Yo'q")" data-alt="=ЕСЛИ(И(C10>=80;D10>=85);"Tavsiya etildi";"Yo'q")" data-val="Tavsiya etildi" data-cat="logika"></td>
+                <td class="formula-cell" data-target="=IF(OR(C10>=90,D10>=95),"Mukofot","—")" data-alt="=ЕСЛИ(ИЛИ(C10>=90;D10>=95);"Mukofot";"—")" data-val="—" data-cat="logika"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card-title" style="font-size: 1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">📖 Formulalar tushuntirishi va qoidalari:</div>
+        <div class="table-container">
+          <table class="rules-table">
+            <thead>
+              <tr>
+                <th style="width: 160px;">Funksiya</th>
+                <th>Sintaksis (Namuna)</th>
+                <th>O'qituvchi o'qib beradigan qoidasi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>ЕСЛИ (IF)</strong></td>
+                <td><code class="cell-solved">=ЕСЛИ(C6&gt;=60; "O'tdi"; "Yiqildi")</code></td>
+                <td>Agar ball 60 dan katta yoki teng bo'lsa 'O'tdi', aks holda 'Yiqildi' chiqaradi.</td>
+              </tr>
+              <tr>
+                <td><strong>И (AND)</strong></td>
+                <td><code class="cell-solved">=ЕСЛИ(И(C6&gt;=80; D6&gt;=85); "Tavsiya etildi"; "Yo'q")</code></td>
+                <td>Ikkala shart ham bir vaqtda to'g'ri bo'lsagina ijobiy javob beradi.</td>
+              </tr>
+              <tr>
+                <td><strong>ИЛИ (OR)</strong></td>
+                <td><code class="cell-solved">=ЕСЛИ(ИЛИ(C6&gt;=90; D6&gt;=95); "Mukofot"; "—")</code></td>
+                <td>Shartlardan kamida bittasi to'g'ri bo'lsa kifoya.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 2. MATEMATICHESKIE ==================== -->
+    <div id="tab-matematika" class="tab-panel">
+      <div class="card">
+        <div class="card-header-bar">
+          <div>
+            <div class="card-title">2. MATEMATIK FUNKSIYALAR (МАТЕМАТИЧЕСКИЕ / MATH)</div>
+            <div class="card-subtitle">Mavzu: Hisob-kitob, shartli yig'indi va yaxlitlash (СУММ, СУММЕСЛИ, ОКРУГЛ)</div>
+          </div>
+          <div class="mode-switch">
+            <button class="mode-btn active" onclick="switchMode('matematika', 'practice', this)">✍️ O'quvchi rejimi</button>
+            <button class="mode-btn" onclick="switchMode('matematika', 'sample', this)">👁️ Namuna</button>
+          </div>
+        </div>
+
+        <div class="hint-box">
+          <span>💡 <strong>Vazifa:</strong> Jami summa uchun <code>=D6*E6</code>, yaxlitlash uchun <code>=ROUND(F6,-3)</code> yoki <code>=ОКРУГЛ(F6;-3)</code> yozing.</span>
+          <button class="btn-show-all-answers" onclick="autoFillSection('matematika')">Yechimni to'ldirish</button>
+        </div>
+
+        <div class="table-container">
+          <table id="table-matematika">
+            <thead>
+              <tr>
+                <th style="width: 40px; text-align: center;">№</th>
+                <th>Mahsulot</th>
+                <th style="text-align: center;">Kategoriya</th>
+                <th style="text-align: right;">Miqdor (D ustun)</th>
+                <th style="text-align: right;">Birlik narxi (E ustun)</th>
+                <th style="text-align: right;">Jami summa (F)</th>
+                <th style="text-align: right;">Yaxlitlangan (ming) (G)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Row 6 -->
+              <tr data-row="6">
+                <td style="text-align: center;">1</td>
+                <td><strong>Olma</strong></td>
+                <td style="text-align: center;"><span class="pill pill-info">Meva</span></td>
+                <td style="text-align: right;">12.5</td>
+                <td style="text-align: right;">14 250</td>
+                <td class="formula-cell" data-target="=D6*E6" data-alt="=D6*E6" data-val="178 125 so'm" data-cat="matematika"></td>
+                <td class="formula-cell" data-target="=ROUND(F6,-3)" data-alt="=ОКРУГЛ(F6;-3)" data-val="178 000 so'm" data-cat="matematika"></td>
+              </tr>
+              <!-- Row 7 -->
+              <tr data-row="7">
+                <td style="text-align: center;">2</td>
+                <td><strong>Sabzi</strong></td>
+                <td style="text-align: center;"><span class="pill pill-success">Sabzavot</span></td>
+                <td style="text-align: right;">35</td>
+                <td style="text-align: right;">4 800</td>
+                <td class="formula-cell" data-target="=D7*E7" data-alt="=D7*E7" data-val="168 000 so'm" data-cat="matematika"></td>
+                <td class="formula-cell" data-target="=ROUND(F7,-3)" data-alt="=ОКРУГЛ(F7;-3)" data-val="168 000 so'm" data-cat="matematika"></td>
+              </tr>
+              <!-- Row 8 -->
+              <tr data-row="8">
+                <td style="text-align: center;">3</td>
+                <td><strong>Banan</strong></td>
+                <td style="text-align: center;"><span class="pill pill-info">Meva</span></td>
+                <td style="text-align: right;">8.2</td>
+                <td style="text-align: right;">26 500</td>
+                <td class="formula-cell" data-target="=D8*E8" data-alt="=D8*E8" data-val="217 300 so'm" data-cat="matematika"></td>
+                <td class="formula-cell" data-target="=ROUND(F8,-3)" data-alt="=ОКРУГЛ(F8;-3)" data-val="217 000 so'm" data-cat="matematika"></td>
+              </tr>
+              <!-- Row 9 -->
+              <tr data-row="9">
+                <td style="text-align: center;">4</td>
+                <td><strong>Kartoshka</strong></td>
+                <td style="text-align: center;"><span class="pill pill-success">Sabzavot</span></td>
+                <td style="text-align: right;">50</td>
+                <td style="text-align: right;">5 200</td>
+                <td class="formula-cell" data-target="=D9*E9" data-alt="=D9*E9" data-val="260 000 so'm" data-cat="matematika"></td>
+                <td class="formula-cell" data-target="=ROUND(F9,-3)" data-alt="=ОКРУГЛ(F9;-3)" data-val="260 000 so'm" data-cat="matematika"></td>
+              </tr>
+              <!-- Row 10 -->
+              <tr data-row="10">
+                <td style="text-align: center;">5</td>
+                <td><strong>Uzum</strong></td>
+                <td style="text-align: center;"><span class="pill pill-info">Meva</span></td>
+                <td style="text-align: right;">15</td>
+                <td style="text-align: right;">18 750</td>
+                <td class="formula-cell" data-target="=D10*E10" data-alt="=D10*E10" data-val="281 250 so'm" data-cat="matematika"></td>
+                <td class="formula-cell" data-target="=ROUND(F10,-3)" data-alt="=ОКРУГЛ(F10;-3)" data-val="281 000 so'm" data-cat="matematika"></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <!-- Row 11: SUM -->
+              <tr style="background: #e2e8f0; font-weight: 700;">
+                <td colspan="5" style="text-align: right;">UMUMIY JAMI (СУММ / SUM):</td>
+                <td class="formula-cell" data-target="=SUM(F6:F10)" data-alt="=СУММ(F6:F10)" data-val="1 104 675 so'm" data-cat="matematika"></td>
+                <td>—</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+          <div style="font-weight: 700; margin-bottom: 0.75rem;">SHARTLI YIG'INDI (СУММЕСЛИ / SUMIF):</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem;">
+            <div style="background: white; border: 1px solid var(--border); padding: 0.85rem; border-radius: 8px;">
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem;">Faqat Mevalar summasi:</div>
+              <div class="formula-cell" data-target="=SUMIF(C6:C10,"Meva",F6:F10)" data-alt="=СУММЕСЛИ(C6:C10;"Meva";F6:F10)" data-val="676 675 so'm" data-cat="matematika"></div>
+            </div>
+            <div style="background: white; border: 1px solid var(--border); padding: 0.85rem; border-radius: 8px;">
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem;">Faqat Sabzavotlar summasi:</div>
+              <div class="formula-cell" data-target="=SUMIF(C6:C10,"Sabzavot",F6:F10)" data-alt="=СУММЕСЛИ(C6:C10;"Sabzavot";F6:F10)" data-val="428 000 so'm" data-cat="matematika"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 3. TEKSTOVYE ==================== -->
+    <div id="tab-matn" class="tab-panel">
+      <div class="card">
+        <div class="card-header-bar">
+          <div>
+            <div class="card-title">3. MATN FUNKSIYALARI (ТЕКСТОВЫЕ / TEXT)</div>
+            <div class="card-subtitle">Mavzu: So'zlarni birlashtirish, katta-kichik harflar va belgilar soni (СЦЕПИТЬ, ПРОПИСН, ДЛСТР)</div>
+          </div>
+          <div class="mode-switch">
+            <button class="mode-btn active" onclick="switchMode('matn', 'practice', this)">✍️ O'quvchi rejimi</button>
+            <button class="mode-btn" onclick="switchMode('matn', 'sample', this)">👁️ Namuna</button>
+          </div>
+        </div>
+
+        <div class="hint-box">
+          <span>💡 <strong>Vazifa:</strong> Birlashtirish uchun <code>=CONCAT(C6," ",D6)</code> yoki <code>=СЦЕП(C6;" ";D6)</code>, Katta harf: <code>=UPPER(E6)</code>, Uzunlik: <code>=LEN(D6)</code></span>
+          <button class="btn-show-all-answers" onclick="autoFillSection('matn')">Yechimni to'ldirish</button>
+        </div>
+
+        <div class="table-container">
+          <table id="table-matn">
+            <thead>
+              <tr>
+                <th style="width: 40px; text-align: center;">№</th>
+                <th>Familiya (C)</th>
+                <th>Ism (D)</th>
+                <th>To'liq F.I. (СЦЕП / CONCAT)</th>
+                <th>Katta harf (ПРОПИСН / UPPER)</th>
+                <th style="text-align: center;">Harflar soni (ДЛСТР / LEN)</th>
+                <th>Qisqartma (ЛЕВСИМВ / LEFT)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Row 6 -->
+              <tr data-row="6">
+                <td style="text-align: center;">1</td>
+                <td>Rasulov</td>
+                <td>Boburjon</td>
+                <td class="formula-cell" data-target="=CONCAT(C6," ",D6)" data-alt="=СЦЕП(C6;" ";D6)" data-val="Rasulov Boburjon" data-cat="matn"></td>
+                <td class="formula-cell" data-target="=UPPER(E6)" data-alt="=ПРОПИСН(E6)" data-val="RASULOV BOBURJON" data-cat="matn"></td>
+                <td class="formula-cell" data-target="=LEN(D6)" data-alt="=ДЛСТР(D6)" data-val="8" data-cat="matn"></td>
+                <td class="formula-cell" data-target="=CONCAT(C6," ",LEFT(D6,1),".")" data-alt="=СЦЕП(C6;" ";ЛЕВСИМВ(D6;1);".")" data-val="Rasulov B." data-cat="matn"></td>
+              </tr>
+              <!-- Row 7 -->
+              <tr data-row="7">
+                <td style="text-align: center;">2</td>
+                <td>Ahmedova</td>
+                <td>Ziyoda</td>
+                <td class="formula-cell" data-target="=CONCAT(C7," ",D7)" data-alt="=СЦЕП(C7;" ";D7)" data-val="Ahmedova Ziyoda" data-cat="matn"></td>
+                <td class="formula-cell" data-target="=UPPER(E7)" data-alt="=ПРОПИСН(E7)" data-val="AHMEDOVA ZIYODA" data-cat="matn"></td>
+                <td class="formula-cell" data-target="=LEN(D7)" data-alt="=ДЛСТР(D7)" data-val="6" data-cat="matn"></td>
+                <td class="formula-cell" data-target="=CONCAT(C7," ",LEFT(D7,1),".")" data-alt="=СЦЕП(C7;" ";ЛЕВСИМВ(D7;1);".")" data-val="Ahmedova Z." data-cat="matn"></td>
+              </tr>
+              <!-- Row 8 -->
+              <tr data-row="8">
+                <td style="text-align: center;">3</td>
+                <td>Qodirov</td>
+                <td>Farrux</td>
+                <td class="formula-cell" data-target="=CONCAT(C8," ",D8)" data-alt="=СЦЕП(C8;" ";D8)" data-val="Qodirov Farrux" data-cat="matn"></td>
+                <td class="formula-cell" data-target="=UPPER(E8)" data-alt="=ПРОПИСН(E8)" data-val="QODIROV FARRUX" data-cat="matn"></td>
+                <td class="formula-cell" data-target="=LEN(D8)" data-alt="=ДЛСТР(D8)" data-val="6" data-cat="matn"></td>
+                <td class="formula-cell" data-target="=CONCAT(C8," ",LEFT(D8,1),".")" data-alt="=СЦЕП(C8;" ";ЛЕВСИМВ(D8;1);".")" data-val="Qodirov F." data-cat="matn"></td>
+              </tr>
+              <!-- Row 9 -->
+              <tr data-row="9">
+                <td style="text-align: center;">4</td>
+                <td>Tursunov</td>
+                <td>Otabek</td>
+                <td class="formula-cell" data-target="=CONCAT(C9," ",D9)" data-alt="=СЦЕП(C9;" ";D9)" data-val="Tursunov Otabek" data-cat="matn"></td>
+                <td class="formula-cell" data-target="=UPPER(E9)" data-alt="=ПРОПИСН(E9)" data-val="TURSUNOV OTABEK" data-cat="matn"></td>
+                <td class="formula-cell" data-target="=LEN(D9)" data-alt="=ДЛСТР(D9)" data-val="6" data-cat="matn"></td>
+                <td class="formula-cell" data-target="=CONCAT(C9," ",LEFT(D9,1),".")" data-alt="=СЦЕП(C9;" ";ЛЕВСИМВ(D9;1);".")" data-val="Tursunov O." data-cat="matn"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 4. DATA I VREMYA ==================== -->
+    <div id="tab-sana" class="tab-panel">
+      <div class="card">
+        <div class="card-header-bar">
+          <div>
+            <div class="card-title">4. SANA VA VAQT FUNKSIYALARI (ДАТА И ВРЕМЯ / DATE & TIME)</div>
+            <div class="card-subtitle">Mavzu: Bugungi sana, sanalarni bo'laklarga ajratish va muddatni hisoblash</div>
+          </div>
+          <div class="mode-switch">
+            <button class="mode-btn active" onclick="switchMode('sana', 'practice', this)">✍️ O'quvchi rejimi</button>
+            <button class="mode-btn" onclick="switchMode('sana', 'sample', this)">👁️ Namuna</button>
+          </div>
+        </div>
+
+        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 0.85rem 1.25rem; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <strong>Bugungi joriy sana (=TODAY() / =СЕГОДНЯ()):</strong>
+            <span style="margin-left: 0.6rem; font-weight: 800; color: var(--primary-dark);" id="live-today-str">2026-10-04</span>
+          </div>
+          <code class="cell-solved">=TODAY()</code>
+        </div>
+
+        <div class="hint-box">
+          <span>💡 <strong>Vazifa:</strong> Yil: <code>=YEAR(D8)</code>, Oy: <code>=MONTH(D8)</code>, Kun: <code>=DAY(D8)</code>, Yoshi: <code>=YEAR(TODAY())-YEAR(D8)</code></span>
+          <button class="btn-show-all-answers" onclick="autoFillSection('sana')">Yechimni to'ldirish</button>
+        </div>
+
+        <div class="table-container">
+          <table id="table-sana">
+            <thead>
+              <tr>
+                <th style="width: 40px; text-align: center;">№</th>
+                <th>Xodim F.I.</th>
+                <th style="text-align: center;">Tug'ilgan sana (D)</th>
+                <th style="text-align: center;">Tug'ilgan yili (ГОД / YEAR)</th>
+                <th style="text-align: center;">Tug'ilgan oyi (МЕСЯЦ / MONTH)</th>
+                <th style="text-align: center;">Kuni (ДЕНЬ / DAY)</th>
+                <th style="text-align: center;">Yoshi (taxminiy)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Row 8 -->
+              <tr data-row="8">
+                <td style="text-align: center;">1</td>
+                <td><strong>Abdullayev Nodir</strong></td>
+                <td style="text-align: center;">1995-04-12</td>
+                <td class="formula-cell" data-target="=YEAR(D8)" data-alt="=ГОД(D8)" data-val="1995" data-cat="sana"></td>
+                <td class="formula-cell" data-target="=MONTH(D8)" data-alt="=МЕСЯЦ(D8)" data-val="4" data-cat="sana"></td>
+                <td class="formula-cell" data-target="=DAY(D8)" data-alt="=ДЕНЬ(D8)" data-val="12" data-cat="sana"></td>
+                <td class="formula-cell" data-target="=YEAR(TODAY())-YEAR(D8)" data-alt="=ГОД(СЕГОДНЯ())-ГОД(D8)" data-val="31 yosh" data-cat="sana"></td>
+              </tr>
+              <!-- Row 9 -->
+              <tr data-row="9">
+                <td style="text-align: center;">2</td>
+                <td><strong>Mirzayeva Gulnoza</strong></td>
+                <td style="text-align: center;">2002-08-25</td>
+                <td class="formula-cell" data-target="=YEAR(D9)" data-alt="=ГОД(D9)" data-val="2002" data-cat="sana"></td>
+                <td class="formula-cell" data-target="=MONTH(D9)" data-alt="=МЕСЯЦ(D9)" data-val="8" data-cat="sana"></td>
+                <td class="formula-cell" data-target="=DAY(D9)" data-alt="=ДЕНЬ(D9)" data-val="25" data-cat="sana"></td>
+                <td class="formula-cell" data-target="=YEAR(TODAY())-YEAR(D9)" data-alt="=ГОД(СЕГОДНЯ())-ГОД(D9)" data-val="24 yosh" data-cat="sana"></td>
+              </tr>
+              <!-- Row 10 -->
+              <tr data-row="10">
+                <td style="text-align: center;">3</td>
+                <td><strong>Karimov Dilshod</strong></td>
+                <td style="text-align: center;">1988-12-05</td>
+                <td class="formula-cell" data-target="=YEAR(D10)" data-alt="=ГОД(D10)" data-val="1988" data-cat="sana"></td>
+                <td class="formula-cell" data-target="=MONTH(D10)" data-alt="=МЕСЯЦ(D10)" data-val="12" data-cat="sana"></td>
+                <td class="formula-cell" data-target="=DAY(D10)" data-alt="=ДЕНЬ(D10)" data-val="5" data-cat="sana"></td>
+                <td class="formula-cell" data-target="=YEAR(TODAY())-YEAR(D10)" data-alt="=ГОД(СЕГОДНЯ())-ГОД(D10)" data-val="38 yosh" data-cat="sana"></td>
+              </tr>
+              <!-- Row 11 -->
+              <tr data-row="11">
+                <td style="text-align: center;">4</td>
+                <td><strong>Sobirova Laylo</strong></td>
+                <td style="text-align: center;">2005-02-18</td>
+                <td class="formula-cell" data-target="=YEAR(D11)" data-alt="=ГОД(D11)" data-val="2005" data-cat="sana"></td>
+                <td class="formula-cell" data-target="=MONTH(D11)" data-alt="=МЕСЯЦ(D11)" data-val="2" data-cat="sana"></td>
+                <td class="formula-cell" data-target="=DAY(D11)" data-alt="=ДЕНЬ(D11)" data-val="18" data-cat="sana"></td>
+                <td class="formula-cell" data-target="=YEAR(TODAY())-YEAR(D11)" data-alt="=ГОД(СЕГОДНЯ())-ГОД(D11)" data-val="21 yosh" data-cat="sana"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 5. SSYLKI I MASSIVY ==================== -->
+    <div id="tab-qidiruv" class="tab-panel">
+      <div class="card">
+        <div class="card-header-bar">
+          <div>
+            <div class="card-title">5. HAVOLA VA MASSIV FUNKSIYALARI (ССЫЛКИ И МАССИВЫ / LOOKUP)</div>
+            <div class="card-subtitle">Mavzu: Bazadan ID bo'yicha ma'lumot qidirish (ВПР / VLOOKUP)</div>
+          </div>
+          <div class="mode-switch">
+            <button class="mode-btn active" onclick="switchMode('qidiruv', 'practice', this)">✍️ O'quvchi rejimi</button>
+            <button class="mode-btn" onclick="switchMode('qidiruv', 'sample', this)">👁️ Namuna</button>
+          </div>
+        </div>
+
+        <div style="font-weight: 700; margin-bottom: 0.5rem;">ASOSIY BAZA JADVALI (A7:E10 diapazoni):</div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 80px; text-align: center;">ID Kod (A)</th>
+                <th>Xodim F.I. (B)</th>
+                <th>Bo'lim (C)</th>
+                <th>Lavozim (D)</th>
+                <th style="text-align: right;">Maosh (so'm) (E)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="text-align: center;"><strong>101</strong></td>
+                <td>Akromov Shoxrux</td>
+                <td><span class="pill pill-info">IT</span></td>
+                <td>Dasturchi</td>
+                <td style="text-align: right;">8 500 000</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;"><strong>102</strong></td>
+                <td>Botirova Nilufar</td>
+                <td><span class="pill pill-success">Buxgalteriya</span></td>
+                <td>Bosh hisobchi</td>
+                <td style="text-align: right;">7 000 000</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;"><strong>103</strong></td>
+                <td>Ergashev Jamshid</td>
+                <td><span class="pill pill-muted">Sotuv</span></td>
+                <td>Menejer</td>
+                <td style="text-align: right;">5 500 000</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;"><strong>104</strong></td>
+                <td>Yusupova Aziza</td>
+                <td><span class="pill pill-info">Kadrlar</span></td>
+                <td>HR mutaxassis</td>
+                <td style="text-align: right;">4 800 000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="hint-box">
+          <span>💡 <strong>Vazifa:</strong> B15 katagida ID kod <code>102</code> turibdi. Qidiruv formulasi: <code>=VLOOKUP(B15,A7:E10,2,FALSE)</code> yoki <code>=ВПР(B15;A7:E10;2;0)</code></span>
+          <button class="btn-show-all-answers" onclick="autoFillSection('qidiruv')">Yechimni to'ldirish</button>
+        </div>
+
+        <div class="table-container">
+          <table id="table-qidiruv" style="max-width: 700px;">
+            <thead>
+              <tr>
+                <th colspan="2">QIDIRUV PANELI (Qidirilayotgan ID = 102)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="width: 220px; font-weight: 700;">Topilgan Xodim (2-ustun):</td>
+                <td class="formula-cell" data-target="=VLOOKUP(B15,A7:E10,2,FALSE)" data-alt="=ВПР(B15;A7:E10;2;0)" data-val="Botirova Nilufar" data-cat="qidiruv"></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Bo'limi (3-ustun):</td>
+                <td class="formula-cell" data-target="=VLOOKUP(B15,A7:E10,3,FALSE)" data-alt="=ВПР(B15;A7:E10;3;0)" data-val="Buxgalteriya" data-cat="qidiruv"></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Lavozimi (4-ustun):</td>
+                <td class="formula-cell" data-target="=VLOOKUP(B15,A7:E10,4,FALSE)" data-alt="=ВПР(B15;A7:E10;4;0)" data-val="Bosh hisobchi" data-cat="qidiruv"></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Maoshi (5-ustun):</td>
+                <td class="formula-cell" data-target="=VLOOKUP(B15,A7:E10,5,FALSE)" data-alt="=ВПР(B15;A7:E10;5;0)" data-val="7 000 000 so'm" data-cat="qidiruv"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 6. STATISTICHESKIE ==================== -->
+    <div id="tab-statistika" class="tab-panel">
+      <div class="card">
+        <div class="card-header-bar">
+          <div>
+            <div class="card-title">6. STATISTIK FUNKSIYALAR (СТАТИСТИЧЕСКИЕ / STATISTICAL)</div>
+            <div class="card-subtitle">Mavzu: O'rtacha qiymat, maksimum, minimum va kataklarni sanash</div>
+          </div>
+          <div class="mode-switch">
+            <button class="mode-btn active" onclick="switchMode('statistika', 'practice', this)">✍️ O'quvchi rejimi</button>
+            <button class="mode-btn" onclick="switchMode('statistika', 'sample', this)">👁️ Namuna</button>
+          </div>
+        </div>
+
+        <div style="font-weight: 700; margin-bottom: 0.5rem;">TALABALAR BAZASI (C6:F11):</div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 40px; text-align: center;">№</th>
+                <th>Talaba F.I. (C ustun)</th>
+                <th style="text-align: right;">Imtihon bali (D ustun)</th>
+                <th style="text-align: center;">To'lov statusi (E ustun)</th>
+                <th style="text-align: center;">Guruh (F ustun)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="text-align: center;">1</td>
+                <td>Anvarov Bekzod</td>
+                <td style="text-align: right;">94</td>
+                <td style="text-align: center;"><span class="pill pill-success">To'langan</span></td>
+                <td style="text-align: center;">A-1</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">2</td>
+                <td>Qosimova Shahnoza</td>
+                <td style="text-align: right;">68</td>
+                <td style="text-align: center;"><span class="pill pill-success">To'langan</span></td>
+                <td style="text-align: center;">A-1</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">3</td>
+                <td>Rustamov Diyor</td>
+                <td style="text-align: right;">52</td>
+                <td style="text-align: center;"><span class="pill pill-danger">Qarzdor</span></td>
+                <td style="text-align: center;">A-2</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">4</td>
+                <td>Xoliqova Feruza</td>
+                <td style="text-align: right;">88</td>
+                <td style="text-align: center;"><span class="pill pill-success">To'langan</span></td>
+                <td style="text-align: center;">A-1</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">5</td>
+                <td>Ibrohimov Javohir</td>
+                <td style="text-align: right;">75</td>
+                <td style="text-align: center;"><span class="pill pill-success">To'langan</span></td>
+                <td style="text-align: center;">A-2</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">6</td>
+                <td>Nazarov Elyor</td>
+                <td style="text-align: right;">45</td>
+                <td style="text-align: center;"><span class="pill pill-danger">Qarzdor</span></td>
+                <td style="text-align: center;">A-2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="hint-box">
+          <span>💡 <strong>Vazifa:</strong> <code>=AVERAGE(D6:D11)</code>, <code>=MAX(D6:D11)</code>, <code>=MIN(D6:D11)</code>, <code>=COUNT(D6:D11)</code>, <code>=COUNTA(C6:C11)</code>, <code>=COUNTIF(E6:E11,"To'langan")</code></span>
+          <button class="btn-show-all-answers" onclick="autoFillSection('statistika')">Yechimni to'ldirish</button>
+        </div>
+
+        <div class="table-container">
+          <table id="table-statistika">
+            <thead>
+              <tr>
+                <th style="width: 450px;">Ko'rsatkich va Tahlil nomi</th>
+                <th>Siz kiritadigan Formula (yoki Namuna)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: 700;">O'rtacha ball (СРЗНАЧ / AVERAGE):</td>
+                <td class="formula-cell" data-target="=AVERAGE(D6:D11)" data-alt="=СРЗНАЧ(D6:D11)" data-val="70.3 ball" data-cat="statistika"></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Eng yuqori ball (МАКС / MAX):</td>
+                <td class="formula-cell" data-target="=MAX(D6:D11)" data-alt="=МАКС(D6:D11)" data-val="94 ball" data-cat="statistika"></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Eng past ball (МИН / MIN):</td>
+                <td class="formula-cell" data-target="=MIN(D6:D11)" data-alt="=МИН(D6:D11)" data-val="45 ball" data-cat="statistika"></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Imtihon topshirganlar soni (СЧЁТ / COUNT):</td>
+                <td class="formula-cell" data-target="=COUNT(D6:D11)" data-alt="=СЧЁТ(D6:D11)" data-val="6 nafar" data-cat="statistika"></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Jami ro'yxatdagilar soni (СЧЁТЗ / COUNTA):</td>
+                <td class="formula-cell" data-target="=COUNTA(C6:C11)" data-alt="=СЧЁТЗ(C6:C11)" data-val="6 nafar" data-cat="statistika"></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">To'lov qilganlar soni (СЧЁТЕСЛИ / COUNTIF):</td>
+                <td class="formula-cell" data-target="=COUNTIF(E6:E11,"To'langan")" data-alt="=СЧЁТЕСЛИ(E6:E11;"To'langan")" data-val="4 nafar" data-cat="statistika"></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">A-1 guruhidagi talabalar soni (СЧЁТЕСЛИ / COUNTIF):</td>
+                <td class="formula-cell" data-target="=COUNTIF(F6:F11,"A-1")" data-alt="=СЧЁТЕСЛИ(F6:F11;"A-1")" data-val="3 nafar" data-cat="statistika"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // Tab switching
+    function openTab(tabId, btn) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+      if (btn) btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Normalizing formulas for comparison (removes spaces, ignores case, handles ; vs ,)
+    function normalizeFormula(str) {
+      if (!str) return '';
+      return str.trim()
+                .toUpperCase()
+                .replace(/\s+/g, '')
+                .replace(/;/g, ',')
+                .replace(/['’]/g, "'");
+    }
+
+    // Checking if user input matches target or alternative formula (or direct value)
+    function isCorrectFormula(userVal, target, alt, val) {
+      const u = normalizeFormula(userVal);
+      const t = normalizeFormula(target);
+      const a = normalizeFormula(alt);
+      const v = normalizeFormula(val);
+      if (!u) return false;
+      return (u === t || u === a || u === v || u.replace(/^=/, '') === t.replace(/^=/, ''));
+    }
+
+    // Switch between Practice (O'quvchi rejimi) and Sample (Namuna)
+    const currentModes = {
+      logika: 'practice',
+      matematika: 'practice',
+      matn: 'practice',
+      sana: 'practice',
+      qidiruv: 'practice',
+      statistika: 'practice'
+    };
+
+    function switchMode(cat, mode, btn) {
+      currentModes[cat] = mode;
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      renderCategoryCells(cat);
+    }
+
+    function renderCategoryCells(cat) {
+      const cells = document.querySelectorAll(`.formula-cell[data-cat="${cat}"]`);
+      const mode = currentModes[cat];
+
+      cells.forEach(cell => {
+        const target = cell.getAttribute('data-target');
+        const alt = cell.getAttribute('data-alt');
+        const val = cell.getAttribute('data-val');
+
+        if (mode === 'sample') {
+          // Namuna rejimida: To'g'ri formulani va natijani ko'rsatish
+          cell.innerHTML = `
+            <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+              <code class="cell-solved">${alt}</code>
+              <span class="cell-val" style="color: var(--primary-dark); font-size: 0.85rem;">Natija: <strong>${val}</strong></span>
+            </div>
+          `;
+        } else {
+          // Amaliyot rejimida: Input katakcha
+          const prevVal = cell.dataset.userValue || '';
+          const isCorrect = isCorrectFormula(prevVal, target, alt, val);
+          
+          cell.innerHTML = `
+            <div class="f-input-wrapper">
+              <input type="text" class="formula-type-input ${isCorrect ? 'correct' : (prevVal ? 'wrong' : '')}" 
+                     placeholder="=formula kiriting..." 
+                     value="${prevVal}"
+                     onkeydown="handleKey(event, this)"
+                     onblur="validateCell(this)">
+              <span class="feedback-icon" style="display: ${prevVal ? 'inline' : 'none'};">
+                ${isCorrect ? '✅' : '❌'}
+              </span>
+            </div>
+          `;
+        }
+      });
+      updateScore();
+    }
+
+    function validateCell(input) {
+      const wrapper = input.parentElement;
+      const cell = wrapper.parentElement;
+      const userVal = input.value.trim();
+      cell.dataset.userValue = userVal;
+
+      const target = cell.getAttribute('data-target');
+      const alt = cell.getAttribute('data-alt');
+      const val = cell.getAttribute('data-val');
+      const icon = wrapper.querySelector('.feedback-icon');
+
+      if (!userVal) {
+        input.className = 'formula-type-input';
+        icon.style.display = 'none';
+      } else if (isCorrectFormula(userVal, target, alt, val)) {
+        input.className = 'formula-type-input correct';
+        icon.innerHTML = '✅';
+        icon.style.display = 'inline';
+      } else {
+        input.className = 'formula-type-input wrong';
+        icon.innerHTML = '❌';
+        icon.style.display = 'inline';
+      }
+      updateScore();
+    }
+
+    function handleKey(e, input) {
+      if (e.key === 'Enter') {
+        input.blur();
+      }
+    }
+
+    function autoFillSection(cat) {
+      const cells = document.querySelectorAll(`.formula-cell[data-cat="${cat}"]`);
+      cells.forEach(cell => {
+        const alt = cell.getAttribute('data-alt');
+        cell.dataset.userValue = alt;
+      });
+      renderCategoryCells(cat);
+    }
+
+    function updateScore() {
+      const allCells = document.querySelectorAll('.formula-cell');
+      let correct = 0;
+      allCells.forEach(cell => {
+        const u = cell.dataset.userValue || '';
+        const t = cell.getAttribute('data-target');
+        const a = cell.getAttribute('data-alt');
+        const v = cell.getAttribute('data-val');
+        if (isCorrectFormula(u, t, a, v)) {
+          correct++;
+        }
+      });
+      const total = allCells.length;
+      const pct = Math.round((correct / total) * 100);
+
+      document.getElementById('correct-count').textContent = `${correct} / ${total}`;
+      document.getElementById('total-score').textContent = `${pct} %`;
+    }
+
+    // Init on load
+    window.addEventListener('DOMContentLoaded', () => {
+      ['logika', 'matematika', 'matn', 'sana', 'qidiruv', 'statistika'].forEach(cat => {
+        renderCategoryCells(cat);
+      });
+    });
+  </script>
+</body>
+</html>

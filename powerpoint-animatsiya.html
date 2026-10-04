@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PowerPoint: «Анимация» (Animations) Menyusi — To'liq Qo'llanma va Amaliyot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #c43e1c;       /* PowerPoint qizil-to'q sariq */
+      --primary-dark: #831843;
+      --primary-light: #fff1ed;
+      --accent-blue: #0284c7;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --success: #10b981;
+      --radius: 14px;
+      --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 80px;
+    }
+
+    /* TOP HEADER */
+    header {
+      background: #431407;
+      color: white;
+      padding: 0.9rem 1.75rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .brand-icon-box {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #ea580c 0%, #c43e1c 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      box-shadow: 0 2px 6px rgba(196, 62, 28, 0.4);
+    }
+
+    .header-tag-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .header-tag {
+      background: #7c2d12;
+      color: #ffedd5;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .header-version {
+      font-size: 0.72rem;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+
+    .header-main-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .progress-widget {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.2rem;
+    }
+
+    .progress-label-row {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #fed7aa;
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .progress-val-text {
+      color: #fb923c;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .progress-bar-bg {
+      width: 140px;
+      height: 6px;
+      background: #270c04;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #ea580c, #fb923c);
+      transition: width 0.3s ease;
+      border-radius: 999px;
+    }
+
+    .score-badge {
+      background: #7c2d12;
+      border: 1px solid #c43e1c;
+      padding: 0.35rem 0.85rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .score-badge-lbl {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #ffedd5;
+      text-transform: uppercase;
+    }
+
+    .score-badge-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    /* NAVIGATION TABS */
+    .nav-bar {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 61px;
+      z-index: 90;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.4rem;
+      padding: 0.45rem 1.75rem 0;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .nav-tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.75rem 1.1rem;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .nav-tab-btn:hover {
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .nav-tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background: var(--primary-light);
+      font-weight: 700;
+    }
+
+    .nav-tab-badge {
+      font-size: 0.7rem;
+      background: #e2e8f0;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      color: #475569;
+      font-weight: 700;
+    }
+
+    .nav-tab-btn.active .nav-tab-badge {
+      background: #fed7aa;
+      color: #7c2d12;
+    }
+
+    /* MAIN CONTAINER */
+    main {
+      max-width: 1400px;
+      margin: 1.75rem auto;
+      padding: 0 1.75rem;
+    }
+
+    .tab-content-panel {
+      display: none;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    .tab-content-panel.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HERO BANNER CARD */
+    .hero-banner {
+      background: linear-gradient(135deg, #431407 0%, #7c2d12 50%, #1e1b4b 100%);
+      color: white;
+      border-radius: var(--radius);
+      padding: 2.2rem 2.2rem 2rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #7c2d12;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(234, 88, 12, 0.25);
+      border: 1px solid rgba(251, 146, 60, 0.4);
+      color: #fed7aa;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.85rem;
+      line-height: 1.3;
+      max-width: 1050px;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    /* 4-COLUMN CARDS GRID */
+    .tools-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+
+    @media (max-width: 1100px) {
+      .tools-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 650px) {
+      .tools-grid-4 { grid-template-columns: 1fr; }
+    }
+
+    .tool-col-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.35rem 1.2rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      position: relative;
+      border-top: 4px solid var(--primary);
+    }
+
+    .tool-col-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-top-color: #ea580c;
+    }
+
+    .tool-icon-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .tool-heading {
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .tool-sub-cmds {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: #ea580c;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .tool-summary {
+      font-size: 0.84rem;
+      color: #475569;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .tool-features-list {
+      list-style: none;
+      font-size: 0.8rem;
+      color: #334155;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .tool-features-list li {
+      position: relative;
+      padding-left: 1rem;
+      line-height: 1.4;
+    }
+
+    .tool-features-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    /* CARD CONTAINER */
+    .card-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .box-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .box-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .box-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* RAW DATA BANNER */
+    .raw-banner {
+      background: #0f172a;
+      border-radius: var(--radius);
+      padding: 1.35rem 1.5rem;
+      color: white;
+      margin-bottom: 1.5rem;
+      border: 1px solid #334155;
+    }
+
+    .raw-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .raw-title-txt {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fed7aa;
+    }
+
+    .btn-copy-code {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.45rem 0.95rem;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+
+    .btn-copy-code:hover { background: #9a2b0e; }
+
+    pre.code-box {
+      background: #020617;
+      border: 1px solid #1e293b;
+      padding: 0.9rem 1.1rem;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      overflow-x: auto;
+      color: #e2e8f0;
+    }
+
+    /* CHECKLIST TASKS */
+    .task-row {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .task-row:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .task-row.done {
+      background: var(--primary-light);
+      border-color: #fdba74;
+    }
+
+    .task-checkbox-input {
+      width: 20px;
+      height: 20px;
+      margin-top: 0.25rem;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .task-body { flex: 1; }
+
+    .task-head-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.35rem;
+    }
+
+    .task-name-text {
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .task-score-pill {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #7c2d12;
+      background: #ffedd5;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid #fed7aa;
+    }
+
+    .task-inst-text {
+      font-size: 0.88rem;
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    .task-tech-path {
+      display: inline-block;
+      margin-top: 0.45rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      border: 1px solid #bfdbfe;
+    }
+
+    /* TABLES (Shortcuts & Rubric) */
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .styled-table th {
+      background: #1e293b;
+      color: white;
+      padding: 0.8rem 1rem;
+      font-weight: 700;
+      border: 1px solid #334155;
+    }
+
+    .styled-table td {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+    }
+
+    .styled-table tr:nth-child(even) td { background: #f8fafc; }
+
+    .shortcut-code {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--primary-light);
+      color: #7c2d12;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #fed7aa;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="header-left">
+        <div class="brand-icon-box">✨</div>
+        <div>
+          <div class="header-tag-row">
+            <span class="header-tag">OBYEKTLAR HARAKATI VA INTERFAOL DINAMIKA</span>
+            <span class="header-version">PowerPoint 2016–2024 / Microsoft 365</span>
+          </div>
+          <div class="header-main-title">«Анимация» (Animations) Menyusi: Kengaytirilgan Qo‘llanma va Amaliyot</div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="progress-widget">
+          <div class="progress-label-row">
+            <span>Bajarilgan buyruqlar:</span>
+            <span class="progress-val-text" id="prog-pct">0%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="prog-bar"></div>
+          </div>
+        </div>
+
+        <div class="score-badge">
+          <span class="score-badge-lbl">BALL</span>
+          <span class="score-badge-val" id="score-val">0 / 100</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION TABS -->
+  <nav class="nav-bar">
+    <div class="nav-inner">
+      <button class="nav-tab-btn active" onclick="switchMainTab('nazariya', this)">
+        <span>📊 I. Nazariy Sharh («Анимация» Barcha Asboblari)</span>
+      </button>
+      <button class="nav-tab-btn" onclick="switchMainTab('amaliyot', this)">
+        <span>📝 II. Qadamma-qadam Amaliyot (10 ta Buyruq)</span>
+        <span class="nav-tab-badge" id="tasks-badge">0 / 10</span>
+      </button>
+      <button class="nav-tab-btn" onclick="switchMainTab('shortcuts', this)">
+        <span>⚡ III. Qaynoq Tugmalar & Lifehacklar</span>
+      </button>
+      <button class="nav-tab-btn" onclick="switchMainTab('rubrika', this)">
+        <span>🎯 IV. Baholash Mezoni (100 Ball)</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN AREA -->
+  <main>
+
+    <!-- ==================== 1. NAZARIY SHARH ==================== -->
+    <div id="tab-nazariya" class="tab-content-panel active">
+      
+      <!-- HERO BANNER -->
+      <div class="hero-banner">
+        <div class="hero-tag">✨ Slayd Ichidagi Harakatlantirish San'ati</div>
+        <div class="hero-title">PowerPoint «Анимация» (Animations) Menyusidagi Har Bir Asbob Nima Uchun Xizmat Qiladi?</div>
+        <div class="hero-desc">
+          «Анимация» menyusi slayddagi alohida elementlarni — matnlar, kartochkalar, grafiklar va rasmlarni tiriltirish markazidir. Slaydlar almashinuvidan farqli o'laroq, bu yerda 4 toifadagi harakatlar (<strong>Вход, Выделение, Выход, Пути перемещения</strong>), <strong>Область анимации (Vaqt shkalasi)</strong>, ketma-ketlik parametrlari, <strong>Триггерlar (Interaktiv tugmalar)</strong> va animatsiya nusxasini olish (Анимация по образцу) boshqariladi.
+        </div>
+      </div>
+
+      <!-- 4-COLUMN CARDS GRID (1-QATOR) -->
+      <div class="tools-grid-4">
+        
+        <!-- Card 1 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🟢</div>
+            <div class="tool-heading">1. Вход (Yashil Animatsiyalar)</div>
+            <div class="tool-sub-cmds">Вход • Появление • Вылет • Плавное</div>
+            <div class="tool-summary">
+              Obyektning dastlab ekranda yo'q bo'lib, kerakli vaqtda paydo bo'lishini ta'minlovchi eng ko'p qo'llaniladigan guruh.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Вылет (Fly In):</strong> Pastdan yoki chetdan ravon uchib kirish.</li>
+            <li><strong>Выцветание:</strong> Ekranda asta-sekin yorishib paydo bo'lish.</li>
+          </ul>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🟡</div>
+            <div class="tool-heading">2. Выделение (Sariq / Urg'u)</div>
+            <div class="tool-sub-cmds">Выделение • Пульсация • Вращение</div>
+            <div class="tool-summary">
+              Slaydda mavjud bo'lgan obyektga auditoriya e'tiborini qaratish: kattalashish, titrash, rangini o'zgartirish yoki 360° aylanish.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Kattalashish (Изменение размера):</strong> Asosiy raqamga diqqat qaratish.</li>
+            <li><strong>Rang o'zgarishi:</strong> To'lov yoki tugma bosilgandek tasavvur berish.</li>
+          </ul>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🔴</div>
+            <div class="tool-heading">3. Выход (Qizil Animatsiyalar)</div>
+            <div class="tool-sub-cmds">Выход • Исчезновение • Вылет за край</div>
+            <div class="tool-summary">
+              Obyekt o'z vazifasini bajarib bo'lgach, slayd maydonini bo'shatish uchun ko'zdan g'oyib bo'lish yoki chetga chiqib ketish harakati.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Tartib:</strong> Eski matn ketib, o'rniga yangisi kelishi uchun.</li>
+            <li><strong>Tozalash:</strong> Slayd chalkash bo'lib ketmasligini ta'minlaydi.</li>
+          </ul>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🚀</div>
+            <div class="tool-heading">4. Пути перемещения (Trassalar)</div>
+            <div class="tool-sub-cmds">Траектории • Линии • Дуги • Пользовательский</div>
+            <div class="tool-summary">
+              Obyektni slayd bo'ylab A nuqtadan B nuqtaga aniq chiziq yoki egri trassa bo'ylab yurib borishini ta'minlovchi vektor yo'nalishlar.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Logistika marshruti:</strong> Yuk mashinasi yoki samolyotning xaritada yurishi.</li>
+            <li><strong>Qo'lda chizish:</strong> Foydalanuvchi xohlagan ixtiyoriy trayektoriya.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- 4-COLUMN CARDS GRID (2-QATOR) -->
+      <div class="tools-grid-4">
+        
+        <!-- Card 5 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🎞️</div>
+            <div class="tool-heading">5. Область анимации (Vaqt Shkalasi)</div>
+            <div class="tool-sub-cmds">Animation Pane • Vaqt tasmasi • Tartib</div>
+            <div class="tool-summary">
+              Professional montaj paneli. Slayddagi barcha animatsiyalar ro'yxati, ularning ketma-ketligi va davomiyligi sekundlarda ko'rinadi.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Tartibni o'zgartirish:</strong> Obyektlarni sichqoncha bilan yuqori/pastga surish.</li>
+            <li><strong>Batafsil sozlash:</strong> Har bir effektning ichki parametrlariga kirish.</li>
+          </ul>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">⚡</div>
+            <div class="tool-heading">6. Начало (Start Shartlari)</div>
+            <div class="tool-sub-cmds">По щелчку • С предыдущим • После предыдущего</div>
+            <div class="tool-summary">
+              Animatsiya qachon boshlanishi: bosganda (По щелчку), boshqa element bilan bir vaqtda (С предыдущим) yoki ketma-ket avtomat (После предыдущего).
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Kaskad effekti:</strong> Kartochkalar navbati bilan 0.2 soniyada tushishi.</li>
+            <li><strong>Kliksiz taqdimot:</strong> Bitta slayd ichida o'zi ijro etiladigan sahna.</li>
+          </ul>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🎯</div>
+            <div class="tool-heading">7. Триггер (Interaktiv Tugmalar)</div>
+            <div class="tool-sub-cmds">Триггер • По щелчку на фигуру</div>
+            <div class="tool-summary">
+              Animatsiyaning aynan ma'lum bir tugma yoki shakl ustiga bosilgandagina ishga tushishini ta'minlovchi dasturlashdek aniq vosita.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>Interaktiv testlar:</strong> To'g'ri javob bosilganda yashil ramka chiqishi.</li>
+            <li><strong>Savol-javob (FAQ):</strong> Savol ustiga bosganda javobning ochilishi.</li>
+          </ul>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="tool-col-card">
+          <div>
+            <div class="tool-icon-circle">🖌️</div>
+            <div class="tool-heading">8. Анимация по образцу</div>
+            <div class="tool-sub-cmds">Animation Painter • Nusxa olish</div>
+            <div class="tool-summary">
+              Bitta obyektga o'rnatilgan murakkab animatsiyani (turi, vaqti, kechikishi) nusxalab olib, bitta klikda ikkinchi obyektga o'tkazish cho'tkasi.
+            </div>
+          </div>
+          <ul class="tool-features-list">
+            <li><strong>2 marta klik:</strong> Ketma-ket 10 ta kartochkaga bir xil harakat berish.</li>
+            <li><strong>Vaqtni tejash:</strong> Har bir elementni noldan sozlab o'tirmaysiz.</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ==================== 2. AMALIYOT (10 TA BUYRUQ) ==================== -->
+    <div id="tab-amaliyot" class="tab-content-panel">
+      
+      <!-- RAW DATA BANNER -->
+      <div class="raw-banner">
+        <div class="raw-top-bar">
+          <div class="raw-title-txt">📋 AMALIY MASHG'ULOT UCHUN XOM MATN (Bir klikda nusxalab oling)</div>
+          <button class="btn-copy-code" onclick="copyDataText()">
+            <span>📋</span> <span id="copy-btn-label">Nusxalash (Copy)</span>
+          </button>
+        </div>
+        <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.6rem;">Animatsiya ketma-ketligi va kaskadli paydo bo'lish uchun xom kartochkalar matnlari:</div>
+        <pre class="code-box" id="raw-data-pre">Sarlavha: LOGISTIK KO'RSATKICHLAR DINAMIKASI
+
+1-Kartochka (KPI 1):
+Yetkazib berish tezligi: +40%
+Tizim to'liq avtomatlashtirilgan.
+
+2-Kartochka (KPI 2):
+Yoqilg'i tejamkorligi: 28%
+Optimal AI marshrutlash orqali.
+
+3-Kartochka (KPI 3):
+Mijozlar mamnuniyati: 99.4%
+24/7 jonli dispetcherlik nazorati.
+
+Tugma matni: «NATIJALARNI YANGILASH»</pre>
+      </div>
+
+      <!-- CHECKLIST -->
+      <div class="card-box">
+        <div class="box-header-row">
+          <div>
+            <div class="box-title">Qadamma-qadam Amaliy Buyruqlar Checklisti</div>
+            <div class="box-subtitle">Hech qanday afsonasiz — faqat aniq menyu, tugma va parametrlar ketma-ketligi (10 ta qadam):</div>
+          </div>
+        </div>
+
+        <!-- Task 1 -->
+        <div class="task-row" id="t-1">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(1, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">1-Qadam: Sarlavhaga «Выцветание» (Fade) kirish animatsiyasini berish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">Slayddagi asosiy sarlavha qutisini tanlang. <strong>«Анимация»</strong> menyusidagi galereyadan yashil rangli <strong>«Выцветание»</strong> (Fade) effektini belgilang.</div>
+            <div class="task-tech-path">Menyu: Анимация ➔ Анимация (Вход) ➔ Выцветание</div>
+          </div>
+        </div>
+
+        <!-- Task 2 -->
+        <div class="task-row" id="t-2">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(2, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">2-Qadam: «Область анимации» (Animation Pane) panelini yoqish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text"><strong>«Расширенная анимация»</strong> blokidagi <strong>«Область анимации»</strong> tugmasini bosing. O'ng tomonda barcha effektlar ro'yxati va vaqt tasmalarini ko'rsatuvchi panel ochilishi kerak.</div>
+            <div class="task-tech-path">Menyu: Анимация ➔ Расширенная анимация ➔ Область анимации</div>
+          </div>
+        </div>
+
+        <!-- Task 3 -->
+        <div class="task-row" id="t-3">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(3, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">3-Qadam: 1-kartochkaga «Вылет» (Fly In) animatsiyasini biriktirish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">1-kartochkani (KPI 1) tanlang. Animatsiyalar galereyasidan <strong>«Вылет»</strong> (Fly In) effektini tanlang. <strong>«Параметры эффектов»</strong> tugmasiga kirib, yo'nalishini <strong>«Снизу»</strong> (Pastdan) qilib belgilang.</div>
+            <div class="task-tech-path">Menyu: Анимация ➔ Вылет ➔ Параметры эффектов ➔ Снизу</div>
+          </div>
+        </div>
+
+        <!-- Task 4 -->
+        <div class="task-row" id="t-4">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(4, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">4-Qadam: 1-kartochka tezligini (Длительность) 00.75 sekundga sozlash</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">O'ng tarafdagi <strong>«Время показа»</strong> blokida <strong>«Длительность»</strong> parametrini <strong>00.75</strong> sekund qilib belgilang, <em>«Начало»</em> bandiga <strong>«После предыдущего»</strong> parametrini qo'ying.</div>
+            <div class="task-tech-path">Menyu: Анимация ➔ Начало: После предыдущего ➔ Длительность: 00.75</div>
+          </div>
+        </div>
+
+        <!-- Task 5 -->
+        <div class="task-row" id="t-5">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(5, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">5-Qadam: «Анимация по образцу» orqali harakatni 2 va 3-kartochkaga nusxalash</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">1-kartochka tanlangan holatda <strong>«Анимация по образцу»</strong> (Animation Painter) tugmasini 2 marta bosing. Keyin navbati bilan 2-kartochka va 3-kartochka ustiga bosing. Har uchala kartochka bir xil animatsiyaga ega bo'ladi.</div>
+            <div class="task-tech-path">Menyu: Анимация ➔ Анимация по образцу ➔ 2 va 3-kartochkalarga bosish</div>
+          </div>
+        </div>
+
+        <!-- Task 6 -->
+        <div class="task-row" id="t-6">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(6, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">6-Qadam: Kaskadli paydo bo'lish (Задержка: 00.25 sek) yaratish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">2-kartochkani tanlab, uning <strong>«Задержка»</strong> (Delay / Kechikish) vaqtini <strong>00.25</strong> soniya qiling. 3-kartochkani tanlab, kechikish vaqtini <strong>00.50</strong> soniya qiling. Endi ular navbatma-navbat zanjirdek tushadi.</div>
+            <div class="task-tech-path">Menyu: 2-kartochka: Задержка 00.25 | 3-kartochka: Задержка 00.50</div>
+          </div>
+        </div>
+
+        <!-- Task 7 -->
+        <div class="task-row" id="t-7">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(7, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">7-Qadam: Ikkinchi animatsiya qo'shish («Добавить анимацию»)</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">1-kartochkani belgilang. Oddiy galereyadan emas, aynan <strong>«Добавить анимацию»</strong> (Add Animation) tugmasini bosing va sariq rangli <strong>«Пульсация»</strong> (Pulse / Urg'u) effektini qo'shing.</div>
+            <div class="task-tech-path">Menyu: Анимация ➔ Добавить анимацию ➔ Выделение: Пульсация</div>
+          </div>
+        </div>
+
+        <!-- Task 8 -->
+        <div class="task-row" id="t-8">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(8, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">8-Qadam: Slaydga interaktiv tugma (Кнопка) joylashtirish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">Slaydning pastki qismiga to'g'ri to'rtburchak chizib, ichiga <em>«NATIJALARNI YANGILASH»</em> deb yozing. Bu shakl keyingi qadamda interaktiv boshqaruvchi (Triger) vazifasini bajaradi.</div>
+            <div class="task-tech-path">Amal: Slaydga «NATIJALARNI YANGILASH» tugmachasini chizing</div>
+          </div>
+        </div>
+
+        <!-- Task 9 -->
+        <div class="task-row" id="t-9">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(9, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">9-Qadam: Animatsiyaga «Триггер» (Trigger) o'rnatish</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">«Область анимации» panelidagi 7-qadamda qo'shilgan sariq «Пульсация» effektini tanlang. <strong>«Триггер»</strong> tugmasini bosing ➔ <strong>«По щелчку»</strong> bandidan chizilgan <em>«NATIJALARNI YANGILASH»</em> tugmasini tanlang.</div>
+            <div class="task-tech-path">Menyu: Анимация ➔ Триггер ➔ По щелчку ➔ «NATIJALARNI YANGILASH» tugmasi</div>
+          </div>
+        </div>
+
+        <!-- Task 10 -->
+        <div class="task-row" id="t-10">
+          <input type="checkbox" class="task-checkbox-input" onchange="checkTask(10, 10)">
+          <div class="task-body">
+            <div class="task-head-line">
+              <span class="task-name-text">10-Qadam: Jonli rejimda tekshirish (Shift + F5)</span>
+              <span class="task-score-pill">10 ball</span>
+            </div>
+            <div class="task-inst-text">Klaviaturadan <strong>Shift + F5</strong> bosing. Sarlavha va 3 ta kartochka avtomatik navbat bilan uchib kirishini ko'ring. So'ng pastdagi tugmani bosing va faqat tugma bosilganda 1-kartochka pulsatsiya bo'layotganini (Triger ishlashini) tekshiring.</div>
+            <div class="task-tech-path">Klaviaturada: Shift + F5 ➔ Kaskad va Triger harakatini to'liq tekshirish</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ==================== 3. QAYNOQ TUGMALAR ==================== -->
+    <div id="tab-shortcuts" class="tab-content-panel">
+      <div class="card-box">
+        <div class="box-header-row">
+          <div>
+            <div class="box-title">⚡ «Анимация» Menyusining Eng Zaruriy Qaynoq Tugmalari</div>
+            <div class="box-subtitle">Animatsiyalarni tezkor sozlash va sahnada tekshirish kombinatsiyalari:</div>
+          </div>
+        </div>
+
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th style="width: 200px;">Qaynoq Tugma</th>
+              <th>Amal / Funksiya</th>
+              <th>Darsdagi amaliy vazifasi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="shortcut-code">Alt + A</span></td>
+              <td><strong>«Анимация» menyusiga o'tish</strong></td>
+              <td>Klaviaturada bitta bosishda Animatsiya boshqaruv paneliga kirish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Alt + Shift + C</span></td>
+              <td><strong>Анимация по образцу (Painter)</strong></td>
+              <td>Tanlangan shaklning barcha animatsiya parametrlarini nusxalash.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Shift + F5</span></td>
+              <td><strong>Joriy slaydda ko'rish</strong></td>
+              <td>Yaratilgan murakkab animatsiyani darhol katta ekranda predprosmotr qilish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Space (Probel)</span></td>
+              <td><strong>Keyingi animatsiyaga o'tish</strong></td>
+              <td>Namoyish paytida sichqonchasiz keyingi qadamni yoqish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Backspace / &larr;</span></td>
+              <td><strong>Oldingi animatsiyaga qaytish</strong></td>
+              <td>Adashib o'tib ketilgan animatsiyani ortga qaytarish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Delete</span></td>
+              <td><strong>Animatsiyani o'chirish</strong></td>
+              <td>«Область анимации» da tanlangan ortiqcha harakatni olib tashlash.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">F5</span></td>
+              <td><strong>Boshidan to'liq ko'rish</strong></td>
+              <td>Prezentatsiyani boshidan boshlab barcha harakatlarni tekshirish.</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-code">Esc</span></td>
+              <td><strong>Namoyishdan chiqish</strong></td>
+              <td>To'liq ekrandan tahrir oynasiga qaytish.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================== 4. BAHOLASH MEZONI ==================== -->
+    <div id="tab-rubrika" class="tab-content-panel">
+      <div class="card-box">
+        <div class="box-header-row">
+          <div>
+            <div class="box-title">🎯 100 Ballik Baholash Rubrikasi (O'qituvchi Uchun)</div>
+            <div class="box-subtitle">«Анимация» menyusi amaliyoti bo'yicha o'quvchilarni tekshirish mezonlari:</div>
+          </div>
+        </div>
+
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th style="width: 70px; text-align: center;">Qadam</th>
+              <th>Tekshiriladigan Texnik Ko'nikma</th>
+              <th style="width: 150px; text-align: center;">Maksimal Ball</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: center;"><strong>1</strong></td>
+              <td>Sarlavhaga «Выцветание» (Вход) animatsiyasining to'g'ri berilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>2</strong></td>
+              <td>«Область анимации» (Animation Pane) vaqt panelining yoqilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>3</strong></td>
+              <td>1-kartochkaga «Вылет» (Pastdan) kirish harakatining o'rnatilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>4</strong></td>
+              <td>Tezlikning 00.75 sek va «После предыдущего» ga to'g'ri sozlanishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>5</strong></td>
+              <td>«Анимация по образцу» yordamida qolgan 2 ta kartochkaga nusxalash</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>6</strong></td>
+              <td>Kaskadli kechikish (Задержка: 0.25 sek va 0.50 sek) vaqtlarining berilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>7</strong></td>
+              <td>«Добавить анимацию» orqali 2-animatsiya sifatida «Пульсация» qo'shilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>8</strong></td>
+              <td>Slaydga boshqaruvchi interaktiv tugmaning to'g'ri chizilishi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>9</strong></td>
+              <td>«Триггер» buyrug'i orqali animatsiyani tugmaga qat'iy biriktirish</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><strong>10</strong></td>
+              <td>Shift + F5 orqali to'liq ekranda kaskad va Trigerning to'g'ri ishlashi</td>
+              <td style="text-align: center; font-weight: 700; color: var(--primary);">10 ball</td>
+            </tr>
+            <tr style="background: var(--primary-light); font-weight: 800;">
+              <td colspan="2" style="text-align: right; color: #7c2d12;">JAMI MAKSIMAL NATIJA:</td>
+              <td style="text-align: center; color: var(--primary); font-size: 1.05rem;">100 BALL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    let score = 0;
+    let doneTasks = 0;
+    const taskStates = {};
+
+    function switchMainTab(tabId, btn) {
+      document.querySelectorAll('.tab-content-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+      if (btn) btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function checkTask(id, points) {
+      const row = document.getElementById('t-' + id);
+      const isChecked = row.querySelector('.task-checkbox-input').checked;
+
+      if (isChecked && !taskStates[id]) {
+        taskStates[id] = true;
+        score += points;
+        doneTasks++;
+        row.classList.add('done');
+      } else if (!isChecked && taskStates[id]) {
+        taskStates[id] = false;
+        score -= points;
+        doneTasks--;
+        row.classList.remove('done');
+      }
+
+      updateUI();
+      saveProgress();
+    }
+
+    function updateUI() {
+      document.getElementById('score-val').textContent = score + " / 100";
+      const pct = Math.round((doneTasks / 10) * 100);
+      document.getElementById('prog-pct').textContent = pct + "%";
+      document.getElementById('prog-bar').style.width = pct + "%";
+      document.getElementById('tasks-badge').textContent = doneTasks + " / 10";
+    }
+
+    function saveProgress() {
+      localStorage.setItem('ppt_animatsiya_score', JSON.stringify({ score, doneTasks, taskStates }));
+    }
+
+    function copyDataText() {
+      const text = document.getElementById('raw-data-pre').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btnLbl = document.getElementById('copy-btn-label');
+        btnLbl.textContent = "Nusxalandi! (Slaydga qo'ying)";
+        setTimeout(() => { btnLbl.textContent = "Nusxalash (Copy)"; }, 2200);
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('ppt_animatsiya_score');
+      if (saved) {
+        try {
+          const d = JSON.parse(saved);
+          score = d.score || 0;
+          doneTasks = d.doneTasks || 0;
+          Object.assign(taskStates, d.taskStates || {});
+
+          for (let id in taskStates) {
+            if (taskStates[id]) {
+              const el = document.getElementById('t-' + id);
+              if (el) {
+                el.querySelector('.task-checkbox-input').checked = true;
+                el.classList.add('done');
+              }
+            }
+          }
+          updateUI();
+        } catch(e) {}
+      }
+    });
+  </script>
+</body>
+</html>

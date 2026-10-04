@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Excel: «Разметка страницы» (Page Layout) Menyusi — Kengaytirilgan Qo‘llanma va Amaliyot</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            excel: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+              950: '#052e16',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    .tab-active {
+      border-bottom: 3px solid #047857;
+      color: #065f46;
+      font-weight: 700;
+      background-color: #ecfdf5;
+    }
+
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; }
+      .tab-content { display: block !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
+
+  <!-- YUQORI HEADER -->
+  <header class="bg-slate-950 text-white sticky top-0 z-50 shadow-md no-print border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-lg">
+            <i class="fa-solid fa-print text-xl"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs uppercase tracking-wider font-bold bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded border border-emerald-500/30">Chop Etish & Sahifa Geometriyasi</span>
+              <span class="text-xs text-slate-400">Excel 2016-2024 / Microsoft 365</span>
+            </div>
+            <h1 class="text-sm sm:text-base font-bold text-white tracking-tight">«Разметка страницы» (Page Layout) Menyusi: Kengaytirilgan Qo‘llanma va Amaliyot</h1>
+          </div>
+        </div>
+
+        <!-- Live Score & Print -->
+        <div class="flex items-center gap-4">
+          <div class="hidden md:flex flex-col items-end">
+            <div class="text-xs text-slate-400 font-medium flex items-center gap-1.5">
+              <span>Bajarilgan buyruqlar:</span>
+              <span id="progress-percent" class="font-bold text-emerald-400">0%</span>
+            </div>
+            <div class="w-40 h-2 bg-slate-800 rounded-full mt-1 overflow-hidden border border-slate-700">
+              <div id="progress-bar" class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-300 w-0"></div>
+            </div>
+          </div>
+
+          <div class="flex items-center bg-slate-900 px-3.5 py-1.5 rounded-lg border border-slate-800 shadow-inner">
+            <div class="text-center mr-3">
+              <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Ball</div>
+              <div class="text-lg font-extrabold text-emerald-400 leading-none" id="total-score">0 <span class="text-xs text-slate-500 font-normal">/ 100</span></div>
+            </div>
+            <button onclick="window.print()" title="Chop etish yoki PDF saqlash" class="p-2 hover:bg-slate-800 rounded-md text-slate-300 hover:text-white transition">
+              <i class="fa-solid fa-print"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATSIYA TABLARI -->
+  <nav class="bg-white border-b border-slate-200 sticky top-16 z-40 shadow-sm no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex space-x-1 sm:space-x-6 overflow-x-auto py-2">
+        <button onclick="switchTab('tab-guide')" id="btn-guide" class="tab-btn px-3 py-2 text-sm font-semibold rounded-md flex items-center gap-2 text-slate-600 hover:text-emerald-700 transition tab-active">
+          <i class="fa-solid fa-book-open"></i> <span>I. Nazariy Sharh (Barcha 8 ta Blok)</span>
+        </button>
+        <button onclick="switchTab('tab-tasks')" id="btn-tasks" class="tab-btn px-3 py-2 text-sm font-semibold rounded-md flex items-center gap-2 text-slate-600 hover:text-emerald-700 transition">
+          <i class="fa-solid fa-list-check"></i> <span>II. Qadamma-qadam Amaliyot (12 ta Buyruq)</span>
+          <span id="badge-completed" class="ml-1 text-[11px] bg-slate-200 text-slate-700 font-bold px-1.5 py-0.2 rounded-full">0/12</span>
+        </button>
+        <button onclick="switchTab('tab-hotkeys')" id="btn-hotkeys" class="tab-btn px-3 py-2 text-sm font-semibold rounded-md flex items-center gap-2 text-slate-600 hover:text-emerald-700 transition">
+          <i class="fa-solid fa-keyboard"></i> <span>III. Qaynoq Tugmalar & Print Standartlari</span>
+        </button>
+        <button onclick="switchTab('tab-rubric')" id="btn-rubric" class="tab-btn px-3 py-2 text-sm font-semibold rounded-md flex items-center gap-2 text-slate-600 hover:text-emerald-700 transition">
+          <i class="fa-solid fa-award"></i> <span>IV. Baholash Mezoni (100 Ball)</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ASOSIY MAYDON -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+
+    <!-- 1-TAB: NAZARIY QO‘LLANMA (8 TA ASOSIY BLOK) -->
+    <div id="tab-guide" class="tab-content space-y-6">
+      
+      <!-- Kirish Banneri -->
+      <div class="bg-gradient-to-r from-slate-950 via-emerald-950 to-slate-900 rounded-2xl p-6 sm:p-8 text-white shadow-xl">
+        <div class="max-w-4xl">
+          <div class="inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs px-3 py-1 rounded-full font-semibold mb-3">
+            <i class="fa-solid fa-file-invoice"></i> Poligrafiya va Chop Etish Standartlari
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-3">
+            Excel «Разметка страницы» (Page Layout) Menyusidagi Har Bir Asbob Nima Uchun Xizmat Qiladi?
+          </h2>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            Excelda jadval tuzish ishning faqat 50 foizidir. Qolgan 50 foizi — uni qog‘ozga, PDF hujjatga yoki rahbariyat hisobotiga <b>ustunlari kesilib ketmasdan, qisqarmasdan va sarlavhalari yo‘qolmasdan</b> to‘g‘ri chiqarishdir. <b>«Разметка страницы»</b> menyusi sahifa hoshiyalari, A4 format, masshtabni 1 sahifaga majburan sig‘dirish, takrorlanuvchi qatorlar va jadval to‘rini chop etish markazidir. Quyida menyuning barcha <b>8 ta asosiy bloki</b> to‘liq va chuqur tahlil qilingan.
+          </p>
+        </div>
+      </div>
+
+      <!-- 8 TA ASBOB KARTOCHKASI -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- 1. Темы -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg mb-3">
+              <i class="fa-solid fa-palette"></i>
+            </div>
+            <h3 class="text-sm font-bold text-slate-800 mb-1">1. Темы (Mavzular & Palitra)</h3>
+            <p class="text-[11px] text-emerald-700 font-semibold mb-2">Темы • Цвета • Шрифты • Эффекты</p>
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">
+              Butun kitobdagi barcha jadvallar, diagrammalar va stillarni yagona korporativ ranglar gammasiga keltirish.
+            </p>
+            <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+              <li><b>Yaxlit dizayn:</b> Bir klik bilan butun hujjatdagi barcha jadvallar rangini o‘zgartirish;</li>
+              <li><b>Цвета темы:</b> Korporativ brend ranglarini (Ko‘k, Zumrad, To‘q qizil) tanlash;</li>
+              <li><b>Шрифты темы:</b> Sarlavha va kataklar shrift juftliklarini bir zumda yangilash.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2. Поля -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-lg mb-3">
+              <i class="fa-solid fa-border-all"></i>
+            </div>
+            <h3 class="text-sm font-bold text-slate-800 mb-1">2. Поля (Hoshiyalar & Markazlash)</h3>
+            <p class="text-[11px] text-teal-700 font-semibold mb-2">Обычные • Узкие • Центрировать</p>
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">
+              Qog‘ozning to‘rt chetidan qoldiriladigan bo‘sh masofa va jadvalni qog‘oz o‘rtasiga keltirish.
+            </p>
+            <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+              <li><b>Узкие (Tor hoshiya):</b> Chekkalarni 1.27 sm qilib, qog‘ozga ko‘proq ustun sig‘dirish;</li>
+              <li><b>Центрировать на странице:</b> Jadvalni qog‘ozning chap chetiga yopishib qolmasdan, qoq o‘rtasiga gorizontal tekislash;</li>
+              <li><b>Колонтитулы masofasi:</b> Varaq tepasi va pastidagi eslatmalar chegarasini sozlash.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 3. Ориентация & Размер -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold text-lg mb-3">
+              <i class="fa-solid fa-file-lines"></i>
+            </div>
+            <h3 class="text-sm font-bold text-slate-800 mb-1">3. Ориентация & Размер</h3>
+            <p class="text-[11px] text-cyan-700 font-semibold mb-2">Книжная • Альбомная • A4 • A3</p>
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">
+              Varaqning tik yoki yotiq holati hamda printer qog‘ozi formatini dasturga qat’iy belgilash.
+            </p>
+            <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+              <li><b>Альбомная (Yotiq):</b> 7 tadan ortiq ustuni bor keng jadvallar uchun majburiy standart;</li>
+              <li><b>Книжная (Tik):</b> Qatorlari ko‘p, ammo ustunlari oz hisobotlar uchun;</li>
+              <li><b>A4 / A3:</b> Chop etiladigan printer qog‘ozi o‘lchamini to‘g‘ri qulflab qo‘yish.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 4. Область печати -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-lg mb-3">
+              <i class="fa-solid fa-crop-simple"></i>
+            </div>
+            <h3 class="text-sm font-bold text-slate-800 mb-1">4. Область печати (Chop Maydoni)</h3>
+            <p class="text-[11px] text-indigo-700 font-semibold mb-2">Задать область • Снять область</p>
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">
+              Katta varaqdan faqat belgilangan jadval qisminigina printerga chiqarishga buyruq berish.
+            </p>
+            <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+              <li><b>Keraksiz joylarni yashirish:</b> Yon atrofdagi qoralama hisoblar qog‘ozga chiqmasligi;</li>
+              <li><b>Qat’iy chegara:</b> Printer faqat belgilangan diapazonni tanishi;</li>
+              <li><b>Снять область:</b> Cheklovni bekor qilib, yana butun varaqni chop etish rejimiga qaytish.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 5. Разрывы & Подложка -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-lg mb-3">
+              <i class="fa-solid fa-scissors"></i>
+            </div>
+            <h3 class="text-sm font-bold text-slate-800 mb-1">5. Разрывы страниц & Подложка</h3>
+            <p class="text-[11px] text-amber-700 font-semibold mb-2">Вставить разрыв • Подложка (Fon)</p>
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">
+              Katta jadvalni aynan qaysi qatordan keyingi sahifaga bo‘lib o‘tkazishni boshqarish.
+            </p>
+            <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+              <li><b>Sun’iy uzilish:</b> Yangi filial ma’lumotlarini yangi qog‘ozdan toza boshlash;</li>
+              <li><b>Boshqariladigan sahifalar:</b> Avtomatik uzilishlar matnni o‘rtasidan kesib qo‘yishini oldini olish;</li>
+              <li><b>Подложка:</b> Kataklar orqasiga tashkilot logotipini orqa fon qilib joylash.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 6. Печатать заголовки -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-lg mb-3">
+              <i class="fa-solid fa-repeat"></i>
+            </div>
+            <h3 class="text-sm font-bold text-slate-800 mb-1">6. Печатать заголовки (Qatorni Takrorlash)</h3>
+            <p class="text-[11px] text-rose-700 font-semibold mb-2">Сквозные строки • Сквозные столбцы</p>
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">
+              Ko‘p sahifali hisobotlarda ustun sarlavhasini har bir chop etilgan varaq tepasida avtomatik chiqarish.
+            </p>
+            <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+              <li><b>Eng muhim asbob:</b> 2-chi va 10-chi sahifada qaysi ustun qaysi ko‘rsatkich ekanligini adashtirmaslik;</li>
+              <li><b>Сквозные строки ($2:$2):</b> Sarlavha qatorini har bir varaqda o‘zi takrorlaydi;</li>
+              <li><b>Qo‘lda qayta yozmaslik:</b> Jadval strukturasini buzmasdan toza chop etish.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 7. Вписать / Масштаб -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-lg mb-3">
+              <i class="fa-solid fa-down-left-and-up-right-to-center"></i>
+            </div>
+            <h3 class="text-sm font-bold text-slate-800 mb-1">7. Вписать & Масштаб (Sig‘dirish)</h3>
+            <p class="text-[11px] text-blue-700 font-semibold mb-2">Ширина: 1 стр. • Высота: Авто • Масштаб</p>
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">
+              Barcha ustunlarni majburan bitta qog‘oz eniga sig‘dirish — oxirgi 1-2 ta ustun boshqa varaqqa o‘tib ketmasligi uchun!
+            </p>
+            <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+              <li><b>Ширина: 1 страница:</b> Keng jadvalni eni bo‘yicha 100% bitta varaqqa sig‘diradi;</li>
+              <li><b>Avtomatik masshtab:</b> Shriftsiz o‘lchamni o‘zi mutanosib kichraytiradi;</li>
+              <li><b>Qog‘oz tejamkorligi:</b> Bo‘lingan keraksiz chala sahifalar hosil bo‘lishini yo‘qotadi.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 8. Параметры листа & Сетка -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-violet-100 text-violet-700 flex items-center justify-center font-bold text-lg mb-3">
+              <i class="fa-solid fa-table-cells"></i>
+            </div>
+            <h3 class="text-sm font-bold text-slate-800 mb-1">8. Параметры листа (Сетка & Заголовки)</h3>
+            <p class="text-[11px] text-violet-700 font-semibold mb-2">Сетка: Печать • Заголовки: Печать</p>
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">
+              Chop etishda Excel kataklarining to‘r chiziqlari (Сетка) va A, B, C ustun harflarini qog‘ozga chiqarish.
+            </p>
+            <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+              <li><b>Сетка -> Печать:</b> Chegara chizilmagan bo‘lsa ham, qog‘ozda kataklarni to‘liq ko‘rsatish;</li>
+              <li><b>Заголовки -> Печать:</b> A, B, C ustun nomlari va 1, 2, 3 qator raqamlarini qog‘ozga bosish;</li>
+              <li><b>Сетка -> Показать:</b> Ekranda kataklarni ko‘rinadigan yoki oq toza qog‘oz holatiga keltirish.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Katta infografik tushuntirish paneli -->
+      <div class="bg-emerald-50 rounded-2xl p-6 border border-emerald-200 space-y-4">
+        <h4 class="text-sm font-bold text-emerald-950 flex items-center gap-2">
+          <i class="fa-solid fa-lightbulb text-amber-500 text-base"></i> Excelda chop etishning 2 ta asosiy xatosi va ularning «Разметка страницы»dagi yechimi:
+        </h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-700 leading-relaxed">
+          <div class="bg-white p-4 rounded-xl border border-emerald-100">
+            <span class="font-bold text-emerald-900 block mb-1">1. Oxirgi 1 ta ustun keyingi bo‘sh varaqqa tushib qolsa:</span>
+            O‘quvchilar ko‘pincha ustunlarni qo‘lda siqib kichraytirishga harakat qilishadi. Professional yechim: <code>Разметка страницы -> Вписать -> Ширина</code> maydonini <b>«1 страница»</b> qilib qo‘ying! Excel barcha ustunlarni o‘zi avtomatik hisoblab, bitta varaq eniga chiroyli sig‘diradi.
+          </div>
+          <div class="bg-white p-4 rounded-xl border border-emerald-100">
+            <span class="font-bold text-emerald-900 block mb-1">2. 2-sahifada sarlavha yo‘qolib, faqat quruq sonlar chiqsa:</span>
+            Hech qachon 2-sahifaga sarlavhani qo‘lda nusxalab qo‘ymang! Yechim: <code>Разметка страницы -> Печатать заголовки -> Сквозные строки</code> oynasiga sarlavha turgan qatorni (masalan: <code>$2:$2</code>) ko‘rsating. Excel uni har bir sahifaning boshida o‘zi takrorlaydi.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 2-TAB: QADAMMA-QADAM AMALIY TOPSHIRIQ (12 TA BUYRUQ) -->
+    <div id="tab-tasks" class="tab-content hidden space-y-6">
+
+      <!-- Ko'rsatma va Matn Nusxalash Maydoni -->
+      <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200 mb-1">
+              <i class="fa-solid fa-terminal"></i> Qat’iy Texnik Buyruqlar Checklisti
+            </div>
+            <h3 class="text-base font-bold text-slate-800">Quyidagi 12 ta qadamni Excel dasturida ketma-ket bajaring</h3>
+            <p class="text-xs text-slate-500">Hech qanday badiiy hikoya yo‘q. Faqat qat’iy texnik amallarni ko‘rsatma bo‘yicha bajaring va pichkalarni belgilang.</p>
+          </div>
+          <button onclick="resetCheckboxes()" class="self-start sm:self-auto px-3 py-1.5 text-xs font-semibold text-slate-700 hover:text-red-600 border border-slate-300 rounded-lg hover:bg-slate-50 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-rotate-left"></i> Tozalash
+          </button>
+        </div>
+
+        <!-- Dastlabki xom jadval (Copyable) -->
+        <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-700"><i class="fa-solid fa-table mr-1 text-emerald-600"></i> Amaliyot uchun xom ma'lumotlar jadvali (Nusxalab oling):</span>
+            <button onclick="copyRawData()" class="text-xs font-bold text-emerald-700 hover:text-emerald-900 bg-white px-2.5 py-1 rounded border border-slate-300 shadow-sm flex items-center gap-1 transition">
+              <i class="fa-regular fa-copy"></i> Jadvalni Nusxalash
+            </button>
+          </div>
+          <div id="raw-data" class="text-xs text-slate-600 font-mono bg-white p-3 rounded border border-slate-200 leading-relaxed overflow-x-auto select-all">
+№	Filial	Menejer	Kategoriya	Yanvar	Fevral	Mart	Aprel	May	Jami_Daromad
+1	Toshkent Markaz	Alimov Elyor	Dasturlash	14500000	15200000	16800000	17500000	18900000	82900000
+2	Farg'ona Shahar	Boboyev Sardor	Dizayn	6200000	6800000	7100000	7400000	7900000	35400000
+3	Samarqand Registon	Karimov Dilshod	Kiberxavfsizlik	22400000	23100000	24500000	25800000	27200000	123000000
+4	Andijon Bobur	Nasriddinov Ali	Marketing	4800000	5100000	5400000	5900000	6200000	27400000
+5	Toshkent Chilonzor	Soliyev Rustam	Dasturlash	8900000	9400000	9900000	10400000	11200000	49800000
+6	Samarqand Sug'd	Umarov Jamshid	Dizayn	19300000	20100000	21400000	22000000	23500000	106300000
+7	Buxoro Ark	Vohidov Shamil	Marketing	3700000	3900000	4200000	4500000	4800000	21100000
+8	Namangan Markaz	Yusupov Farhod	Kiberxavfsizlik	7100000	7600000	8100000	8600000	9200000	40600000
+9	Qarshi Nasaf	Zokirov Xurshid	Dasturlash	5400000	5800000	6100000	6500000	7000000	30800000
+10	Xorazm Urganch	Qodirov Botir	Dizayn	4900000	5200000	5500000	5900000	6300000	27800000
+          </div>
+        </div>
+      </div>
+
+      <!-- 12 TA BUYRUQ RO‘YXATI -->
+      <div class="space-y-3.5">
+
+        <!-- 1 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:border-emerald-300 transition">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-1" onchange="calculateScore()" class="mt-1 w-5 h-5 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-1" class="text-sm font-bold text-slate-800 cursor-pointer">1-QADAM: Yangi kitob ochish va xom jadvalni A2 katagiga joylash</label>
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">8 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                Excelda yangi bo‘sh ishchi kitob oching (<b>Ctrl + N</b>). Yuqoridagi xom jadvalni to‘liq nusxalab, <b>A2</b> katagini tanlang va joylashtiring (<b>Ctrl + V</b>). Ma’lumotlar A2:J12 oralig‘iga tushganligini tekshiring.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:border-emerald-300 transition">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-2" onchange="calculateScore()" class="mt-1 w-5 h-5 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-2" class="text-sm font-bold text-slate-800 cursor-pointer">2-QADAM: Oraliqni dinamik jadvalga aylantirish va chegaralarni tekislash (Ctrl + T)</label>
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">8 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                Jadval ichidagi ixtiyoriy katakni tanlang. <b>Ctrl + T</b> tugmalarini bosib, «Таблица с заголовками» bandini tasdiqlang va <b>OK</b> bosing. Barcha ustunlar kengligini matnga moslash uchun <code>Главная -> Формат -> Автоподбор ширины столбца</code> buyrug‘ini bering.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:border-emerald-300 transition">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-3" onchange="calculateScore()" class="mt-1 w-5 h-5 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-3" class="text-sm font-bold text-slate-800 cursor-pointer">3-QADAM: Yagona korporativ mavzu va ranglar palitrasini o‘rnatish («Темы» & «Цвета»)</label>
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">8 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                <code>Разметка страницы -> Темы</code> menyusini oching va <b>«Интеграл» (Integral)</b> yoki <b>«Офисная»</b> mavzusini tanlang. So‘ngra yonidagi <b>«Цвета» (Colors)</b> tugmasidan <b>«Изумруд» (Emerald)</b> yoki <b>«Зеленый»</b> ranglar gammasini qo‘llang.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:border-emerald-300 transition">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-4" onchange="calculateScore()" class="mt-1 w-5 h-5 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-4" class="text-sm font-bold text-slate-800 cursor-pointer">4-QADAM: Maxsus tor hoshiyalar parametrlarini o‘rnatish («Поля» - Margins)</label>
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">8 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                <code>Разметка страницы -> Поля -> Настраиваемые поля...</code> oynasini oching. Quyidagi o‘lchamlarni kiriting:<br>
+                • Yuqori (Верхнее): <code>1.5 см</code> | Quyi (Нижнее): <code>1.5 см</code>;<br>
+                • Chap (Левое): <code>1.5 см</code> | O‘ng (Правое): <code>1.5 см</code>. Hozircha OK bosmay turing (5-qadamga o‘ting).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:border-emerald-300 transition">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-5" onchange="calculateScore()" class="mt-1 w-5 h-5 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-5" class="text-sm font-bold text-slate-800 cursor-pointer">5-QADAM: Jadvalni qog‘ozning qoq o‘rtasiga gorizontal tekislash («Центрировать на странице»)</label>
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">8 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                Shu ochiq turgan «Параметры страницы» oynasining pastki qismidagi <b>«Центрировать на странице»</b> bo‘limidan <b>«Горизонтально»</b> parametriga pichka qo‘ying va <b>OK</b> bosing. Jadval chop etilganda chap chetga yopishmasdan, qog‘oz markaziga tekislanadi.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:border-emerald-300 transition">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-6" onchange="calculateScore()" class="mt-1 w-5 h-5 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-6" class="text-sm font-bold text-slate-800 cursor-pointer">6-QADAM: Keng jadval uchun sahifani yotiq holatga o‘tkazish («Ориентация» - Альбомная)</label>
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">8 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                Jadval 10 ta ustundan iborat bo‘lgani sababli, tik qog‘ozga sig‘maydi. <code>Разметка страницы -> Ориентация -> Альбомная (Landscape)</code> buyrug‘ini bosing. Sahifa gorizontal ko‘rinishga o‘tadi.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:border-emerald-300 transition">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-7" onchange="calculateScore()" class="mt-1 w-5 h-5 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-7" class="text-sm font-bold text-slate-800 cursor-pointer">7-QADAM: Qog‘oz o‘lchamini A4 xalqaro formatiga qulflash («Размер» - A4)</label>
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">8 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                <code>Разметка страницы -> Размер (Size)</code> tugmasini bosing va ro‘yxatdan <b>«A4» (21 x 29.7 см)</b> standartini tanlang. Printer aynan A4 qog‘ozini hisobga olib chegaralarni qayta chizadi.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:border-emerald-300 transition">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-8" onchange="calculateScore()" class="mt-1 w-5 h-5 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-8" class="text-sm font-bold text-slate-800 cursor-pointer">8-QADAM: Chop etish maydonini qat’iy belgilash («Область печати -> Задать»)</label>
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">9 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                Jadvalning <b>A2:J12</b> oralig‘ini sichqoncha bilan belgilang. <code>Разметка страницы -> Область печати -> Задать область печати (Set Print Area)</code> buyrug‘ini bosing. Endi printer faqat shu jadvalni ko‘radi, yon atrofdagi bo‘sh kataklar chop etilmaydi.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:border-emerald-300 transition">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-9" onchange="calculateScore()" class="mt-1 w-5 h-5 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-9" class="text-sm font-bold text-slate-800 cursor-pointer">9-QADAM: Barcha 10 ta ustunni majburan 1 sahifa eniga sig‘dirish («Вписать: Ширина 1 стр.»)</label>
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">9 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                <code>Разметка страницы -> Вписать (Scale to Fit)</code> blokiga o‘ting. <b>«Ширина» (Width)</b> maydonidagi «Авто» parametrini <b>«1 страница»</b> ga o‘zgartiring. <b>«Высота»</b> maydonini esa <b>«Авто»</b> holatida qoldiring. Barcha ustunlar bitta varaq eniga 100% to‘liq sig‘adi.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:border-emerald-300 transition">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-10" onchange="calculateScore()" class="mt-1 w-5 h-5 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-10" class="text-sm font-bold text-slate-800 cursor-pointer">10-QADAM: Har bir varaqda sarlavhani takrorlash («Печатать заголовки -> Сквозные строки»)</label>
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">9 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                <code>Разметка страницы -> Печатать заголовки (Print Titles)</code> tugmasini bosing. <b>«Сквозные строки» (Rows to repeat at top)</b> qatoriga sichqoncha bilan <b>$2:$2</b> (ustun sarlavhalari qatori) ni ko‘rsating va <b>OK</b> bosing. Agar hisobot ko‘p sahifali bo‘lsa, sarlavha har bir varaqda o‘zi chiqadi.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:border-emerald-300 transition">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-11" onchange="calculateScore()" class="mt-1 w-5 h-5 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-11" class="text-sm font-bold text-slate-800 cursor-pointer">11-QADAM: Katak to‘r chiziqlarini qog‘ozda chop etishni yoqish («Сетка -> Печать»)</label>
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">8 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                <code>Разметка страницы -> Параметры листа (Sheet Options) -> Сетка (Gridlines)</code> bo‘limidagi <b>«Печать» (Print)</b> parametriga pichka qo‘ying. Endi printer Excelning katak chiziqlarini qog‘ozga aniq bosib chiqaradi.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:border-emerald-300 transition">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-12" onchange="calculateScore()" class="mt-1 w-5 h-5 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-12" class="text-sm font-bold text-slate-800 cursor-pointer">12-QADAM: Chop etish oynasida (Ctrl + P) natijani tekshirish va faylni saqlash</label>
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">9 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                Klaviaturadan <b>Ctrl + P</b> (yoki <b>Ctrl + F2</b>) bosing. O‘ng tomondagi ko‘rinishda jadval A4 yotiq qog‘oz o‘rtasida turganini, barcha ustunlar bitta varaqqa sig‘ganini tekshiring. <b>Esc</b> bosib qayting va faylni <b>Ctrl + S</b> orqali <code>Excel_Razmetka_[Familiya]</code> nomi bilan saqlang.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 3-TAB: QAYNOQ TUGMALAR VA STANDARTLAR -->
+    <div id="tab-hotkeys" class="tab-content hidden space-y-6">
+
+      <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+        <h3 class="text-base font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-3">
+          <i class="fa-solid fa-keyboard text-emerald-600"></i> «Разметка страницы» Menyusi Bilan Professional Ishlash Tugmalari
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 text-xs sm:text-sm">
+          
+          <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+            <span class="text-slate-600">Chop etish oldidan ko‘rish (Печать / Предпросмотр):</span>
+            <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">Ctrl + P (Ctrl + F2)</kbd>
+          </div>
+
+          <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+            <span class="text-slate-600">«Разметка страницы» menyusini klaviaturadan ochish:</span>
+            <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">Alt + P</kbd>
+          </div>
+
+          <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+            <span class="text-slate-600">Hoshiyalar (Поля) ro‘yxatini ochish:</span>
+            <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">Alt + P, M</kbd>
+          </div>
+
+          <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+            <span class="text-slate-600">Sahifa yo‘nalishini (Ориентация) almashtirish:</span>
+            <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">Alt + P, O</kbd>
+          </div>
+
+          <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+            <span class="text-slate-600">Qog‘oz o‘lchamini (Размер) tanlash:</span>
+            <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">Alt + P, S, Z</kbd>
+          </div>
+
+          <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+            <span class="text-slate-600">Chop maydonini (Область печати) o‘rnatish:</span>
+            <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">Alt + P, R, S</kbd>
+          </div>
+
+          <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+            <span class="text-slate-600">Sarlavhalarni takrorlash oynasi (Печатать заголовки):</span>
+            <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">Alt + P, I</kbd>
+          </div>
+
+          <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+            <span class="text-slate-600">Varaq sahifalari chegarasini ko‘rish rejimi:</span>
+            <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">Alt + W, I</kbd>
+          </div>
+
+          <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+            <span class="text-slate-600">Standart oddiy rejimga qaytish:</span>
+            <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">Alt + W, L</kbd>
+          </div>
+
+          <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+            <span class="text-slate-600">Faylni tezkor saqlash:</span>
+            <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">Ctrl + S</kbd>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 4-TAB: BAHOLASH MEZONI -->
+    <div id="tab-rubric" class="tab-content hidden space-y-6">
+
+      <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-800">«Разметка страницы» Menyusi Bo‘yicha 100 Ballik Baholash Mezoni</h3>
+            <p class="text-xs text-slate-500">12 ta amaliy ko‘nikmaning xatosiz bajarilganligi quyidagi standartlar bo‘yicha baholanadi.</p>
+          </div>
+          <div class="text-right">
+            <span class="text-xs text-slate-400 font-medium block">To‘plangan Ball:</span>
+            <span class="text-2xl font-black text-emerald-700" id="rubric-badge">0 / 100</span>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs sm:text-sm text-left border border-slate-200">
+            <thead class="bg-slate-900 text-white font-semibold">
+              <tr>
+                <th class="p-3 w-14">№</th>
+                <th class="p-3">Tekshiriladigan Buyruq / Ko‘nikma</th>
+                <th class="p-3">Kutilayotgan Aniq Standart</th>
+                <th class="p-3 text-right">Ball</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-center">1</td>
+                <td class="p-3 font-semibold text-slate-800">Yangi kitob ochish va xom jadvalni A2 ga joylash</td>
+                <td class="p-3 text-slate-600">Ma’lumotlar A2:J12 oralig‘iga to‘liq tushgan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">8 ball</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-center">2</td>
+                <td class="p-3 font-semibold text-slate-800">Dinamik jadval (Ctrl + T) va ustunlar kengligi</td>
+                <td class="p-3 text-slate-600">Aqlli jadval stili berilgan va matn to‘liq ochilgan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">8 ball</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-center">3</td>
+                <td class="p-3 font-semibold text-slate-800">Mavzu va ranglar palitrasi («Темы» & «Цвета»)</td>
+                <td class="p-3 text-slate-600">Mavzu va «Изумруд» ranglar gammasi qo‘llangan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">8 ball</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-center">4</td>
+                <td class="p-3 font-semibold text-slate-800">Maxsus hoshiyalar parametrlarini o‘rnatish («Поля»)</td>
+                <td class="p-3 text-slate-600">Tepa, past, chap, o‘ng chegaralar 1.5 sm qilib sozlangan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">8 ball</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-center">5</td>
+                <td class="p-3 font-semibold text-slate-800">Jadvalni qog‘oz markaziga tekislash (Центрировать)</td>
+                <td class="p-3 text-slate-600">«Горизонтально» pichkasi yoqilgan, markazda turibdi.</td>
+                <td class="p-3 text-right font-bold text-slate-800">8 ball</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-center">6</td>
+                <td class="p-3 font-semibold text-slate-800">Sahifani yotiq holatga o‘tkazish («Ориентация» - Альбомная)</td>
+                <td class="p-3 text-slate-600">Varaq gorizontal (Landscape) rejimiga o‘tkazilgan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">8 ball</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-center">7</td>
+                <td class="p-3 font-semibold text-slate-800">Qog‘oz formati («Размер» - A4)</td>
+                <td class="p-3 text-slate-600">21x29.7 sm xalqaro A4 formati tanlangan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">8 ball</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-center">8</td>
+                <td class="p-3 font-semibold text-slate-800">Chop maydonini qat’iy belgilash («Область печати»)</td>
+                <td class="p-3 text-slate-600">A2:J12 oralig‘i chop maydoni qilib qulflangan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">9 ball</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-center">9</td>
+                <td class="p-3 font-semibold text-slate-800">Ustunlarni 1 sahifaga sig‘dirish («Вписать: Ширина 1 стр.»)</td>
+                <td class="p-3 text-slate-600">Barcha 10 ta ustun bitta qog‘oz eniga to‘liq sig‘dirilgan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">9 ball</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-center">10</td>
+                <td class="p-3 font-semibold text-slate-800">Sarlavhalarni takrorlash («Печатать заголовки» - $2:$2)</td>
+                <td class="p-3 text-slate-600">Сквозные строки qatoriga $2:$2 to‘g‘ri kiritilgan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">9 ball</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-center">11</td>
+                <td class="p-3 font-semibold text-slate-800">Katak to‘r chiziqlarini chiqarish («Сетка -> Печать»)</td>
+                <td class="p-3 text-slate-600">Chop etishda to‘r chiziqlarini ko‘rsatish yoqilgan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">8 ball</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-center">12</td>
+                <td class="p-3 font-semibold text-slate-800">Ctrl + P orqali tekshirish va faylni to‘g‘ri saqlash</td>
+                <td class="p-3 text-slate-600">Предпросмотр mukammal va fayl to‘g‘ri nomda saqlangan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">9 ball</td>
+              </tr>
+              <tr class="bg-emerald-50 font-bold text-slate-900">
+                <td colspan="3" class="p-3 uppercase tracking-wider text-emerald-950">JAMI MAKSIMAL BALL:</td>
+                <td class="p-3 text-right text-base text-emerald-800">100 Ball</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- PASTKI FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-4 no-print text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4">
+      Microsoft Excel «Разметка страницы» (Page Layout) Menyusi Kengaytirilgan O‘quv Platformasi
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIKASI -->
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('tab-active'));
+
+      document.getElementById(tabId).classList.remove('hidden');
+
+      if(tabId === 'tab-guide') document.getElementById('btn-guide').classList.add('tab-active');
+      if(tabId === 'tab-tasks') document.getElementById('btn-tasks').classList.add('tab-active');
+      if(tabId === 'tab-hotkeys') document.getElementById('btn-hotkeys').classList.add('tab-active');
+      if(tabId === 'tab-rubric') document.getElementById('btn-rubric').classList.add('tab-active');
+    }
+
+    // 12 ta qadamning ballari (jami: 100 ball)
+    const taskScores = {
+      'task-1': 8, 'task-2': 8, 'task-3': 8, 'task-4': 8,
+      'task-5': 8, 'task-6': 8, 'task-7': 8, 'task-8': 9,
+      'task-9': 9, 'task-10': 9, 'task-11': 8, 'task-12': 9
+    };
+
+    function calculateScore() {
+      let total = 0;
+      let count = 0;
+      for (let i = 1; i <= 12; i++) {
+        const cb = document.getElementById('task-' + i);
+        if (cb && cb.checked) {
+          total += taskScores['task-' + i];
+          count++;
+        }
+      }
+
+      const percent = Math.round((count / 12) * 100);
+
+      document.getElementById('total-score').innerHTML = `${total} <span class="text-xs text-slate-500 font-normal">/ 100</span>`;
+      document.getElementById('rubric-badge').innerText = `${total} / 100`;
+      document.getElementById('progress-percent').innerText = `${percent}%`;
+      document.getElementById('progress-bar').style.width = `${percent}%`;
+      document.getElementById('badge-completed').innerText = `${count}/12`;
+
+      saveProgress();
+    }
+
+    function copyRawData() {
+      const text = document.getElementById('raw-data').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Xom ma’lumotlar jadvali xotiraga nusxalandi! Endi Excelda A2 katagini tanlab, Ctrl + V bosing.");
+      });
+    }
+
+    function resetCheckboxes() {
+      if (confirm("Barcha belgilangan qadamlarni tozalab, amaliyotni qaytadan boshlaysizmi?")) {
+        for (let i = 1; i <= 12; i++) {
+          const cb = document.getElementById('task-' + i);
+          if (cb) cb.checked = false;
+        }
+        calculateScore();
+      }
+    }
+
+    function saveProgress() {
+      const checks = {};
+      for (let i = 1; i <= 12; i++) {
+        const cb = document.getElementById('task-' + i);
+        checks['task-' + i] = cb ? cb.checked : false;
+      }
+      localStorage.setItem('excel_razmetka_task_progress', JSON.stringify(checks));
+    }
+
+    function loadProgress() {
+      const saved = localStorage.getItem('excel_razmetka_task_progress');
+      if (saved) {
+        try {
+          const checks = JSON.parse(saved);
+          for (let i = 1; i <= 12; i++) {
+            const cb = document.getElementById('task-' + i);
+            if (cb && checks['task-' + i]) cb.checked = true;
+          }
+        } catch(e) {}
+      }
+      calculateScore();
+    }
+
+    window.addEventListener('DOMContentLoaded', loadProgress);
+  </script>
+</body>
+</html>

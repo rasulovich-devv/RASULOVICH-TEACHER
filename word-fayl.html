@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microsoft Word: «Файл» Menyusi Qo‘llanmasi va Amaliy Topshiriq</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+              950: '#052e16',
+            },
+            word: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+              950: '#0f172a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    .tab-active {
+      border-bottom: 3px solid #1d4ed8;
+      color: #1e3a8a;
+      font-weight: 700;
+      background-color: #eff6ff;
+    }
+
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; }
+      .tab-content { display: block !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
+
+  <!-- YUQORI HEADER -->
+  <header class="bg-word-950 text-white sticky top-0 z-50 shadow-md no-print border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg">
+            <i class="fa-solid fa-folder-open text-xl"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs uppercase tracking-wider font-bold bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded border border-blue-500/30">Backstage View</span>
+              <span class="text-xs text-slate-400">Word 2016-2024 / 365</span>
+            </div>
+            <h1 class="text-sm sm:text-base font-bold text-white tracking-tight">«Файл» Menyusi: To‘liq Qo‘llanma va Amaliy Mashg‘ulot</h1>
+          </div>
+        </div>
+
+        <!-- Live Score & Print -->
+        <div class="flex items-center gap-4">
+          <div class="hidden md:flex flex-col items-end">
+            <div class="text-xs text-slate-400 font-medium flex items-center gap-1.5">
+              <span>Amaliyot bajarilishi:</span>
+              <span id="progress-percent" class="font-bold text-emerald-400">0%</span>
+            </div>
+            <div class="w-36 h-2 bg-slate-800 rounded-full mt-1 overflow-hidden border border-slate-700">
+              <div id="progress-bar" class="h-full bg-gradient-to-r from-blue-500 to-emerald-400 transition-all duration-300 w-0"></div>
+            </div>
+          </div>
+
+          <div class="flex items-center bg-slate-900 px-3.5 py-1.5 rounded-lg border border-slate-800 shadow-inner">
+            <div class="text-center mr-3">
+              <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Ball</div>
+              <div class="text-lg font-extrabold text-emerald-400 leading-none" id="total-score">0 <span class="text-xs text-slate-500 font-normal">/ 100</span></div>
+            </div>
+            <button onclick="window.print()" title="Chop etish yoki PDF saqlash" class="p-2 hover:bg-slate-800 rounded-md text-slate-300 hover:text-white transition">
+              <i class="fa-solid fa-print"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATSIYA TABLARI -->
+  <nav class="bg-white border-b border-slate-200 sticky top-16 z-40 shadow-sm no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex space-x-1 sm:space-x-8 overflow-x-auto py-2">
+        <button onclick="switchTab('tab-guide')" id="btn-guide" class="tab-btn px-3 py-2 text-sm font-semibold rounded-md flex items-center gap-2 text-slate-600 hover:text-blue-600 transition tab-active">
+          <i class="fa-solid fa-book-open"></i> <span>I. Nazariy Qo‘llanma</span>
+        </button>
+        <button onclick="switchTab('tab-tasks')" id="btn-tasks" class="tab-btn px-3 py-2 text-sm font-semibold rounded-md flex items-center gap-2 text-slate-600 hover:text-blue-600 transition">
+          <i class="fa-solid fa-list-check"></i> <span>II. Amaliy Mashg‘ulot (Keys)</span>
+          <span id="badge-completed" class="ml-1 text-[11px] bg-slate-200 text-slate-700 font-bold px-1.5 py-0.2 rounded-full">0/5</span>
+        </button>
+        <button onclick="switchTab('tab-lifehacks')" id="btn-lifehacks" class="tab-btn px-3 py-2 text-sm font-semibold rounded-md flex items-center gap-2 text-slate-600 hover:text-blue-600 transition">
+          <i class="fa-solid fa-bolt"></i> <span>III. Qaynoq Tugmalar & Lifehacklar</span>
+        </button>
+        <button onclick="switchTab('tab-rubric')" id="btn-rubric" class="tab-btn px-3 py-2 text-sm font-semibold rounded-md flex items-center gap-2 text-slate-600 hover:text-blue-600 transition">
+          <i class="fa-solid fa-award"></i> <span>IV. Baholash Mezoni (100 Ball)</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ASOSIY MAYDON -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+
+    <!-- 1-TAB: NAZARIY QO‘LLANMA -->
+    <div id="tab-guide" class="tab-content space-y-6">
+      
+      <!-- Kirish Banneri -->
+      <div class="bg-gradient-to-r from-word-950 via-slate-900 to-word-950 rounded-2xl p-6 sm:p-8 text-white shadow-xl">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 bg-blue-500/20 text-blue-300 border border-blue-400/30 text-xs px-3 py-1 rounded-full font-semibold mb-3">
+            <i class="fa-solid fa-circle-info"></i> Word Asoslari
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-3">
+            «Файл» (Backstage) Menyusi Nima Uchun Kerak?
+          </h2>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            Agar Word dasturidagi boshqa menyular (Главная, Вставка va boshqalar) hujjatning <b>ichidagi matn va dizayn</b> bilan ishlashga mo‘ljallangan bo‘lsa, <b>«Файл»</b> menyusi hujjatning <b>o‘zi, xavfsizligi, saqlanishi, chop etilishi va sozlamalari</b> bilan ishlash uchun xizmat qiladi.
+          </p>
+        </div>
+      </div>
+
+      <!-- Funksiyalar Kartochkalari Jadvali -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        
+        <!-- 1. Сведения -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-lg mb-3">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-800 mb-1">1. Сведения (Ma’lumotlar)</h3>
+          <p class="text-xs text-blue-700 font-semibold mb-2">Защита документа • Свойства • Журнал версий</p>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Hujjatning hajmi, sahifalar soni, so‘nggi tahrir vaqtini ko‘rsatadi. Eng asosiysi — hujjatga <b>parol o‘rnatish</b> («Зашифровать с паролем») va tahrirlashni cheklash aynan shu yerda bajariladi.
+          </p>
+        </div>
+
+        <!-- 2. Создать -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="w-10 h-10 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-lg mb-3">
+            <i class="fa-solid fa-file-circle-plus"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-800 mb-1">2. Создать (Yaratish)</h3>
+          <p class="text-xs text-indigo-700 font-semibold mb-2">Новый документ • Шаблоны (Andozalar)</p>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Toza bo‘sh sahifa ochish yoki Wordning tayyor professional shablonlaridan (Rezyume, Biznes-reja, Kalendar, Hisobot) foydalanib bir soniyada chiroyli hujjat boshlash imkonini beradi.
+          </p>
+        </div>
+
+        <!-- 3. Открыть -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="w-10 h-10 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-lg mb-3">
+            <i class="fa-solid fa-box-archive"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-800 mb-1">3. Открыть (Ochish)</h3>
+          <p class="text-xs text-sky-700 font-semibold mb-2">Последние файлы • Закрепить (Pin) • Обзор</p>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Kompyuterdagi mavjud fayllarni ochadi. Eng foydali jihati: eng ko‘p ishlatiladigan hujjatlarni ro‘yxat boshiga mixlab qo‘yish («Закрепить / Pin») mumkin.
+          </p>
+        </div>
+
+        <!-- 4. Сохранить & Сохранить как -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg mb-3">
+            <i class="fa-solid fa-floppy-disk"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-800 mb-1">4. Сохранить va Сохранить как</h3>
+          <p class="text-xs text-emerald-700 font-semibold mb-2">Ctrl + S • F12 • Formatni tanlash</p>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            <b>«Сохранить»:</b> Mavjud faylga kiritilgan o‘zgarishlarni tezkor saqlaydi.<br>
+            <b>«Сохранить как»:</b> Hujjatni yangi nom bilan, boshqa papkaga yoki boshqa formatda (PDF, Word 97-2003) qayta saqlaydi.
+          </p>
+        </div>
+
+        <!-- 5. Печать -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-lg mb-3">
+            <i class="fa-solid fa-print"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-800 mb-1">5. Печать (Chop etish)</h3>
+          <p class="text-xs text-amber-700 font-semibold mb-2">Предварительный просмотр • Копии • Принтер</p>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Chop etishdan oldin hujjat qog‘ozda qanday chiqishini ko‘rsatadi (Предпросмотр). Nusxalar soni, faqat ma’lum sahifalarni chop etish (1-3, 5) va bir qog‘ozga 2 ta sahifa chiqarishni sozlaydi.
+          </p>
+        </div>
+
+        <!-- 6. Экспорт & Параметры -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="w-10 h-10 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-lg mb-3">
+            <i class="fa-solid fa-file-pdf"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-800 mb-1">6. Экспорт & Параметры</h3>
+          <p class="text-xs text-rose-700 font-semibold mb-2">Создать PDF/XPS • Настройки программы</p>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            <b>«Экспорт»:</b> Bir klikda hujjatni o‘zgarmas PDF holatiga keltiradi.<br>
+            <b>«Параметры»:</b> Word dasturining avtomatik saqlash vaqtini (har 5 daqiqada), shriftini va tilini sozlaydi.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 2-TAB: AMALIY MASHG‘ULOT TOPSHIRIG‘I (KEYS) -->
+    <div id="tab-tasks" class="tab-content hidden space-y-6">
+
+      <!-- Keys Banneri -->
+      <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200 mb-2">
+            <i class="fa-solid fa-briefcase"></i> Amaliy Keys
+          </div>
+          <h3 class="text-lg font-bold text-slate-800">«Kompaniyaning Maxfiy Xizmat Hujjatini Tayyorlash va Himoyalash»</h3>
+          <p class="text-xs text-slate-500 mt-1">Siz — korxona xavfsizlik menejerisiz. Hujjatni tayyorlab, uni begona ko‘zlardan himoyalashingiz va PDF formatda hisobot topshirishingiz lozim.</p>
+        </div>
+        <button onclick="resetCheckboxes()" class="px-3.5 py-2 text-xs font-semibold text-slate-700 hover:text-red-600 border border-slate-300 rounded-lg hover:bg-slate-50 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-rotate-left"></i> Qayta topshirish
+        </button>
+      </div>
+
+      <!-- 5 TA KETMA-KET BOSQICH (CHECKLIST) -->
+      <div class="space-y-4">
+
+        <!-- Bosqich 1 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-1" onchange="calculateScore()" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-1" class="text-sm font-bold text-slate-800 cursor-pointer">
+                  1-Bosqich: Shablon orqali yangi hujjat yaratish («Создать»)
+                </label>
+                <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">20 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                Wordni oching. <code>Файл -> Создать</code> bo‘limiga kiring. Qidiruv qatoriga <i>«Отчет» (Report)</i> yoki <i>«Бизнес»</i> deb yozib, tayyor andozalardan birini tanlang va hujjatni yarating.
+              </p>
+              <div class="mt-2.5 p-2.5 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-600">
+                <i class="fa-regular fa-lightbulb text-amber-500 mr-1"></i> Agar internet bo‘lmasa, oddiy bo‘sh sahifa ochib, quyidagi namunaviy matnni joylang:
+                <div class="mt-2 flex items-center gap-2">
+                  <span class="bg-white px-2.5 py-1 rounded border border-slate-200 font-mono text-[11px] select-all" id="sample-text">KOMPANIYA MAXFIY STRATEGIK HISOBOTI - 2026</span>
+                  <button onclick="copyText('sample-text')" class="text-xs text-blue-600 hover:text-blue-800 font-semibold px-2 py-1 bg-blue-50 rounded border border-blue-200">
+                    <i class="fa-regular fa-copy"></i> Nusxalash
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bosqich 2 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-2" onchange="calculateScore()" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-2" class="text-sm font-bold text-slate-800 cursor-pointer">
+                  2-Bosqich: Hujjatga maxfiy parol o‘rnatish («Сведения -> Защита документа»)
+                </label>
+                <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">20 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                Hujjatni begona shaxslar ocha olmasligi uchun <code>Файл -> Сведения -> Защита документа -> Зашифровать с паролем</code> bo‘limiga kiring. Parol sifatida <code>12345</code> kodini kiriting va takrorlab tasdiqlang.
+              </p>
+              <div class="mt-2 p-2 bg-amber-50 rounded-lg text-amber-900 text-xs border border-amber-200">
+                <i class="fa-solid fa-triangle-exclamation mr-1 text-amber-600"></i> <b>Tekshirish:</b> Faylni saqlab yopib, qayta ochib ko‘ring. Word sizdan parol so‘rashi shart!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bosqich 3 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-3" onchange="calculateScore()" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-3" class="text-sm font-bold text-slate-800 cursor-pointer">
+                  3-Bosqich: «Сохранить как» orqali nomlash va arxivlash
+                </label>
+                <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">20 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                Faylni klaviaturadan <b>F12</b> yoki <code>Файл -> Сохранить как -> Обзор</code> orqali ishchi stolingizga quyidagi nom bilan saqlang: <code>Maxfiy_Hisobot_[Familiyangiz]</code>.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bosqich 4 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-4" onchange="calculateScore()" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-4" class="text-sm font-bold text-slate-800 cursor-pointer">
+                  4-Bosqich: Hujjatni PDF formatga eksport qilish («Экспорт»)
+                </label>
+                <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">20 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                Mijozga yuborishda shriftlar buzilmasligi uchun <code>Файл -> Экспорт -> Создать документ PDF/XPS</code> tugmasini bosing va faylni PDF ko‘rinishida eksport qiling.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bosqich 5 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+          <div class="flex items-start gap-3.5">
+            <input type="checkbox" id="task-5" onchange="calculateScore()" class="mt-1 w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <label for="task-5" class="text-sm font-bold text-slate-800 cursor-pointer">
+                  5-Bosqich: Avtomatik saqlash vaqtini sozlash («Параметры»)
+                </label>
+                <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">20 Ball</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                Kompyuter to‘satdan o‘chib qolsa, ma’lumotlar yo‘qolmasligi uchun: <code>Файл -> Параметры -> Сохранение</code> bo‘limiga kiring va <i>«Автосохранение каждые...»</i> bandidagi vaqtni <b>5 daqiqa</b> qilib belgilang.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 3-TAB: QAYNOQ TUGMALAR & LIFEHACKLAR -->
+    <div id="tab-lifehacks" class="tab-content hidden space-y-6">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <!-- Qaynoq tugmalar -->
+        <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <h3 class="text-base font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-3">
+            <i class="fa-solid fa-keyboard text-blue-600"></i> «Файл» Menyusi Qaynoq Tugmalari
+          </h3>
+          <div class="space-y-3 text-xs sm:text-sm">
+            <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="text-slate-600">Faylni tezkor saqlash:</span>
+              <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">Ctrl + S</kbd>
+            </div>
+            <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="text-slate-600">Yangi bo‘sh hujjat ochish:</span>
+              <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">Ctrl + N</kbd>
+            </div>
+            <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="text-slate-600">Mavjud faylni ochish:</span>
+              <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">Ctrl + O</kbd>
+            </div>
+            <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="text-slate-600">Chop etish (Печать) oynasi:</span>
+              <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">Ctrl + P</kbd>
+            </div>
+            <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="text-slate-600">«Сохранить как» (Boshqa nom bilan):</span>
+              <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">F12</kbd>
+            </div>
+            <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="text-slate-600">Hujjatni yopish (Zakrit):</span>
+              <kbd class="px-2.5 py-1 bg-white border border-slate-300 rounded font-mono font-bold text-slate-800 shadow-sm">Ctrl + W</kbd>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 ta Oltin Maslahat -->
+        <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <h3 class="text-base font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-3">
+            <i class="fa-solid fa-star text-amber-500"></i> Ofis Xodimi Uchun 3 Oltin Qoida
+          </h3>
+          <div class="space-y-3 text-xs leading-relaxed">
+            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200 text-blue-900">
+              <b>1. Hujjatni yuborishdan oldin doim PDF qiling:</b> Agar Word (.docx) holatida boshqa birovga yuborsangiz, uning kompyuterida shriftlar siljib ketishi mumkin. PDF esa barcha qurilmalarda 100% bir xil ochiladi.
+            </div>
+            <div class="p-3 bg-emerald-50 rounded-lg border border-emerald-200 text-emerald-900">
+              <b>2. Muhim fayllarni «Pin» qilib qo‘ying:</b> <code>Файл -> Открыть</code> bo‘limida har kuni ishlatadigan hujjatingiz yonidagi to‘g‘nog‘ich (pin) belgisini bosing. U eng yuqorida qotib turadi.
+            </div>
+            <div class="p-3 bg-amber-50 rounded-lg border border-amber-200 text-amber-900">
+              <b>3. Saqlanmay yopilgan faylni qaytarish:</b> Agar kompyuter o‘chib qolsa, <code>Файл -> Сведения -> Управление документом -> Восстановить несохраненные документы</code> orqali oxirgi saqlanmagan nusxani topish mumkin!
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 4-TAB: BAHOLASH RUBRIKASI -->
+    <div id="tab-rubric" class="tab-content hidden space-y-6">
+
+      <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-800">«Файл» Menyusi Bo‘yicha Baholash Rubrikasi</h3>
+            <p class="text-xs text-slate-500">O‘quvchi ushbu 5 ta standart mezon bo‘yicha tekshiriladi.</p>
+          </div>
+          <div class="text-right">
+            <span class="text-xs text-slate-400 font-medium block">To‘plangan Ball:</span>
+            <span class="text-2xl font-black text-blue-700" id="rubric-badge">0 / 100</span>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs sm:text-sm text-left border border-slate-200">
+            <thead class="bg-slate-900 text-white font-semibold">
+              <tr>
+                <th class="p-3 w-16">№</th>
+                <th class="p-3">Tekshiriladigan Amaliy Ko‘nikma</th>
+                <th class="p-3">Kutilayotgan Standart Natija</th>
+                <th class="p-3 text-right">Ball</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-center">1</td>
+                <td class="p-3 font-semibold text-slate-800">Shablon tanlash va yangi hujjat yaratish</td>
+                <td class="p-3 text-slate-600">«Создать» menyusi orqali andozadan to‘g‘ri foydalanilgan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">20 ball</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-semibold text-slate-800">2</td>
+                <td class="p-3">Hujjatga maxfiy parol o‘rnatish (Зашифровать)</td>
+                <td class="p-3 text-slate-600">Fayl ochilganda parol so‘raydi, himoyalangan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">20 ball</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-semibold text-slate-800">3</td>
+                <td class="p-3">To‘g‘ri nomlash va manzilga saqlash (F12)</td>
+                <td class="p-3 text-slate-600">«Сохранить как» orqali belgilangan papkaga aniq nom bilan saqlangan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">20 ball</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-semibold text-slate-800">4</td>
+                <td class="p-3">PDF formatga eksport qilish</td>
+                <td class="p-3 text-slate-600">Hujjat sifatli .pdf ko‘rinishida eksport qilingan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">20 ball</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-semibold text-slate-800">5</td>
+                <td class="p-3">Avtosaqlash (Автосохранение) vaqtini sozlash</td>
+                <td class="p-3 text-slate-600">«Параметры» bo‘limida interval 5 daqiqaga moslangan.</td>
+                <td class="p-3 text-right font-bold text-slate-800">20 ball</td>
+              </tr>
+              <tr class="bg-blue-50 font-bold text-slate-900">
+                <td colspan="3" class="p-3 uppercase tracking-wider text-blue-950">JAMI MAKSIMAL BALL:</td>
+                <td class="p-3 text-right text-base text-blue-800">100 Ball</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- PASTKI FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-4 no-print text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4">
+      Microsoft Word «Файл» Menyusi Ta’limiy Qo‘llanmasi • O‘qituvchilar va o‘quvchilar uchun
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIKASI -->
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('tab-active'));
+
+      document.getElementById(tabId).classList.remove('hidden');
+
+      if(tabId === 'tab-guide') document.getElementById('btn-guide').classList.add('tab-active');
+      if(tabId === 'tab-tasks') document.getElementById('btn-tasks').classList.add('tab-active');
+      if(tabId === 'tab-lifehacks') document.getElementById('btn-lifehacks').classList.add('tab-active');
+      if(tabId === 'tab-rubric') document.getElementById('btn-rubric').classList.add('tab-active');
+    }
+
+    const taskScore = 20; // 5 ta bosqich * 20 ball = 100 ball
+
+    function calculateScore() {
+      let count = 0;
+      for (let i = 1; i <= 5; i++) {
+        const cb = document.getElementById('task-' + i);
+        if (cb && cb.checked) count++;
+      }
+
+      const total = count * taskScore;
+      const percent = Math.round((count / 5) * 100);
+
+      document.getElementById('total-score').innerHTML = `${total} <span class="text-xs text-slate-500 font-normal">/ 100</span>`;
+      document.getElementById('rubric-badge').innerText = `${total} / 100`;
+      document.getElementById('progress-percent').innerText = `${percent}%`;
+      document.getElementById('progress-bar').style.width = `${percent}%`;
+      document.getElementById('badge-completed').innerText = `${count}/5`;
+
+      saveProgress();
+    }
+
+    function copyText(elemId) {
+      const text = document.getElementById(elemId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Matn nusxalandi: " + text);
+      });
+    }
+
+    function resetCheckboxes() {
+      if (confirm("Hamma bosqichlarni qaytadan boshlaysizmi?")) {
+        for (let i = 1; i <= 5; i++) {
+          const cb = document.getElementById('task-' + i);
+          if (cb) cb.checked = false;
+        }
+        calculateScore();
+      }
+    }
+
+    function saveProgress() {
+      const checks = {};
+      for (let i = 1; i <= 5; i++) {
+        const cb = document.getElementById('task-' + i);
+        checks['task-' + i] = cb ? cb.checked : false;
+      }
+      localStorage.setItem('word_file_menu_progress', JSON.stringify(checks));
+    }
+
+    function loadProgress() {
+      const saved = localStorage.getItem('word_file_menu_progress');
+      if (saved) {
+        try {
+          const checks = JSON.parse(saved);
+          for (let i = 1; i <= 5; i++) {
+            const cb = document.getElementById('task-' + i);
+            if (cb && checks['task-' + i]) cb.checked = true;
+          }
+        } catch(e) {}
+      }
+      calculateScore();
+    }
+
+    window.addEventListener('DOMContentLoaded', loadProgress);
+  </script>
+</body>
+</html>
